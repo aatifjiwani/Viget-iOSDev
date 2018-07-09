@@ -14,6 +14,7 @@
 		390EAB6D20F3C5F700769C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 390EAB6B20F3C5F700769C97 /* LaunchScreen.storyboard */; };
 		390EAB7820F3C5F700769C97 /* appstoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390EAB7720F3C5F700769C97 /* appstoreTests.swift */; };
 		390EAB8320F3C5F700769C97 /* appstoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390EAB8220F3C5F700769C97 /* appstoreUITests.swift */; };
+		39A13F1720F3D06500F7C406 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A13F1620F3D06500F7C406 /* CategoryCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		390EAB7E20F3C5F700769C97 /* appstoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appstoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		390EAB8220F3C5F700769C97 /* appstoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appstoreUITests.swift; sourceTree = "<group>"; };
 		390EAB8420F3C5F700769C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39A13F1620F3D06500F7C406 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 			children = (
 				390EAB6220F3C5F600769C97 /* AppDelegate.swift */,
 				390EAB6420F3C5F600769C97 /* ViewController.swift */,
+				39A13F1620F3D06500F7C406 /* CategoryCell.swift */,
 				390EAB6620F3C5F600769C97 /* Main.storyboard */,
 				390EAB6920F3C5F700769C97 /* Assets.xcassets */,
 				390EAB6B20F3C5F700769C97 /* LaunchScreen.storyboard */,
@@ -258,6 +261,7 @@
 			files = (
 				390EAB6520F3C5F600769C97 /* ViewController.swift in Sources */,
 				390EAB6320F3C5F600769C97 /* AppDelegate.swift in Sources */,
+				39A13F1720F3D06500F7C406 /* CategoryCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
