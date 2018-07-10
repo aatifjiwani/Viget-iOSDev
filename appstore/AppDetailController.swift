@@ -46,6 +46,7 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private let screenshotID = "screenShotID"
+    private let descripID = "descripID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,19 +54,47 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
         collectionView?.alwaysBounceVertical = true
         collectionView?.register(AppDetailHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "appDetailHeader")
         collectionView?.register(ScreenshotCell.self, forCellWithReuseIdentifier: screenshotID)
+        collectionView?.register(DescriptionCell.self, forCellWithReuseIdentifier: descripID)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if indexPath.item == 1 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: descripID, for: indexPath) as! DescriptionCell
+            cell.textView.attributedText = descriptionAttributedText()
+            return cell
+        }
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: screenshotID, for: indexPath) as! ScreenshotCell
         cell.app = self.app!
         return cell
     }
     
+    private func descriptionAttributedText() -> NSAttributedString {
+        let attr = NSMutableAttributedString(string: "Description\n", attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14)])
+        
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 10
+        let range = NSMakeRange(0, attr.string.count)
+        attr.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: range)
+
+        if let desc = app?.desc{
+            attr.append(NSAttributedString(string: desc, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 11), NSAttributedStringKey.foregroundColor: UIColor.darkGray]))
+        }
+        return attr
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if indexPath.item == 1 {
+            let dummySize = CGSize(width: view.frame.width - 16, height: 1000)
+            let options = NSStringDrawingOptions.usesFontLeading.union(NSStringDrawingOptions.usesLineFragmentOrigin)
+            let rect = descriptionAttributedText().boundingRect(with: dummySize, options: options, context: nil)
+            return CGSize(width: view.frame.width, height: rect.height + 30)
+        }
+        
         return CGSize(width: view.frame.width, height: 170)
     }
     
@@ -77,6 +106,31 @@ class AppDetailController: UICollectionViewController, UICollectionViewDelegateF
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: view.frame.width, height: 170)
+    }
+}
+
+class DescriptionCell: BaseCell {
+    let textView: UITextView = {
+        let view = UITextView()
+        view.text = "Sample descript"
+        return view
+    }()
+    
+    let dividerLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return view
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        addSubview(textView)
+        addSubview(dividerLine)
+        
+        addContstraintsWithFormat(format: "H:|-8-[v0]-8-|", views: textView)
+        addContstraintsWithFormat(format: "V:|-4-[v0]-4-[v1(1)]|", views: textView, dividerLine)
+        
+        addContstraintsWithFormat(format: "H:|[v0]|", views: dividerLine)
     }
 }
 
