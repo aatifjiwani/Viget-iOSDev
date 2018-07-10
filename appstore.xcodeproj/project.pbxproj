@@ -14,6 +14,7 @@
 		390EAB6D20F3C5F700769C97 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 390EAB6B20F3C5F700769C97 /* LaunchScreen.storyboard */; };
 		390EAB7820F3C5F700769C97 /* appstoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390EAB7720F3C5F700769C97 /* appstoreTests.swift */; };
 		390EAB8320F3C5F700769C97 /* appstoreUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390EAB8220F3C5F700769C97 /* appstoreUITests.swift */; };
+		39996F3720F54E63008884C3 /* AppDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39996F3620F54E63008884C3 /* AppDetailController.swift */; };
 		39A13F1720F3D06500F7C406 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A13F1620F3D06500F7C406 /* CategoryCell.swift */; };
 		39DF671C20F405B400EA0506 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39DF671B20F405B400EA0506 /* Models.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		390EAB7E20F3C5F700769C97 /* appstoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = appstoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		390EAB8220F3C5F700769C97 /* appstoreUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appstoreUITests.swift; sourceTree = "<group>"; };
 		390EAB8420F3C5F700769C97 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39996F3620F54E63008884C3 /* AppDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailController.swift; sourceTree = "<group>"; };
 		39A13F1620F3D06500F7C406 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		39DF671B20F405B400EA0506 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +111,7 @@
 				390EAB6920F3C5F700769C97 /* Assets.xcassets */,
 				390EAB6B20F3C5F700769C97 /* LaunchScreen.storyboard */,
 				390EAB6E20F3C5F700769C97 /* Info.plist */,
+				39996F3620F54E63008884C3 /* AppDetailController.swift */,
 			);
 			path = appstore;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				390EAB6520F3C5F600769C97 /* ViewController.swift in Sources */,
 				390EAB6320F3C5F600769C97 /* AppDelegate.swift in Sources */,
 				39A13F1720F3D06500F7C406 /* CategoryCell.swift in Sources */,
+				39996F3720F54E63008884C3 /* AppDetailController.swift in Sources */,
 				39DF671C20F405B400EA0506 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
