@@ -8,6 +8,27 @@
 
 import UIKit
 
+class FeaturedApps: NSObject {
+    @objc var bannerCategory: AppCategory?
+    @objc var appCategories: [AppCategory]?
+    
+    override func setValue(_ value: Any?, forKey key: String) {
+        if key == "categories" {
+            appCategories = [AppCategory]()
+            for dict in value as! [[String: Any]] {
+                let appCategory = AppCategory()
+                appCategory.setValuesForKeys(dict)
+                appCategories?.append(appCategory)
+            }
+        } else if key == "bannerCategory" {
+            bannerCategory = AppCategory()
+            bannerCategory?.setValuesForKeys(value as! [String: Any])
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
+}
+
 class AppCategory: NSObject {
     @objc var name: String?
     @objc var apps: [App]?
@@ -26,7 +47,7 @@ class AppCategory: NSObject {
         }
     }
     
-    static func fetchAllApps(completionHandler: @escaping ([AppCategory]) -> ()) {
+    static func fetchAllApps(completionHandler: @escaping (FeaturedApps) -> ()) {
         let urlString = "https://api.letsbuildthatapp.com/appstore/featured"
         URLSession.shared.dataTask(with: URL(string: urlString)!) {
             (data, response, error) -> Void in
@@ -39,16 +60,11 @@ class AppCategory: NSObject {
             do {
                 let json = try(JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! [String: Any]
                 
-                var appCategories = [AppCategory]()
-                
-                for dict in json["categories"] as! [[String : AnyObject]]{
-                    let appCategory = AppCategory()
-                    appCategory.setValuesForKeys(dict)
-                    appCategories.append(appCategory)
-                }
+                let featuredApps = FeaturedApps()
+                featuredApps.setValuesForKeys(json)
                 
                 DispatchQueue.main.async(execute: { () -> Void in
-                    completionHandler(appCategories)
+                    completionHandler(featuredApps)
                 })
                 
             } catch let err {

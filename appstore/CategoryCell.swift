@@ -10,11 +10,15 @@ import UIKit
 
 class CategoryCell : UICollectionViewCell, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     
+    var featuredAppsController: FeaturedAppsController?
+    
     var appCategory: AppCategory? {
         didSet {
             if let name = appCategory?.name {
                 nameLabel.text = name
             }
+            
+            appCollectionView.reloadData()
         }
     }
     
@@ -94,6 +98,13 @@ class CategoryCell : UICollectionViewCell, UICollectionViewDelegate, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsMake(0, 14, 0, 14)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("app selected item")
+        if let app = appCategory?.apps?[indexPath.item] {
+            featuredAppsController?.showAppDetails(forApp: app)
+        }
     }
     
 }
