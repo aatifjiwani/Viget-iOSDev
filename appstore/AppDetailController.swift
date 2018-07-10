@@ -11,14 +11,62 @@ import UIKit
 class AppDetailController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var app: App? {
         didSet {
+            if app?.screenshots != nil {
+                return
+            }
+            
+            if let id = app?.id {
+                let urlString = "https://api.letsbuildthatapp.com/appstore/appdetail?id=\(id)"
+                URLSession.shared.dataTask(with: URL(string: urlString)!, completionHandler: {
+                    (data, response, error) -> Void in
+                    
+                    if error != nil {
+                        print(error!)
+                        return
+                    }
+                    
+                    do {
+                        let json = try(JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.mutableContainers)) as! [String: Any]
+                        
+                        let appDetail = App()
+                        appDetail.setValuesForKeys(json)
+                        self.app = appDetail
+                        
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.collectionView?.reloadData()
+                        })
+                        
+                    } catch let err {
+                        print(err)
+                    }
+                    
+                }).resume()
+            }
         }
     }
+    
+    private let screenshotID = "screenShotID"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = UIColor.white
         collectionView?.alwaysBounceVertical = true
         collectionView?.register(AppDetailHeader.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "appDetailHeader")
+        collectionView?.register(ScreenshotCell.self, forCellWithReuseIdentifier: screenshotID)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: screenshotID, for: indexPath) as! ScreenshotCell
+        cell.app = self.app!
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 170)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
