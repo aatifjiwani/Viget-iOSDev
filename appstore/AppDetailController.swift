@@ -11,7 +11,6 @@ import UIKit
 class AppDetailController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     var app: App? {
         didSet {
-            navigationItem.title = app?.name
         }
     }
     
@@ -39,6 +38,16 @@ class AppDetailHeader: BaseCell {
             if let imgName = app?.imageName {
                 imageView.image = UIImage(named: imgName)
             }
+            
+            if let name = app?.name {
+                nameLabel.text = name
+            }
+            
+            if let price = app?.price {
+                buyButton.setTitle("$\(price)", for: .normal)
+            } else {
+                buyButton.setTitle("Free", for: .normal)
+            }
         }
     }
     
@@ -50,13 +59,70 @@ class AppDetailHeader: BaseCell {
         return iv
     }()
     
+    let nameLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.text = "replace"
+        lbl.font = UIFont.systemFont(ofSize: 16)
+        return lbl
+    }()
+    
+    let segmentControl: UISegmentedControl = {
+        let sc = UISegmentedControl(items: ["Details", "Reviews", "Related"])
+        sc.selectedSegmentIndex = 0
+        sc.tintColor = UIColor.darkGray;
+        return sc
+    }()
+    
+    let buyButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("price", for: .normal)
+        button.layer.borderColor = UIColor(red: 0, green: 129/255, blue: 250/255, alpha: 1).cgColor
+        button.layer.borderWidth = 1
+        button.layer.cornerRadius = 5
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        return button
+    }()
+    
+    let dividerLine: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+        return view
+    }()
+    
     override func setupViews() {
         super.setupViews()
         backgroundColor = UIColor.white
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-14-[v0(100)]", options: NSLayoutFormatOptions(), metrics: nil, views: ["v0": imageView]))
+        addSubview(segmentControl)
+        addSubview(nameLabel)
+        addSubview(buyButton)
+        addSubview(dividerLine)
+        
+        addContstraintsWithFormat(format: "H:|-14-[v0(100)]-8-[v1]|", views: imageView, nameLabel)
+        addContstraintsWithFormat(format: "V:|-14-[v0(100)]", views: imageView)
+        addContstraintsWithFormat(format: "V:|-14-[v0(20)]", views: nameLabel)
+
+        addContstraintsWithFormat(format: "H:|-40-[v0]-40-|", views: segmentControl)
+        addContstraintsWithFormat(format: "V:[v0(32)]-10-[v1(34)]-8-|", views: buyButton, segmentControl)
+        addContstraintsWithFormat(format: "H:[v0(60)]-14-|", views: buyButton)
+        
+        addContstraintsWithFormat(format: "H:|[v0]|", views: dividerLine)
+        addContstraintsWithFormat(format: "V:[v0(0.5)]|", views: dividerLine)
+
+        
+    }
+}
+
+extension UIView {
+    func addContstraintsWithFormat(format: String, views: UIView...) {
+        var viewsStringDict = [String: UIView]()
+        for (index, view) in views.enumerated() {
+            let key = "v\(index)"
+            viewsStringDict[key] = view
+            view.translatesAutoresizingMaskIntoConstraints = false
+        }
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsStringDict))
     }
 }
 
