@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1C3E234338F1AEC1A07ABC62 /* Pods_gameofchatsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6A10CC81A2C404720BE052 /* Pods_gameofchatsUITests.framework */; };
 		39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */; };
+		397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396EE20F6AAE3001C5063 /* NewMessageController.swift */; };
+		397396F220F6AFF9001C5063 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396F120F6AFF9001C5063 /* User.swift */; };
 		39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BB20F661B5002FBB63 /* AppDelegate.swift */; };
 		39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* MessagesController.swift */; };
 		39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26BF20F661B5002FBB63 /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 		0A462B930B76BFB789923C7F /* Pods-gameofchatsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gameofchatsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gameofchatsTests/Pods-gameofchatsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		15E65CAC980B8822373080D2 /* Pods-gameofchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gameofchats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gameofchats/Pods-gameofchats.debug.xcconfig"; sourceTree = "<group>"; };
 		39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
+		397396EE20F6AAE3001C5063 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		397396F120F6AFF9001C5063 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		39AC26B820F661B5002FBB63 /* gameofchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameofchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26BB20F661B5002FBB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39AC26BD20F661B5002FBB63 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -93,6 +97,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		397396F020F6AFEE001C5063 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				397396F120F6AFF9001C5063 /* User.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		39AC26AF20F661B5002FBB63 = {
 			isa = PBXGroup;
 			children = (
@@ -118,6 +130,7 @@
 		39AC26BA20F661B5002FBB63 /* gameofchats */ = {
 			isa = PBXGroup;
 			children = (
+				397396F020F6AFEE001C5063 /* Models */,
 				39AC26E920F66483002FBB63 /* Controller */,
 				39AC26BB20F661B5002FBB63 /* AppDelegate.swift */,
 				39AC26BF20F661B5002FBB63 /* Main.storyboard */,
@@ -152,6 +165,7 @@
 			children = (
 				39AC26BD20F661B5002FBB63 /* MessagesController.swift */,
 				39AC26EA20F664BF002FBB63 /* LoginController.swift */,
+				397396EE20F6AAE3001C5063 /* NewMessageController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -396,8 +410,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */,
 				39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */,
 				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
+				397396F220F6AFF9001C5063 /* User.swift in Sources */,
 				39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
