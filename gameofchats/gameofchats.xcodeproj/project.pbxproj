@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */; };
 		39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BB20F661B5002FBB63 /* AppDelegate.swift */; };
 		39AC26BE20F661B5002FBB63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* ViewController.swift */; };
 		39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26BF20F661B5002FBB63 /* Main.storyboard */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39AC26B820F661B5002FBB63 /* gameofchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameofchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26BB20F661B5002FBB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39AC26BD20F661B5002FBB63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				39AC26C220F661B7002FBB63 /* Assets.xcassets */,
 				39AC26C420F661B7002FBB63 /* LaunchScreen.storyboard */,
 				39AC26C720F661B7002FBB63 /* Info.plist */,
+				39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */,
 			);
 			path = gameofchats;
 			sourceTree = "<group>";
@@ -241,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39AC26C620F661B7002FBB63 /* LaunchScreen.storyboard in Resources */,
+				39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */,
 				39AC26C320F661B7002FBB63 /* Assets.xcassets in Resources */,
 				39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */,
 			);
