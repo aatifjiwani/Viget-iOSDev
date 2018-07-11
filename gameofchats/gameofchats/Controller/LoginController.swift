@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class LoginController: UIViewController {
 
@@ -28,8 +29,43 @@ class LoginController: UIViewController {
         view.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         view.layer.cornerRadius = 5
         view.layer.masksToBounds = true
+        view.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
         return view
     }()
+    
+    @objc func handleRegister() {
+        guard let email = emailField.text, let password = passwordField.text, let name = nameField.text else {
+            print("Form login error")
+            return
+        }
+        
+        Auth.auth().createUser(withEmail: email, password: password, completion: {
+            (authResult, error) in
+            if error != nil {
+                print(error!)
+                return
+            }
+            
+            guard let uid = authResult?.user.uid else {
+                return
+            }
+            
+            //successfully auth user
+            let ref = Database.database().reference(fromURL: "https://viget-chat.firebaseio.com/")
+            let userNode = ref.child("users").child(uid)
+            let values = ["name": name, "email": email]
+            userNode.updateChildValues(values, withCompletionBlock: { (err, ref) in
+                if err != nil {
+                    print(err!)
+                    return
+                }
+                
+                print("saved user successfully into Firebase DB")
+            })
+
+        })
+        print("Registering User")
+    }
     
     let nameField: UITextField = {
         let field = UITextField()
