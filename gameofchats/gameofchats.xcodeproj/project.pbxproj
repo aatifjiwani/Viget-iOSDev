@@ -10,7 +10,7 @@
 		1C3E234338F1AEC1A07ABC62 /* Pods_gameofchatsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6A10CC81A2C404720BE052 /* Pods_gameofchatsUITests.framework */; };
 		39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */; };
 		39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BB20F661B5002FBB63 /* AppDelegate.swift */; };
-		39AC26BE20F661B5002FBB63 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* ViewController.swift */; };
+		39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* MessagesController.swift */; };
 		39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26BF20F661B5002FBB63 /* Main.storyboard */; };
 		39AC26C320F661B7002FBB63 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26C220F661B7002FBB63 /* Assets.xcassets */; };
 		39AC26C620F661B7002FBB63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26C420F661B7002FBB63 /* LaunchScreen.storyboard */; };
@@ -45,7 +45,7 @@
 		39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39AC26B820F661B5002FBB63 /* gameofchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameofchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26BB20F661B5002FBB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		39AC26BD20F661B5002FBB63 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		39AC26BD20F661B5002FBB63 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		39AC26C020F661B5002FBB63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		39AC26C220F661B7002FBB63 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		39AC26C520F661B7002FBB63 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -150,7 +150,7 @@
 		39AC26E920F66483002FBB63 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				39AC26BD20F661B5002FBB63 /* ViewController.swift */,
+				39AC26BD20F661B5002FBB63 /* MessagesController.swift */,
 				39AC26EA20F664BF002FBB63 /* LoginController.swift */,
 			);
 			path = Controller;
@@ -396,7 +396,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39AC26BE20F661B5002FBB63 /* ViewController.swift in Sources */,
+				39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */,
 				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
 				39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */,
 			);
