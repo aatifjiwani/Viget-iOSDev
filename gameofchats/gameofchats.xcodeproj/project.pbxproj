@@ -14,6 +14,7 @@
 		39AC26C620F661B7002FBB63 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26C420F661B7002FBB63 /* LaunchScreen.storyboard */; };
 		39AC26D120F661B7002FBB63 /* gameofchatsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26D020F661B7002FBB63 /* gameofchatsTests.swift */; };
 		39AC26DC20F661B7002FBB63 /* gameofchatsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26DB20F661B7002FBB63 /* gameofchatsUITests.swift */; };
+		39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26EA20F664BF002FBB63 /* LoginController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		39AC26D720F661B7002FBB63 /* gameofchatsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = gameofchatsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26DB20F661B7002FBB63 /* gameofchatsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = gameofchatsUITests.swift; sourceTree = "<group>"; };
 		39AC26DD20F661B7002FBB63 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		39AC26EA20F664BF002FBB63 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +99,8 @@
 		39AC26BA20F661B5002FBB63 /* gameofchats */ = {
 			isa = PBXGroup;
 			children = (
+				39AC26E920F66483002FBB63 /* Controller */,
 				39AC26BB20F661B5002FBB63 /* AppDelegate.swift */,
-				39AC26BD20F661B5002FBB63 /* ViewController.swift */,
 				39AC26BF20F661B5002FBB63 /* Main.storyboard */,
 				39AC26C220F661B7002FBB63 /* Assets.xcassets */,
 				39AC26C420F661B7002FBB63 /* LaunchScreen.storyboard */,
@@ -123,6 +125,15 @@
 				39AC26DD20F661B7002FBB63 /* Info.plist */,
 			);
 			path = gameofchatsUITests;
+			sourceTree = "<group>";
+		};
+		39AC26E920F66483002FBB63 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				39AC26BD20F661B5002FBB63 /* ViewController.swift */,
+				39AC26EA20F664BF002FBB63 /* LoginController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39AC26BE20F661B5002FBB63 /* ViewController.swift in Sources */,
+				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
 				39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
