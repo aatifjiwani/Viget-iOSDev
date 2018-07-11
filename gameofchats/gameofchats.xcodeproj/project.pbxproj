@@ -11,6 +11,7 @@
 		39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */; };
 		397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396EE20F6AAE3001C5063 /* NewMessageController.swift */; };
 		397396F220F6AFF9001C5063 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396F120F6AFF9001C5063 /* User.swift */; };
+		397A834B20F6BCA7004F026F /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397A834A20F6BCA7004F026F /* LoginController+handlers.swift */; };
 		39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BB20F661B5002FBB63 /* AppDelegate.swift */; };
 		39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* MessagesController.swift */; };
 		39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26BF20F661B5002FBB63 /* Main.storyboard */; };
@@ -47,6 +48,7 @@
 		39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		397396EE20F6AAE3001C5063 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		397396F120F6AFF9001C5063 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		397A834A20F6BCA7004F026F /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
 		39AC26B820F661B5002FBB63 /* gameofchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameofchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26BB20F661B5002FBB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39AC26BD20F661B5002FBB63 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				39AC26BD20F661B5002FBB63 /* MessagesController.swift */,
 				39AC26EA20F664BF002FBB63 /* LoginController.swift */,
 				397396EE20F6AAE3001C5063 /* NewMessageController.swift */,
+				397A834A20F6BCA7004F026F /* LoginController+handlers.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 			files = (
 				397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */,
 				39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */,
+				397A834B20F6BCA7004F026F /* LoginController+handlers.swift in Sources */,
 				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
 				397396F220F6AFF9001C5063 /* User.swift in Sources */,
 				39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */,

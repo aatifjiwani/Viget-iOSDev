@@ -41,6 +41,62 @@ class LoginController: UIViewController {
         }
     }
     
+    let loginSegmentControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: ["Login", "Register"])
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.tintColor = UIColor.white
+        control.selectedSegmentIndex = 1
+        control.addTarget(self, action: #selector(handleSegmentControl), for: .valueChanged)
+        return control
+    }()
+    
+    let nameField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Name"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        
+        return field
+    }()
+    
+    let nameSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220, a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let emailField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Email"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        
+        return field
+    }()
+    
+    let emailSeparator: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(r: 220, g: 220, b: 220, a: 1)
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    let passwordField: UITextField = {
+        let field = UITextField()
+        field.placeholder = "Password"
+        field.translatesAutoresizingMaskIntoConstraints = false
+        field.isSecureTextEntry = true
+        return field
+    }()
+    
+    let profImage: UIImageView = {
+        let img = UIImageView()
+        img.image = UIImage(named: "login_image")
+        img.translatesAutoresizingMaskIntoConstraints = false
+        img.contentMode = .scaleAspectFill
+        
+        return img
+    }()
+    
     func handleLogin() {
         guard let email = emailField.text, let password = passwordField.text else {
             print("Form login error")
@@ -86,19 +142,10 @@ class LoginController: UIViewController {
                 
                 self.dismiss(animated: true, completion: nil)
             })
-
+            
         })
         print("Registering User")
     }
-    
-    let loginSegmentControl: UISegmentedControl = {
-        let control = UISegmentedControl(items: ["Login", "Register"])
-        control.translatesAutoresizingMaskIntoConstraints = false
-        control.tintColor = UIColor.white
-        control.selectedSegmentIndex = 1
-        control.addTarget(self, action: #selector(handleSegmentControl), for: .valueChanged)
-        return control
-    }()
     
     @objc func handleSegmentControl() {
         let title = loginSegmentControl.titleForSegment(at: loginSegmentControl.selectedSegmentIndex)
@@ -121,52 +168,6 @@ class LoginController: UIViewController {
         
     }
     
-    let nameField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "Name"
-        field.translatesAutoresizingMaskIntoConstraints = false
-        
-        return field
-    }()
-    
-    let nameSeparator: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(r: 220, g: 220, b: 220, a: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let emailField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "Email"
-        field.translatesAutoresizingMaskIntoConstraints = false
-        
-        return field
-    }()
-    
-    let emailSeparator: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(r: 220, g: 220, b: 220, a: 1)
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    let passwordField: UITextField = {
-        let field = UITextField()
-        field.placeholder = "Password"
-        field.translatesAutoresizingMaskIntoConstraints = false
-        field.isSecureTextEntry = true
-        return field
-    }()
-    
-    let profImage: UIImageView = {
-        let img = UIImageView()
-        img.image = UIImage(named: "login_image")
-        img.translatesAutoresizingMaskIntoConstraints = false
-        img.contentMode = .scaleAspectFill
-        return img
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -176,6 +177,14 @@ class LoginController: UIViewController {
         view.addSubview(registerButton)
         view.addSubview(profImage)
         view.addSubview(loginSegmentControl)
+        
+        profImage.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfileImage))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        
+        profImage.addGestureRecognizer(gesture)
+        
         setupInputsContainerView()
         setupRegisterButton()
         setupProfImage()
@@ -193,7 +202,7 @@ class LoginController: UIViewController {
     func setupProfImage() {
         profImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         profImage.bottomAnchor.constraint(equalTo: loginSegmentControl.topAnchor, constant: -12).isActive = true
-        profImage.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        profImage.widthAnchor.constraint(equalToConstant: 300).isActive = true
         profImage.heightAnchor.constraint(equalToConstant: 150).isActive = true
     }
     
