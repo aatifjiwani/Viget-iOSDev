@@ -11,4 +11,5 @@ import Foundation
 class User: NSObject {
     @objc var name: String?
     @objc var email: String?
+    @objc var profileImg: String?
 }

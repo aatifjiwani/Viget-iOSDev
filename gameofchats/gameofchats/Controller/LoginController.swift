@@ -130,21 +130,51 @@ class LoginController: UIViewController {
                 return
             }
             
-            //successfully auth user
-            let ref = Database.database().reference(fromURL: "https://viget-chat.firebaseio.com/")
-            let userNode = ref.child("users").child(uid)
-            let values = ["name": name, "email": email]
-            userNode.updateChildValues(values, withCompletionBlock: { (err, ref) in
-                if err != nil {
-                    print(err!)
-                    return
-                }
-                
-                self.dismiss(animated: true, completion: nil)
-            })
+            self.storeImageIntoStorage(uid: uid, email: email, name: name)
             
+            //successfully auth user
         })
         print("Registering User")
+    }
+    
+    private func storeImageIntoStorage(uid: String, email: String, name: String) {
+        let storageReference = Storage.storage().reference().child("profilefor\(uid).png")
+        let image = UIImagePNGRepresentation(self.profImage.image!)
+        storageReference.putData(image!, metadata: nil, completion: { (metadata, error) in
+            guard let metadata = metadata else {
+                return
+            }
+            print(metadata)
+            //let size = metadata.size
+            // You can also access to download URL after upload.
+            storageReference.downloadURL { (url, error) in
+                if let urlText = url?.absoluteString {
+                    
+                    let strURL = urlText
+                    print("///////////tttttttt//////// \(strURL)   ////////")
+                    
+                    DispatchQueue.main.async(execute: {
+                        print("something")
+                        let values = ["name": name, "email": email, "profileImg": strURL ]
+                        self.registerUserIntoDB(uid: uid, values: values)
+                    })
+                }
+            }
+        })
+    }
+    
+    private func registerUserIntoDB(uid: String, values: [String: String]) {
+        let ref = Database.database().reference()
+        let userNode = ref.child("users").child(uid)
+        //
+        userNode.updateChildValues(values, withCompletionBlock: { (err, ref) in
+            if err != nil {
+                print(err!)
+                return
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        })
     }
     
     @objc func handleSegmentControl() {

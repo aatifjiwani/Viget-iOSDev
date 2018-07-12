@@ -13,12 +13,17 @@ class MessagesController: UITableViewController {
 
     override func viewDidLoad() {
         //let ref = Database.database().reference(fromURL: "https://viget-chat.firebaseio.com/")
-        checkIfUserLoggedIn()
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
+        checkIfUserLoggedIn()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        checkIfUserLoggedIn()
     }
     
     @objc func handleNewMessage() {
