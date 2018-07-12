@@ -61,7 +61,14 @@ class NewMessageController: UITableViewController {
         let user = users[indexPath.item]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
+        cell.imageView?.image = UIImage(named: "new_message_icon")
+        if let imgURL = user.profileImg {
+            APICalls.retrieveImageFromFirebase(url: imgURL) { (data) in
+                cell.imageView?.image = UIImage(data: data)
+            }
+        }
         return cell
+        
     }
     
     class UserCell: UITableViewCell {

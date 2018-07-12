@@ -138,7 +138,7 @@ class LoginController: UIViewController {
     }
     
     private func storeImageIntoStorage(uid: String, email: String, name: String) {
-        let storageReference = Storage.storage().reference().child("profilefor\(uid).png")
+        let storageReference = Storage.storage().reference().child("profileImages").child("profilefor\(uid).png")
         let image = UIImagePNGRepresentation(self.profImage.image!)
         storageReference.putData(image!, metadata: nil, completion: { (metadata, error) in
             guard let metadata = metadata else {
