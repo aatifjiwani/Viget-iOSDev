@@ -89,6 +89,15 @@ class ChatController: UICollectionViewController, UITextFieldDelegate {
                     return
                 }
                 
+                let refUserMessage = Database.database().reference().child("user-messages").child(fromID!)
+                let messageID = child.key
+                let values = [messageID: 1]
+                
+                refUserMessage.updateChildValues(values)
+                
+                let refRecipMessage = Database.database().reference().child("user-messages").child(toID)
+                refRecipMessage.updateChildValues(values)
+                
                 self.inputTextField.text = ""
             }
         }

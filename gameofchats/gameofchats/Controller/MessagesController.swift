@@ -12,6 +12,7 @@ import Firebase
 class MessagesController: UITableViewController {
 
     var messages = [Message]()
+    var messagesDictionary = [String: Message]()
     let messageID = "messageID"
     
     override func viewDidLoad() {
@@ -23,7 +24,38 @@ class MessagesController: UITableViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
         tableView.register(UserCell.self, forCellReuseIdentifier: messageID)
         checkIfUserLoggedIn()
-        observeMessages()
+//        observeMessages()
+        
+    }
+    
+    func observeUserMessages() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        let reference = Database.database().reference().child("user-messages").child(uid)
+        reference.observe(.childAdded, with: { (snapshot) in
+            let messageID = snapshot.key
+            let messageReference = Database.database().reference().child("messages").child(messageID)
+            messageReference.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dict = snapshot.value as? [String:Any] {
+                    let message = Message()
+                    message.setValuesForKeys(dict)
+                    //self.messages.append(message)
+                    self.messagesDictionary[message.toID!] = message
+                    self.messages = Array(self.messagesDictionary.values)
+                    self.messages.sort(by: { (m1, m2) -> Bool in
+                        return m1.timestamp!.intValue > m2.timestamp!.intValue
+                    })
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+                
+            })
+        }, withCancel: nil)
     }
     
     func observeMessages() {
@@ -32,7 +64,12 @@ class MessagesController: UITableViewController {
             if let dict = snapshot.value as? [String:Any] {
                 let message = Message()
                 message.setValuesForKeys(dict)
-                self.messages.append(message)
+                //self.messages.append(message)
+                self.messagesDictionary[message.toID!] = message
+                self.messages = Array(self.messagesDictionary.values)
+                self.messages.sort(by: { (m1, m2) -> Bool in
+                    return m1.timestamp!.intValue > m2.timestamp!.intValue
+                })
                 
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
@@ -85,6 +122,10 @@ class MessagesController: UITableViewController {
     }
     
     func setupNavbarWithUser(user: User) {
+        messages.removeAll()
+        messagesDictionary.removeAll()
+        tableView.reloadData()
+        observeUserMessages()
         
         let titleView: UIView = {
             let view = UIView()
