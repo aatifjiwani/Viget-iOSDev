@@ -18,7 +18,7 @@ class APICalls {
             }
             
             DispatchQueue.main.async(execute: {
-                completion(data!)
+                completion(data!) 
             })
         }.resume()
 //        Storage.storage().reference(forURL: url).getData(maxSize: 1 * 1024 * 1024) { (data, error) in
