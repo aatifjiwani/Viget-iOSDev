@@ -53,6 +53,7 @@ class MessagesController: UITableViewController {
         
         let titleView: UIView = {
             let view = UIView()
+            view.translatesAutoresizingMaskIntoConstraints = true
             //view.backgroundColor = UIColor.blue
             return view
         }()
@@ -76,9 +77,13 @@ class MessagesController: UITableViewController {
             return label
         }()
         
+        let containerView = UIView()
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
         titleView.frame = CGRect(x: 0, y: 0, width: 100, height: 40)
-        titleView.addSubview(profileImage)
-        titleView.addSubview(nameLabel)
+        titleView.addSubview(containerView)
+        containerView.addSubview(profileImage)
+        containerView.addSubview(nameLabel)
         
         profileImage.leftAnchor.constraint(equalTo: titleView.leftAnchor).isActive = true
         profileImage.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
@@ -90,7 +95,22 @@ class MessagesController: UITableViewController {
         nameLabel.rightAnchor.constraint(equalTo: titleView.rightAnchor).isActive = true
         nameLabel.heightAnchor.constraint(equalTo: profileImage.heightAnchor).isActive = true
         
-        navigationItem.titleView = titleView
+        containerView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor).isActive = true
+        containerView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor).isActive = true
+        
+        self.navigationItem.titleView = titleView
+        titleView.centerXAnchor.constraint(equalTo: (self.navigationController?.navigationBar.centerXAnchor)!).isActive = true
+        titleView.topAnchor.constraint(equalTo: (self.navigationController?.navigationBar.topAnchor)!).isActive = true
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(showChatController))
+        gesture.numberOfTapsRequired = 1
+        gesture.numberOfTouchesRequired = 1
+        titleView.isUserInteractionEnabled = true
+        titleView.addGestureRecognizer(gesture)
+    }
+    
+    @objc func showChatController() {
+        print(1234)
     }
     
     @objc func handleLogout() {
