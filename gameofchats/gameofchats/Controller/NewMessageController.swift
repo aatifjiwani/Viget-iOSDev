@@ -61,21 +61,47 @@ class NewMessageController: UITableViewController {
         let user = users[indexPath.item]
         cell.textLabel?.text = user.name
         cell.detailTextLabel?.text = user.email
-        cell.imageView?.image = UIImage(named: "new_message_icon")
+//        cell.imageView?.image = UIImage(named: "new_message_icon")
+//        cell.imageView?.contentMode = .scaleAspectFill
         if let imgURL = user.profileImg {
-            APICalls.retrieveImageFromFirebase(url: imgURL) { (data) in
-                cell.imageView?.image = UIImage(data: data)
-            }
+            cell.profileImageView.loadImagesUsingCacheWithURLString(url: imgURL)
         }
         return cell
         
     }
     
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 56
+    }
+    
     class UserCell: UITableViewCell {
+        let profileImageView: UIImageView = {
+            let view = UIImageView()
+            //view.image = UIImage(named: "login_image")
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.contentMode = .scaleAspectFill
+            view.layer.cornerRadius = 24
+            view.layer.masksToBounds = true
+            return view
+        }()
         
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
+            detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
+        }
         
         override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
             super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+            addSubview(profileImageView)
+            
+            //constraints x, y, w, h
+            profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+            profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
+            profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+            
+
         }
         
         required init?(coder aDecoder: NSCoder) {

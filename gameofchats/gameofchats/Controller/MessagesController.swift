@@ -21,11 +21,6 @@ class MessagesController: UITableViewController {
         checkIfUserLoggedIn()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        checkIfUserLoggedIn()
-    }
-    
     @objc func handleNewMessage() {
         let newMessageController = NewMessageController()
         present(UINavigationController(rootViewController: newMessageController), animated: true, completion: nil)
@@ -35,15 +30,21 @@ class MessagesController: UITableViewController {
         if Auth.auth().currentUser?.uid == nil {
             perform(#selector(handleLogout), with: nil, afterDelay: 0)
         } else {
-            let uid = Auth.auth().currentUser?.uid
-            Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-                if let dict = snapshot.value as? [String:Any] {
-                    self.navigationItem.title = dict["name"] as? String
-                    print(snapshot)
-                }
-            }, withCancel: nil)
-            
+            fetchUserAndSetupNavBar()
         }
+    }
+    
+    func fetchUserAndSetupNavBar() {
+        guard let uid = Auth.auth().currentUser?.uid else {
+            return
+        }
+        
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                self.navigationItem.title = dict["name"] as? String
+                print(snapshot)
+            }
+        }, withCancel: nil)
     }
     
     @objc func handleLogout() {
@@ -54,6 +55,7 @@ class MessagesController: UITableViewController {
         }
         
         let loginController = LoginController()
+        loginController.messagesController = self
         present(loginController, animated: true, completion: nil)
     }
 

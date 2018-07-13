@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 
 class LoginController: UIViewController {
+    
+    var messagesController: MessagesController?
 
     let inputsContainerView: UIView = {
         let view = UIView()
@@ -109,6 +111,8 @@ class LoginController: UIViewController {
                 return
             }
             
+            self.messagesController?.fetchUserAndSetupNavBar()
+//            self.messagesController?.navigationItem.title =
             self.dismiss(animated: true, completion: nil)
         }
     }
@@ -138,29 +142,30 @@ class LoginController: UIViewController {
     }
     
     private func storeImageIntoStorage(uid: String, email: String, name: String) {
-        let storageReference = Storage.storage().reference().child("profileImages").child("profilefor\(uid).png")
-        let image = UIImagePNGRepresentation(self.profImage.image!)
-        storageReference.putData(image!, metadata: nil, completion: { (metadata, error) in
-            guard let metadata = metadata else {
-                return
-            }
-            print(metadata)
-            //let size = metadata.size
-            // You can also access to download URL after upload.
-            storageReference.downloadURL { (url, error) in
-                if let urlText = url?.absoluteString {
-                    
-                    let strURL = urlText
-                    print("///////////tttttttt//////// \(strURL)   ////////")
-                    
-                    DispatchQueue.main.async(execute: {
-                        print("something")
-                        let values = ["name": name, "email": email, "profileImg": strURL ]
-                        self.registerUserIntoDB(uid: uid, values: values)
-                    })
+        let storageReference = Storage.storage().reference().child("profileImages").child("profilefor\(uid).jpg")
+        if let profileImage = self.profImage.image, let image = UIImageJPEGRepresentation(profileImage, 0.1) {
+            storageReference.putData(image, metadata: nil, completion: { (metadata, error) in
+                guard let metadata = metadata else {
+                    return
                 }
-            }
-        })
+                print(metadata)
+                //let size = metadata.size
+                // You can also access to download URL after upload.
+                storageReference.downloadURL { (url, error) in
+                    if let urlText = url?.absoluteString {
+                        
+                        let strURL = urlText
+                        print("///////////tttttttt//////// \(strURL)   ////////")
+                        
+                        DispatchQueue.main.async(execute: {
+                            print("something")
+                            let values = ["name": name, "email": email, "profileImg": strURL ]
+                            self.registerUserIntoDB(uid: uid, values: values)
+                        })
+                    }
+                }
+            })
+        }
     }
     
     private func registerUserIntoDB(uid: String, values: [String: String]) {
@@ -174,6 +179,8 @@ class LoginController: UIViewController {
             }
             
             self.dismiss(animated: true, completion: nil)
+//            self.messagesController?.fetchUserAndSetupNavBar()
+            self.messagesController?.navigationItem.title = values["name"]
         })
     }
     
