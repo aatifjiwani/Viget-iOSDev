@@ -180,7 +180,9 @@ class LoginController: UIViewController {
             
             self.dismiss(animated: true, completion: nil)
 //            self.messagesController?.fetchUserAndSetupNavBar()
-            self.messagesController?.navigationItem.title = values["name"]
+            let user = User()
+            user.setValuesForKeys(values)
+            self.messagesController?.setupNavbarWithUser(user: user)
         })
     }
     
