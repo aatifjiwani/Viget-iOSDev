@@ -58,22 +58,18 @@ class MessagesController: UITableViewController {
         }, withCancel: nil)
     }
     
-    func observeMessages() {
-        let reference = Database.database().reference().child("messages")
-        reference.observe(.childAdded, with: { (snapshot) in
-            if let dict = snapshot.value as? [String:Any] {
-                let message = Message()
-                message.setValuesForKeys(dict)
-                //self.messages.append(message)
-                self.messagesDictionary[message.toID!] = message
-                self.messages = Array(self.messagesDictionary.values)
-                self.messages.sort(by: { (m1, m2) -> Bool in
-                    return m1.timestamp!.intValue > m2.timestamp!.intValue
-                })
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let message = messages[indexPath.row]
+        guard let chatPartnerID = message.correctToUserID() else {
+            return
+        }
+        
+        let userReference = Database.database().reference().child("users").child(chatPartnerID)
+        userReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            let user = User()
+            if let dict = snapshot.value as? [String: Any] {
+                user.setValuesForKeys(dict)
+                self.showChatController(user: user)
             }
         }, withCancel: nil)
     }
