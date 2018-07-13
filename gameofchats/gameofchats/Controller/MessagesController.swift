@@ -11,6 +11,9 @@ import Firebase
 
 class MessagesController: UITableViewController {
 
+    var messages = [Message]()
+    let messageID = "messageID"
+    
     override func viewDidLoad() {
         //let ref = Database.database().reference(fromURL: "https://viget-chat.firebaseio.com/")
         
@@ -18,7 +21,39 @@ class MessagesController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "new_message_icon"), style: .plain, target: self, action: #selector(handleNewMessage))
+        tableView.register(UserCell.self, forCellReuseIdentifier: messageID)
         checkIfUserLoggedIn()
+        observeMessages()
+    }
+    
+    func observeMessages() {
+        let reference = Database.database().reference().child("messages")
+        reference.observe(.childAdded, with: { (snapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                let message = Message()
+                message.setValuesForKeys(dict)
+                self.messages.append(message)
+                
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }, withCancel: nil)
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: messageID, for: indexPath) as! UserCell
+        let message = messages[indexPath.row]
+        cell.message = message
+        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 72
     }
     
     @objc func handleNewMessage() {
@@ -45,7 +80,6 @@ class MessagesController: UITableViewController {
                 let user = User()
                 user.setValuesForKeys(dict)
                 self.setupNavbarWithUser(user: user)
-                print(snapshot)
             }
         }, withCancel: nil)
     }

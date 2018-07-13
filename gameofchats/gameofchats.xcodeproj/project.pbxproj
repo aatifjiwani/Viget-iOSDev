@@ -10,6 +10,8 @@
 		1C3E234338F1AEC1A07ABC62 /* Pods_gameofchatsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EA6A10CC81A2C404720BE052 /* Pods_gameofchatsUITests.framework */; };
 		391CC82120F91A180079596C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CC82020F91A180079596C /* Extensions.swift */; };
 		391CC82320F930860079596C /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CC82220F930860079596C /* ChatController.swift */; };
+		391CC82520F94AFC0079596C /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CC82420F94AFC0079596C /* Message.swift */; };
+		391CC82820F94F3F0079596C /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391CC82720F94F3F0079596C /* UserCell.swift */; };
 		39322AEF20F6745100DA35B4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */; };
 		397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396EE20F6AAE3001C5063 /* NewMessageController.swift */; };
 		397396F220F6AFF9001C5063 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396F120F6AFF9001C5063 /* User.swift */; };
@@ -50,6 +52,8 @@
 		15E65CAC980B8822373080D2 /* Pods-gameofchats.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gameofchats.debug.xcconfig"; path = "Pods/Target Support Files/Pods-gameofchats/Pods-gameofchats.debug.xcconfig"; sourceTree = "<group>"; };
 		391CC82020F91A180079596C /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		391CC82220F930860079596C /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		391CC82420F94AFC0079596C /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		391CC82720F94F3F0079596C /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		39322AEE20F6745100DA35B4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../GoogleService-Info.plist"; sourceTree = "<group>"; };
 		397396EE20F6AAE3001C5063 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		397396F120F6AFF9001C5063 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -113,10 +117,19 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		391CC82620F94F350079596C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				391CC82720F94F3F0079596C /* UserCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		397396F020F6AFEE001C5063 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				397396F120F6AFF9001C5063 /* User.swift */,
+				391CC82420F94AFC0079596C /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -146,6 +159,7 @@
 		39AC26BA20F661B5002FBB63 /* gameofchats */ = {
 			isa = PBXGroup;
 			children = (
+				391CC82620F94F350079596C /* View */,
 				391CC81F20F91A0D0079596C /* Helpers */,
 				397396F020F6AFEE001C5063 /* Models */,
 				39AC26E920F66483002FBB63 /* Controller */,
@@ -437,7 +451,9 @@
 				397A834B20F6BCA7004F026F /* LoginController+handlers.swift in Sources */,
 				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
 				397396F220F6AFF9001C5063 /* User.swift in Sources */,
+				391CC82520F94AFC0079596C /* Message.swift in Sources */,
 				39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */,
+				391CC82820F94F3F0079596C /* UserCell.swift in Sources */,
 				391CC82320F930860079596C /* ChatController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

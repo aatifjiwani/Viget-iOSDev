@@ -83,41 +83,6 @@ class NewMessageController: UITableViewController {
         return 56
     }
     
-    class UserCell: UITableViewCell {
-        let profileImageView: UIImageView = {
-            let view = UIImageView()
-            //view.image = UIImage(named: "login_image")
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.contentMode = .scaleAspectFill
-            view.layer.cornerRadius = 24
-            view.layer.masksToBounds = true
-            return view
-        }()
-        
-        override func layoutSubviews() {
-            super.layoutSubviews()
-            textLabel?.frame = CGRect(x: 64, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
-            detailTextLabel?.frame = CGRect(x: 64, y: detailTextLabel!.frame.origin.y + 2, width: detailTextLabel!.frame.width, height: detailTextLabel!.frame.height)
-        }
-        
-        override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-            super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
-            addSubview(profileImageView)
-            
-            //constraints x, y, w, h
-            profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
-            profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-            profileImageView.widthAnchor.constraint(equalToConstant: 48).isActive = true
-            profileImageView.heightAnchor.constraint(equalToConstant: 48).isActive = true
-            
-
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-    }
-    
 
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
