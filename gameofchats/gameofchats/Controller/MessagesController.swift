@@ -23,6 +23,7 @@ class MessagesController: UITableViewController {
     
     @objc func handleNewMessage() {
         let newMessageController = NewMessageController()
+        newMessageController.messagesController = self
         present(UINavigationController(rootViewController: newMessageController), animated: true, completion: nil)
     }
     
@@ -101,16 +102,13 @@ class MessagesController: UITableViewController {
         self.navigationItem.titleView = titleView
         titleView.centerXAnchor.constraint(equalTo: (self.navigationController?.navigationBar.centerXAnchor)!).isActive = true
         titleView.topAnchor.constraint(equalTo: (self.navigationController?.navigationBar.topAnchor)!).isActive = true
-        
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(showChatController))
-        gesture.numberOfTapsRequired = 1
-        gesture.numberOfTouchesRequired = 1
-        titleView.isUserInteractionEnabled = true
-        titleView.addGestureRecognizer(gesture)
     }
     
-    @objc func showChatController() {
-        print(1234)
+    @objc func showChatController(user: User) {
+        let layout = UICollectionViewFlowLayout()
+        let chatController = ChatController(collectionViewLayout: layout)
+        chatController.user = user
+        navigationController?.pushViewController(chatController, animated: true)
     }
     
     @objc func handleLogout() {
