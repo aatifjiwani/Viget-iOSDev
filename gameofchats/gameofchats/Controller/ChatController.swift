@@ -29,7 +29,6 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 //        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.keyboardDismissMode = .interactive
-//        setupInputViews()
 //        setupKeyBoards()
     }
     
@@ -41,6 +40,24 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
         get {
             containerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
             containerView.backgroundColor = UIColor.white
+            containerView.isMultipleTouchEnabled = true
+            containerView.isUserInteractionEnabled = true
+            
+            let chooseImage = UIImageView()
+            chooseImage.image = UIImage(named: "upload_image_icon")
+            chooseImage.translatesAutoresizingMaskIntoConstraints = false
+            containerView.addSubview(chooseImage)
+            
+            
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(handleChatImage))
+            chooseImage.isMultipleTouchEnabled = true
+            chooseImage.isUserInteractionEnabled = true
+            chooseImage.addGestureRecognizer(gesture)
+            
+            chooseImage.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+            chooseImage.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+            chooseImage.widthAnchor.constraint(equalToConstant: 44).isActive = true
+            chooseImage.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
             send.setTitle("Send", for: .normal)
             send.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +69,7 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
             send.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
             
             containerView.addSubview(self.inputTextField)
-            self.inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+            self.inputTextField.leftAnchor.constraint(equalTo: chooseImage.rightAnchor, constant: 8).isActive = true
             self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
             self.inputTextField.rightAnchor.constraint(equalTo: send.leftAnchor).isActive = true
             self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
@@ -69,6 +86,10 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
             
             return containerView
         }
+    }
+    
+    @objc func handleChatImage(sender: UIGestureRecognizer) {
+        print("tapped")
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -191,56 +212,6 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
     }()
     
     var containerBottomAnchor: NSLayoutConstraint?
-    
-    func setupInputViews() {
-        let containerView: UIView = {
-            let view = UIView()
-            view.translatesAutoresizingMaskIntoConstraints = false
-            view.backgroundColor = UIColor.white
-//            view.backgroundColor = UIColor.red
-            return view
-        }()
-        
-        view.addSubview(containerView)
-        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        
-        containerBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        containerBottomAnchor?.isActive = true
-        
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let sendButton: UIButton = {
-            let button = UIButton(type: .system)
-            button.setTitle("Send", for: .normal)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            return button
-        }()
-        
-        view.addSubview(sendButton)
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 80).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        
-        view.addSubview(inputTextField)
-        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        let divider = UIView()
-        divider.backgroundColor = UIColor.lightGray
-        divider.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(divider)
-        divider.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        divider.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        divider.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        divider.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        
-        sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
-    }
     
     @objc func sendMessage() {
         if let message = inputTextField.text {
