@@ -32,6 +32,7 @@ class NewMessageController: UITableViewController {
     }
     
     func fetchUsers() {
+        print("fetching users")
         Database.database().reference().child("users").observe(.childAdded, with: {
             (snapshot) in
             if let dict = snapshot.value as? [String:Any] {
@@ -39,6 +40,7 @@ class NewMessageController: UITableViewController {
                 user.setValuesForKeys(dict)
                 user.id = snapshot.key
                 self.users.append(user)
+                print("got user")
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }

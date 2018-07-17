@@ -16,6 +16,7 @@
 		397396EF20F6AAE3001C5063 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396EE20F6AAE3001C5063 /* NewMessageController.swift */; };
 		397396F220F6AFF9001C5063 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397396F120F6AFF9001C5063 /* User.swift */; };
 		397A834B20F6BCA7004F026F /* LoginController+handlers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397A834A20F6BCA7004F026F /* LoginController+handlers.swift */; };
+		39A390D120FE6906000F4E95 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39A390D020FE6906000F4E95 /* MessageCell.swift */; };
 		39AC26BC20F661B5002FBB63 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BB20F661B5002FBB63 /* AppDelegate.swift */; };
 		39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39AC26BD20F661B5002FBB63 /* MessagesController.swift */; };
 		39AC26C120F661B5002FBB63 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 39AC26BF20F661B5002FBB63 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		397396EE20F6AAE3001C5063 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		397396F120F6AFF9001C5063 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		397A834A20F6BCA7004F026F /* LoginController+handlers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LoginController+handlers.swift"; sourceTree = "<group>"; };
+		39A390D020FE6906000F4E95 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		39AC26B820F661B5002FBB63 /* gameofchats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = gameofchats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		39AC26BB20F661B5002FBB63 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		39AC26BD20F661B5002FBB63 /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				391CC82720F94F3F0079596C /* UserCell.swift */,
+				39A390D020FE6906000F4E95 /* MessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -449,6 +452,7 @@
 				39AC26BE20F661B5002FBB63 /* MessagesController.swift in Sources */,
 				391CC82120F91A180079596C /* Extensions.swift in Sources */,
 				397A834B20F6BCA7004F026F /* LoginController+handlers.swift in Sources */,
+				39A390D120FE6906000F4E95 /* MessageCell.swift in Sources */,
 				39AC26EB20F664BF002FBB63 /* LoginController.swift in Sources */,
 				397396F220F6AFF9001C5063 /* User.swift in Sources */,
 				391CC82520F94AFC0079596C /* Message.swift in Sources */,

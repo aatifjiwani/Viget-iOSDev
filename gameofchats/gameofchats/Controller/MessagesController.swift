@@ -35,27 +35,44 @@ class MessagesController: UITableViewController {
         
         let reference = Database.database().reference().child("user-messages").child(uid)
         reference.observe(.childAdded, with: { (snapshot) in
-            let messageID = snapshot.key
-            let messageReference = Database.database().reference().child("messages").child(messageID)
-            messageReference.observeSingleEvent(of: .value, with: { (snapshot) in
-                
-                if let dict = snapshot.value as? [String:Any] {
-                    let message = Message()
-                    message.setValuesForKeys(dict)
-                    //self.messages.append(message)
-                    self.messagesDictionary[message.toID!] = message
-                    self.messages = Array(self.messagesDictionary.values)
-                    self.messages.sort(by: { (m1, m2) -> Bool in
-                        return m1.timestamp!.intValue > m2.timestamp!.intValue
-                    })
+            let userID = snapshot.key
+            let userReference = Database.database().reference().child("user-messages").child(uid).child(userID)
+            
+            userReference.observe(.childAdded, with: { (snapshot) in
+                let messageID = snapshot.key
+                let messageReference = Database.database().reference().child("messages").child(messageID)
+                messageReference.observeSingleEvent(of: .value, with: { (snapshot) in
                     
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
+                    if let dict = snapshot.value as? [String:Any] {
+                        let message = Message()
+                        message.setValuesForKeys(dict)
+                        //self.messages.append(message)
+                        self.messagesDictionary[message.correctToUserID()!] = message
+                        
+                        self.attemptReload()
+                        
                     }
-                }
-                
-            })
+                    
+                })
+            }, withCancel: nil)
         }, withCancel: nil)
+    }
+    
+    var timer: Timer?
+    
+    private func attemptReload() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.handleReload), userInfo: nil, repeats: false)
+    }
+    
+    @objc func handleReload() {
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sort(by: { (m1, m2) -> Bool in
+            return m1.timestamp!.intValue > m2.timestamp!.intValue
+        })
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -67,6 +84,7 @@ class MessagesController: UITableViewController {
         let userReference = Database.database().reference().child("users").child(chatPartnerID)
         userReference.observeSingleEvent(of: .value, with: { (snapshot) in
             let user = User()
+            user.id = chatPartnerID
             if let dict = snapshot.value as? [String: Any] {
                 user.setValuesForKeys(dict)
                 self.showChatController(user: user)
