@@ -14,6 +14,9 @@ class Message: NSObject {
     @objc var toID: String?
     @objc var timestamp: NSNumber?
     @objc var text: String?
+    @objc var imageURL: String?
+    @objc var imageWidth: NSNumber?
+    @objc var imageHeight: NSNumber?
     
     func correctToUserID() -> String? {
         if fromID == Auth.auth().currentUser?.uid {

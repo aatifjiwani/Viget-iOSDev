@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ChatController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout {
+class ChatController: UICollectionViewController, UITextFieldDelegate, UICollectionViewDelegateFlowLayout, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     var user: User? {
         didSet {
             navigationItem.title = user?.name
@@ -29,7 +29,7 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
         collectionView?.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
 //        collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
         collectionView?.keyboardDismissMode = .interactive
-//        setupKeyBoards()
+        setupKeyBoards()
     }
     
     let containerView = UIView()
@@ -89,7 +89,51 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
     }
     
     @objc func handleChatImage(sender: UIGestureRecognizer) {
-        print("tapped")
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var selectedImage: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            print(editedImage.size)
+            selectedImage = editedImage
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print(originalImage.size)
+            selectedImage = originalImage
+        }
+        
+        if selectedImage != nil {
+           uploadImageToStorage(selectedImage!)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func uploadImageToStorage(_ image: UIImage) {
+        let imageName = NSUUID().uuidString
+        let storage = Storage.storage().reference().child("messageImages").child("message\(imageName).jpg")
+        if let data = UIImageJPEGRepresentation(image, 0.2) {
+            storage.putData(data, metadata: nil) { (metadata, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                storage.downloadURL(completion: { (url, error) in
+                    if let downURL = url?.absoluteString {
+                        self.sendImageWith(downURL, image)
+                    }
+                })
+            }
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     override var canBecomeFirstResponder: Bool {
@@ -99,8 +143,14 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
     }
     
     func setupKeyBoards() {
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboard), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+    }
+    
+    @objc func handleKeyboardShow(notification: NSNotification) {
+        if messages.count > 0 {
+            let path = IndexPath(item: messages.count - 1, section: 0)
+            collectionView?.scrollToItem(at: path, at: .top, animated: true)
+        }
     }
     
     @objc func handleKeyboard(notification: NSNotification) {
@@ -148,6 +198,8 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
                 self.messages.append(message)
                 DispatchQueue.main.async {
                     self.collectionView?.reloadData()
+                    let path = IndexPath(item: self.messages.count - 1, section: 0)
+                    self.collectionView?.scrollToItem(at: path, at: .bottom, animated: true)
                 }
                 
             }, withCancel: nil)
@@ -171,6 +223,15 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
             cell.profileImage.loadImagesUsingCacheWithURLString(url: url)
         }
         
+        if let imageURL = message.imageURL {
+            cell.messageImage.loadImagesUsingCacheWithURLString(url: imageURL)
+            cell.messageImage.isHidden = false
+            cell.bubbleView.backgroundColor = UIColor.clear
+        } else {
+            cell.messageImage.isHidden = true
+            cell.bubbleView.isHidden = false
+        }
+        
         if message.fromID == Auth.auth().currentUser?.uid {
             cell.bubbleView.backgroundColor = UIColor(r: 0, g: 137, b: 249, a: 1)
             cell.textView.textColor = UIColor.white
@@ -185,15 +246,24 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
             cell.bubbleLeftAnchor?.isActive = true
         }
         
-        cell.bubbleAnchor?.constant = estimateFrameForText(message.text!).width + 32
+        if let txt = message.text {
+            cell.bubbleAnchor?.constant = estimateFrameForText(txt).width + 32
+        } else if message.imageURL != nil {
+            cell.bubbleAnchor?.constant = 200
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var h: CGFloat = 80
-        if let text = messages[indexPath.item].text {
+        let message = messages[indexPath.item]
+        if let text = message.text {
             h = estimateFrameForText(text).height
-            
+        } else if let width = message.imageWidth, let height = message.imageHeight {
+            let decimal = (height.decimalValue / width.decimalValue) * 200
+            let doubleVal = NSDecimalNumber(decimal: decimal).doubleValue
+            h = CGFloat(doubleVal)
         }
+        
         return CGSize(width: view.frame.width, height: h + 20)
     }
     
@@ -215,31 +285,45 @@ class ChatController: UICollectionViewController, UITextFieldDelegate, UICollect
     
     @objc func sendMessage() {
         if let message = inputTextField.text {
-            let reference = Database.database().reference().child("messages")
-            let child = reference.childByAutoId()
-            
-            let toID = user!.id!
-            let fromID = Auth.auth().currentUser?.uid
-            let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
-            let value = ["text":message, "toID": toID, "fromID": fromID!, "timestamp": timestamp] as [String : Any]
-            
-            child.updateChildValues(value) { (error, dbref) in
-                if error != nil {
-                    print(error!)
-                    return
-                }
-                
-                let refUserMessage = Database.database().reference().child("user-messages").child(fromID!).child(toID)
-                let messageID = child.key
-                let values = [messageID: 1]
-                
-                refUserMessage.updateChildValues(values)
-                
-                let refRecipMessage = Database.database().reference().child("user-messages").child(toID).child(fromID!)
-                refRecipMessage.updateChildValues(values)
-                
-                self.inputTextField.text = ""
+            let value = ["text":message] as [String : Any]
+            sendMessageWithProperties(value)
+        }
+    }
+    
+    func sendImageWith(_ url: String, _ image: UIImage) {
+        let value = ["imageURL": url, "imageWidth":image.size.width, "imageHeight": image.size.height] as [String : Any]
+        sendMessageWithProperties(value)
+    }
+    
+    func sendMessageWithProperties(_ properties: [String: Any]) {
+        let reference = Database.database().reference().child("messages")
+        let child = reference.childByAutoId()
+        
+        let toID = user!.id!
+        let fromID = Auth.auth().currentUser?.uid
+        let timestamp = NSNumber(value: Int(NSDate().timeIntervalSince1970))
+        var value = ["toID": toID, "fromID": fromID!, "timestamp": timestamp] as [String : Any]
+        
+        properties.forEach { (key, val) in
+            value[key] = val
+        }
+        
+        child.updateChildValues(value) { (error, dbref) in
+            if error != nil {
+                print(error!)
+                return
             }
+            
+            let refUserMessage = Database.database().reference().child("user-messages").child(fromID!).child(toID)
+            let messageID = child.key
+            let values = [messageID: 1]
+            
+            refUserMessage.updateChildValues(values)
+            
+            let refRecipMessage = Database.database().reference().child("user-messages").child(toID).child(fromID!)
+            refRecipMessage.updateChildValues(values)
+            
+            self.inputTextField.text = ""
         }
     }
     

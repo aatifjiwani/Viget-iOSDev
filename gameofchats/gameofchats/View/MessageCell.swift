@@ -31,7 +31,15 @@ class MessageCell: UICollectionViewCell {
     
     let profileImage: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "new_message_icon")
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
+    let messageImage: UIImageView = {
+        let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
@@ -65,6 +73,12 @@ class MessageCell: UICollectionViewCell {
         bubbleAnchor?.isActive = true
         
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+        bubbleView.addSubview(messageImage)
+        messageImage.leftAnchor.constraint(equalTo: bubbleView.leftAnchor).isActive = true
+        messageImage.topAnchor.constraint(equalTo: bubbleView.topAnchor).isActive = true
+        messageImage.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
+        messageImage.heightAnchor.constraint(equalTo: bubbleView.heightAnchor).isActive = true
         
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
