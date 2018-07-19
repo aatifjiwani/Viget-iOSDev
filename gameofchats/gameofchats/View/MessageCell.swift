@@ -10,6 +10,8 @@ import UIKit
 
 class MessageCell: UICollectionViewCell {
     
+    var chatController: ChatController?
+    
     let textView: UITextView = {
         let view = UITextView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,6 +49,10 @@ class MessageCell: UICollectionViewCell {
         return iv
     }()
     
+    @objc func handleMessageImage(tapGesture: UITapGestureRecognizer) {
+        self.chatController?.performZoomImage(imageView: tapGesture.view as! UIImageView)
+    }
+    
     var bubbleAnchor: NSLayoutConstraint?
     var bubbleRightAnchor: NSLayoutConstraint?
     var bubbleLeftAnchor: NSLayoutConstraint?
@@ -79,6 +85,9 @@ class MessageCell: UICollectionViewCell {
         messageImage.topAnchor.constraint(equalTo: bubbleView.topAnchor).isActive = true
         messageImage.widthAnchor.constraint(equalTo: bubbleView.widthAnchor).isActive = true
         messageImage.heightAnchor.constraint(equalTo: bubbleView.heightAnchor).isActive = true
+        
+        messageImage.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleMessageImage)))
+        messageImage.isUserInteractionEnabled = true
         
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
