@@ -10,6 +10,7 @@
 		39057703210100F500A3E9EE /* IndexController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39057702210100F500A3E9EE /* IndexController.swift */; };
 		3912969E210141B900AE1630 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3912969D210141B900AE1630 /* User.swift */; };
 		391296A02101438800AE1630 /* UserDefaultExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3912969F2101438800AE1630 /* UserDefaultExtension.swift */; };
+		391296A221014A5700AE1630 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 391296A121014A5700AE1630 /* TriangleView.swift */; };
 		392074EC210100210040FC82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392074EB210100210040FC82 /* AppDelegate.swift */; };
 		392074EE210100220040FC82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392074ED210100220040FC82 /* ViewController.swift */; };
 		392074F1210100220040FC82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 392074EF210100220040FC82 /* Main.storyboard */; };
@@ -17,8 +18,6 @@
 		392074F6210100230040FC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 392074F4210100230040FC82 /* LaunchScreen.storyboard */; };
 		39207501210100240040FC82 /* ThisOrThatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39207500210100240040FC82 /* ThisOrThatTests.swift */; };
 		3920750C210100240040FC82 /* ThisOrThatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920750B210100240040FC82 /* ThisOrThatUITests.swift */; };
-		395963E521010A16009D32F2 /* Triangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395963E421010A16009D32F2 /* Triangle.swift */; };
-		395963E721010A1E009D32F2 /* DiagonalLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395963E621010A1E009D32F2 /* DiagonalLine.swift */; };
 		39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0ABE4210134040021855D /* UIViewExtensions.swift */; };
 		39E0ABE7210139350021855D /* Niveau Grotesk in Resources */ = {isa = PBXBuildFile; fileRef = 39E0ABE6210139350021855D /* Niveau Grotesk */; };
 /* End PBXBuildFile section */
@@ -44,6 +43,7 @@
 		39057702210100F500A3E9EE /* IndexController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexController.swift; sourceTree = "<group>"; };
 		3912969D210141B900AE1630 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3912969F2101438800AE1630 /* UserDefaultExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultExtension.swift; sourceTree = "<group>"; };
+		391296A121014A5700AE1630 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		392074E8210100210040FC82 /* ThisOrThat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ThisOrThat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		392074EB210100210040FC82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		392074ED210100220040FC82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,8 +57,6 @@
 		39207507210100240040FC82 /* ThisOrThatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThisOrThatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3920750B210100240040FC82 /* ThisOrThatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatUITests.swift; sourceTree = "<group>"; };
 		3920750D210100240040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		395963E421010A16009D32F2 /* Triangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Triangle.swift; path = ../../Triangle.swift; sourceTree = "<group>"; };
-		395963E621010A1E009D32F2 /* DiagonalLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiagonalLine.swift; path = ../../DiagonalLine.swift; sourceTree = "<group>"; };
 		39E0ABE4210134040021855D /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		39E0ABE6210139350021855D /* Niveau Grotesk */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Niveau Grotesk"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -132,8 +130,6 @@
 				39E0ABE3210133F80021855D /* Helpers */,
 				39057701210100DD00A3E9EE /* Controllers */,
 				392074EB210100210040FC82 /* AppDelegate.swift */,
-				395963E621010A1E009D32F2 /* DiagonalLine.swift */,
-				395963E421010A16009D32F2 /* Triangle.swift */,
 				392074ED210100220040FC82 /* ViewController.swift */,
 				392074EF210100220040FC82 /* Main.storyboard */,
 				392074F2210100230040FC82 /* Assets.xcassets */,
@@ -166,6 +162,7 @@
 			children = (
 				39E0ABE4210134040021855D /* UIViewExtensions.swift */,
 				3912969F2101438800AE1630 /* UserDefaultExtension.swift */,
+				391296A121014A5700AE1630 /* TriangleView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -305,10 +302,9 @@
 				392074EE210100220040FC82 /* ViewController.swift in Sources */,
 				39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */,
 				39057703210100F500A3E9EE /* IndexController.swift in Sources */,
-				395963E721010A1E009D32F2 /* DiagonalLine.swift in Sources */,
 				392074EC210100210040FC82 /* AppDelegate.swift in Sources */,
-				395963E521010A16009D32F2 /* Triangle.swift in Sources */,
 				391296A02101438800AE1630 /* UserDefaultExtension.swift in Sources */,
+				391296A221014A5700AE1630 /* TriangleView.swift in Sources */,
 				3912969E210141B900AE1630 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

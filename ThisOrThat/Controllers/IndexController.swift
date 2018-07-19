@@ -93,6 +93,11 @@ extension IndexController {
         headerHeightAnchor = headerContainerView.heightAnchor.constraint(equalToConstant: 150)
         headerHeightAnchor?.isActive = true
         
+        let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
+        triangle.backgroundColor = .white
+        headerContainerView.addSubview(triangle)
+        triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 15, heightConstant: 15)
+        
         headerContainerView.addSubview(logoView)
         logoView.anchor(headerContainerView.topAnchor, left: headerContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 75, heightConstant: 75)
         
@@ -138,6 +143,10 @@ extension IndexController {
         pollLabel.isHidden = false
         feedLabel.isHidden = false
         headerHeightAnchor?.constant = 150
+    }
+    
+    func degreeToRadian(angle: Int) -> CGFloat {
+        return 0
     }
 }
 
