@@ -12,6 +12,7 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        present(IndexController(), animated: true, completion: nil)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
