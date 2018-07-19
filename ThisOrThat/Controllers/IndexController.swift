@@ -36,43 +36,44 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         return image
     }()
     
-    let feedLabel: UILabel = {
-        let label = UILabel()
-        label.text = "FEED"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+    let feedLabel: UIButton = {
+        let label = UIButton(type: .system)
+        label.setTitle("FEED", for: .normal)
+        label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
         return label
     }()
     
-    let pollLabel: UILabel = {
-        let label = UILabel()
-        label.text = "MY POLLS"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+    let pollLabel: UIButton = {
+        let label = UIButton(type: .system)
+        label.setTitle("MY POLLS", for: .normal)
+        label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
         return label
     }()
     
-    let followingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "FOLLOWING"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+    let followingLabel: UIButton = {
+        let label = UIButton(type: .system)
+        label.setTitle("FOLLOWING", for: .normal)
+        label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
         return label
     }()
     
-    let signUpLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Sign up"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+    let signUpLabel: UIButton = {
+        let label = UIButton(type: .system)
+        label.setTitle("Sign up", for: .normal)
+        label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
         return label
     }()
     
-    let logInLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Log in"
-        label.font = UIFont.boldSystemFont(ofSize: 14)
-        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+    let logInLabel: UIButton = {
+        let label = UIButton(type: .system)
+        label.setTitle("Log in", for: .normal)
+        label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        label.addTarget(self, action: #selector(handleLoginIn), for: .touchUpInside)
         return label
     }()
     
@@ -109,17 +110,16 @@ extension IndexController {
         followingLabel.sizeToFit()
         
         headerContainerView.addSubview(logInLabel)
-        logInLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 30, widthConstant: 0, heightConstant: 0)
+        logInLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 30, widthConstant: 0, heightConstant: 0)
         logInLabel.sizeToFit()
         
         headerContainerView.addSubview(signUpLabel)
-        signUpLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: logInLabel.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 70, widthConstant: 0, heightConstant: 0)
+        signUpLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: logInLabel.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 70, widthConstant: 0, heightConstant: 0)
         signUpLabel.sizeToFit()
     }
     
     func setupLoggedIn() {
         if UserDefaults.standard.isLoggedIn() {
-            print("oohhhh logged in")
             followingLabel.isHidden = false
             pollLabel.isHidden = false
             feedLabel.isHidden = false
@@ -130,6 +130,14 @@ extension IndexController {
             feedLabel.isHidden = true
             headerHeightAnchor?.constant = 100
         }
+    }
+    
+    @objc func handleLoginIn() {
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        followingLabel.isHidden = false
+        pollLabel.isHidden = false
+        feedLabel.isHidden = false
+        headerHeightAnchor?.constant = 150
     }
 }
 
