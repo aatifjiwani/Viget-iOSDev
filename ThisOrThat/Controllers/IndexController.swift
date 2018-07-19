@@ -14,6 +14,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         collectionView?.backgroundColor = UIColor.white
         configureNavBar()
         setupHeader()
+        setupLoggedIn()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -58,6 +59,24 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
         return label
     }()
+    
+    let signUpLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Sign up"
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
+    let logInLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Log in"
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
+    var headerHeightAnchor: NSLayoutConstraint?
 }
 
 extension IndexController {
@@ -70,7 +89,8 @@ extension IndexController {
         headerContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         headerContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         headerContainerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        headerContainerView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        headerHeightAnchor = headerContainerView.heightAnchor.constraint(equalToConstant: 150)
+        headerHeightAnchor?.isActive = true
         
         headerContainerView.addSubview(logoView)
         logoView.anchor(headerContainerView.topAnchor, left: headerContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 75, heightConstant: 75)
@@ -88,7 +108,28 @@ extension IndexController {
         followingLabel.anchor(nil, left: pollLabel.rightAnchor, bottom: headerContainerView.bottomAnchor, right: nil, topConstant: 0, leftConstant: 40, bottomConstant: 20, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         followingLabel.sizeToFit()
         
+        headerContainerView.addSubview(logInLabel)
+        logInLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 30, widthConstant: 0, heightConstant: 0)
+        logInLabel.sizeToFit()
         
+        headerContainerView.addSubview(signUpLabel)
+        signUpLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: logInLabel.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 70, widthConstant: 0, heightConstant: 0)
+        signUpLabel.sizeToFit()
+    }
+    
+    func setupLoggedIn() {
+        if UserDefaults.standard.isLoggedIn() {
+            print("oohhhh logged in")
+            followingLabel.isHidden = false
+            pollLabel.isHidden = false
+            feedLabel.isHidden = false
+            headerHeightAnchor?.constant = 150
+        } else {
+            followingLabel.isHidden = true
+            pollLabel.isHidden = true
+            feedLabel.isHidden = true
+            headerHeightAnchor?.constant = 100
+        }
     }
 }
 
