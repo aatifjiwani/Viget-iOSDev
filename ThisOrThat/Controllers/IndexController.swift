@@ -65,6 +65,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         label.setTitle("Sign up", for: .normal)
         label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        label.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
         return label
     }()
     
@@ -78,6 +79,8 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     }()
     
     var headerHeightAnchor: NSLayoutConstraint?
+    
+    let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
 }
 
 extension IndexController {
@@ -93,10 +96,10 @@ extension IndexController {
         headerHeightAnchor = headerContainerView.heightAnchor.constraint(equalToConstant: 150)
         headerHeightAnchor?.isActive = true
         
-        let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
         triangle.backgroundColor = .white
         headerContainerView.addSubview(triangle)
-        triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 15, heightConstant: 15)
+        triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 10)
+        triangle.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         
         headerContainerView.addSubview(logoView)
         logoView.anchor(headerContainerView.topAnchor, left: headerContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 75, heightConstant: 75)
@@ -125,28 +128,31 @@ extension IndexController {
     
     func setupLoggedIn() {
         if UserDefaults.standard.isLoggedIn() {
-            followingLabel.isHidden = false
-            pollLabel.isHidden = false
-            feedLabel.isHidden = false
+            changeHiddenValue(toValue: false)
             headerHeightAnchor?.constant = 150
         } else {
-            followingLabel.isHidden = true
-            pollLabel.isHidden = true
-            feedLabel.isHidden = true
+            changeHiddenValue(toValue: true)
             headerHeightAnchor?.constant = 100
         }
     }
     
     @objc func handleLoginIn() {
         UserDefaults.standard.setIsLoggedIn(value: true)
-        followingLabel.isHidden = false
-        pollLabel.isHidden = false
-        feedLabel.isHidden = false
+        changeHiddenValue(toValue: false)
         headerHeightAnchor?.constant = 150
     }
     
-    func degreeToRadian(angle: Int) -> CGFloat {
-        return 0
+    @objc func handleSignUp() {
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        changeHiddenValue(toValue: true)
+        headerHeightAnchor?.constant = 100
+    }
+    
+    func changeHiddenValue(toValue value: Bool) {
+        followingLabel.isHidden = value
+        pollLabel.isHidden = value
+        feedLabel.isHidden = value
+        triangle.isHidden = value
     }
 }
 
