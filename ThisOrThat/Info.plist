@@ -30,8 +30,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Niveau.otf</string>
-		<string>Niveau.ttf</string>
+		<string>Niveau-Grotesk-Light-Smallcaps.otf</string>
+		<string>Niveau-Grotesk-Bold.otf</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
