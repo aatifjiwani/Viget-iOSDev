@@ -93,7 +93,7 @@ extension IndexController {
         headerHeightAnchor = headerContainerView.heightAnchor.constraint(equalToConstant: 150)
         headerHeightAnchor?.isActive = true
         
-        let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
+        let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 5, height: 5))
         triangle.backgroundColor = .white
         headerContainerView.addSubview(triangle)
         triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 15, heightConstant: 15)
