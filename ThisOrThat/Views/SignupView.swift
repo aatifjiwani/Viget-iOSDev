@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginView: UIView {
+class SignupView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -20,7 +20,7 @@ class LoginView: UIView {
     
     let loginLabel: UILabel = {
         let label = UILabel()
-        label.text = "LOG IN"
+        label.text = "SIGN UP"
         label.font = UIFont(name: "NiveauGroteskBold", size: 36)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.black
@@ -59,9 +59,9 @@ class LoginView: UIView {
         return view
     }()
     
-    let signUpView: UIButton = {
+    let loginView: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Sign up", for: .normal)
+        button.setTitle("Log in", for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(UIColor.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -70,7 +70,7 @@ class LoginView: UIView {
     
     let newHereView: UILabel = {
         let label = UILabel()
-        label.text = "New here?"
+        label.text = "Already have an account?"
         label.font = UIFont.systemFont(ofSize: 14)
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textColor = UIColor.white
@@ -86,6 +86,24 @@ class LoginView: UIView {
         return label
     }()
     
+    let emailLabel: UILabel = {
+        let label = UILabel()
+        label.text = "EMAIL"
+        label.font = UIFont(name: "NiveauGroteskLight-SmallCaps", size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.black
+        return label
+    }()
+    
+    let confirmPasswordLabel: UILabel = {
+        let label = UILabel()
+        label.text = "CONFIRM PASSWORD"
+        label.font = UIFont(name: "NiveauGroteskLight-SmallCaps", size: 14)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = UIColor.black
+        return label
+    }()
+    
     let passwordLabel: UILabel = {
         let label = UILabel()
         label.text = "PASSWORD"
@@ -95,28 +113,31 @@ class LoginView: UIView {
         return label
     }()
     
-    let usernameField = ModalTextField()
+    let usernameField: ModalTextField = {
+        let field = ModalTextField()
+        field.placeholder = "Maximum 20 characters"
+        return field
+    }()
     
-    let passwordField = ModalTextField()
+    let emailField = ModalTextField()
     
-    let loginButton: UIButton = {
+    let confirmPasswordField = ModalTextField()
+    
+    let passwordField: ModalTextField = {
+        let field = ModalTextField()
+        field.placeholder = "Must have 8 characters"
+        return field
+    }()
+    
+    let signupButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("log in", for: .normal)
+        button.setTitle("sign up", for: .normal)
         button.setTitleColor(UIColor.black, for: .normal)
         button.titleLabel?.font = UIFont(name: "NiveauGroteskBold", size: 14)
         button.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         button.dropShadow(color: UIColor.black, opacity: 1, offSet: .zero, radius: 10)
         button.layer.cornerRadius = 17
         button.clipsToBounds = true
-        return button
-    }()
-    
-    let forgotPasswordButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Forgot password?", for: .normal)
-        button.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.backgroundColor = UIColor.white
         return button
     }()
     
@@ -146,38 +167,50 @@ class LoginView: UIView {
         
         bottomView.addSubview(newHereView)
         newHereView.anchor(bottomView.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        newHereView.anchorCenterXToSuperview(constant: -32)
+        newHereView.anchorCenterXToSuperview(constant: -30)
         newHereView.sizeToFit()
         
-        bottomView.addSubview(signUpView)
-        signUpView.titleLabel?.anchor(bottomView.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        signUpView.anchorCenterXToSuperview(constant: 32)
-        signUpView.sizeToFit()
+        bottomView.addSubview(loginView)
+        loginView.titleLabel?.anchor(bottomView.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 12, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        loginView.anchorCenterXToSuperview(constant: 77)
+        loginView.sizeToFit()
+        
+        addSubview(emailLabel)
+        emailLabel.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 100, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        emailLabel.sizeToFit()
+        
+        addSubview(emailField)
+        emailField.anchorCenterXToSuperview()
+        emailField.anchor(emailLabel.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
         
         addSubview(usernameLabel)
-        usernameLabel.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 121, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        usernameLabel.anchor(emailField.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         usernameLabel.sizeToFit()
-        
-        addSubview(passwordLabel)
-        passwordLabel.anchor(topAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 200, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        passwordLabel.sizeToFit()
         
         addSubview(usernameField)
         usernameField.anchorCenterXToSuperview()
-        usernameField.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 148, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
+        usernameField.anchor(usernameLabel.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
+        
+        addSubview(passwordLabel)
+        passwordLabel.anchor(usernameField.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        passwordLabel.sizeToFit()
         
         addSubview(passwordField)
         passwordField.anchorCenterXToSuperview()
-        passwordField.anchor(topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 226, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
+        passwordField.anchor(passwordLabel.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
         
-        addSubview(loginButton)
-        loginButton.anchorCenterXToSuperview()
-        loginButton.anchor(topAnchor, left: nil, bottom: nil, right: nil, topConstant: 290, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 120, heightConstant: 34)
+        addSubview(confirmPasswordLabel)
+        confirmPasswordLabel.anchor(passwordField.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        confirmPasswordLabel.sizeToFit()
         
-        addSubview(forgotPasswordButton)
-        forgotPasswordButton.anchorCenterXToSuperview()
-        forgotPasswordButton.anchor(loginButton.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 14, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        forgotPasswordButton.sizeToFit()
+        addSubview(confirmPasswordField)
+        confirmPasswordField.anchorCenterXToSuperview()
+        confirmPasswordField.anchor(confirmPasswordLabel.topAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 25, leftConstant: 36, bottomConstant: 0, rightConstant: 36, widthConstant: 0, heightConstant: 30)
+        
+        
+        addSubview(signupButton)
+        signupButton.anchorCenterXToSuperview()
+        signupButton.anchor(confirmPasswordField.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 120, heightConstant: 34)
     }
     
     

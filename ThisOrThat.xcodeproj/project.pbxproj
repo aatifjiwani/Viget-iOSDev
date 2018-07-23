@@ -20,6 +20,8 @@
 		3920750C210100240040FC82 /* ThisOrThatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920750B210100240040FC82 /* ThisOrThatUITests.swift */; };
 		399FA4E5210258A90006A285 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FA4E4210258A90006A285 /* LoginView.swift */; };
 		39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0ABE4210134040021855D /* UIViewExtensions.swift */; };
+		39E7043D2106554C00567132 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7043C2106554C00567132 /* SignupView.swift */; };
+		39E7044121065B3700567132 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7044021065B3700567132 /* ModalTextField.swift */; };
 		39EC5F9F21026C5D003624B4 /* Niveau-Grotesk-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39EC5F9E21026C5D003624B4 /* Niveau-Grotesk-Bold.otf */; };
 		39EC5FA1210273C1003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39EC5FA021027365003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf */; };
 /* End PBXBuildFile section */
@@ -61,6 +63,8 @@
 		3920750D210100240040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		399FA4E4210258A90006A285 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		39E0ABE4210134040021855D /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
+		39E7043C2106554C00567132 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
+		39E7044021065B3700567132 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextField.swift; sourceTree = "<group>"; };
 		39EC5F9E21026C5D003624B4 /* Niveau-Grotesk-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Bold.otf"; sourceTree = "<group>"; };
 		39EC5FA021027365003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Light-Smallcaps.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -166,6 +170,8 @@
 			isa = PBXGroup;
 			children = (
 				399FA4E4210258A90006A285 /* LoginView.swift */,
+				39E7043C2106554C00567132 /* SignupView.swift */,
+				39E7044021065B3700567132 /* ModalTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -322,8 +328,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				39E7043D2106554C00567132 /* SignupView.swift in Sources */,
 				392074EE210100220040FC82 /* ViewController.swift in Sources */,
 				39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */,
+				39E7044121065B3700567132 /* ModalTextField.swift in Sources */,
 				39057703210100F500A3E9EE /* IndexController.swift in Sources */,
 				392074EC210100210040FC82 /* AppDelegate.swift in Sources */,
 				391296A02101438800AE1630 /* UserDefaultExtension.swift in Sources */,
