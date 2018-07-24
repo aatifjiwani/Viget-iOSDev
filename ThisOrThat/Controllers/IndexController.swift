@@ -83,6 +83,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
     var loginView: LoginView?
     var signupView: SignupView?
+    var user: User? 
 }
 
 extension IndexController {
@@ -139,27 +140,25 @@ extension IndexController {
     }
     
     @objc func handleLoginIn() {
-        APIServices.loginUser(email: "apiuser@example.com", password: "password") { (jsonObject) in
-            print(jsonObject)
+        loginView = LoginView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+        loginView?.indexController = self
+        loginView?.cancelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleCancelLogin)))
+        loginView?.cancelButton.addTarget(self, action: #selector(self.handleCancelLogin), for: .touchUpInside)
+        loginView?.alpha = 0
+        if let window = UIApplication.shared.keyWindow {
+            partialWhiteBackground = UIView(frame: window.frame)
+            partialWhiteBackground?.backgroundColor = UIColor.white
+            partialWhiteBackground?.alpha = 0
+            window.addSubview(partialWhiteBackground!)
+            window.addSubview(loginView!)
+            loginView?.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: window.frame.width - 50, heightConstant: window.frame.height - 275)
+            loginView?.anchorCenterXToSuperview()
+            loginView?.anchorCenterYToSuperview()
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.loginView?.alpha = 1
+                self.partialWhiteBackground?.alpha = 0.7
+            }, completion: nil)
         }
-//        loginView = LoginView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
-//        loginView?.cancelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleCancelLogin)))
-//        loginView?.cancelButton.addTarget(self, action: #selector(self.handleCancelLogin), for: .touchUpInside)
-//        loginView?.alpha = 0
-//        if let window = UIApplication.shared.keyWindow {
-//            partialWhiteBackground = UIView(frame: window.frame)
-//            partialWhiteBackground?.backgroundColor = UIColor.white
-//            partialWhiteBackground?.alpha = 0
-//            window.addSubview(partialWhiteBackground!)
-//            window.addSubview(loginView!)
-//            loginView?.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: window.frame.width - 50, heightConstant: window.frame.height - 275)
-//            loginView?.anchorCenterXToSuperview()
-//            loginView?.anchorCenterYToSuperview()
-//            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
-//                self.loginView?.alpha = 1
-//                self.partialWhiteBackground?.alpha = 0.7
-//            }, completion: nil)
-//        }
         
 //        UserDefaults.standard.setIsLoggedIn(value: true)
 //        changeHiddenValue(toValue: false)
@@ -177,6 +176,7 @@ extension IndexController {
     }
     
     @objc func handleSignUp() {
+        UserDefaults.standard.setIsLoggedIn(value: false)
         signupView = SignupView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
         signupView?.cancelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleCancelSignup)))
         signupView?.cancelButton.addTarget(self, action: #selector(self.handleCancelSignup), for: .touchUpInside)

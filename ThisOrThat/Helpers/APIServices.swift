@@ -24,13 +24,9 @@ class APIServices {
         
         Alamofire.request(url, method: .post, parameters: json).responseJSON { (response) in
             if let json = response.result.value as? [String : Any] {
-                print(json["status"])
+                completion(json)
             }
         }
         
-    }
-    
-    private static func jsonToData(json: [String: Any]) -> Data {
-        return try! JSONSerialization.data(withJSONObject: json)
     }
 }

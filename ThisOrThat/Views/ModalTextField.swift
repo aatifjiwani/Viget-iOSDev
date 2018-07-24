@@ -37,5 +37,8 @@ class ModalTextField: UITextField {
         backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         layer.borderColor = UIColor(red: 224/255, green: 224/255, blue: 224/255, alpha: 1).cgColor
         layer.borderWidth = 1
+        autocorrectionType = .no
+        autocapitalizationType = .none
+        spellCheckingType = .no
     }
 }

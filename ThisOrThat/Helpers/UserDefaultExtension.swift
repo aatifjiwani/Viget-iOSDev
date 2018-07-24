@@ -17,4 +17,15 @@ extension UserDefaults {
     func isLoggedIn() -> Bool {
         return bool(forKey: "isLoggedIn")
     }
+    
+    func setUser(value: Int) {
+        set(value, forKey: "loggedInUser")
+    }
+    
+    func getUser() -> Int {
+        return integer(forKey: "loggedInUser")
+    }
+    
+
+
 }
