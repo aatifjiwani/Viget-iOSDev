@@ -24,6 +24,8 @@
 		39E7044121065B3700567132 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7044021065B3700567132 /* ModalTextField.swift */; };
 		39EC5F9F21026C5D003624B4 /* Niveau-Grotesk-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39EC5F9E21026C5D003624B4 /* Niveau-Grotesk-Bold.otf */; };
 		39EC5FA1210273C1003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39EC5FA021027365003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf */; };
+		39F118432107C7970084F5B9 /* APIServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F118422107C7970084F5B9 /* APIServices.swift */; };
+		39F118452107CCC30084F5B9 /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39F118442107CCC30084F5B9 /* Secrets.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 		39E7044021065B3700567132 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextField.swift; sourceTree = "<group>"; };
 		39EC5F9E21026C5D003624B4 /* Niveau-Grotesk-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Bold.otf"; sourceTree = "<group>"; };
 		39EC5FA021027365003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Light-Smallcaps.otf"; sourceTree = "<group>"; };
+		39F118422107C7970084F5B9 /* APIServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServices.swift; sourceTree = "<group>"; };
+		39F118442107CCC30084F5B9 /* Secrets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,8 @@
 				39E0ABE4210134040021855D /* UIViewExtensions.swift */,
 				3912969F2101438800AE1630 /* UserDefaultExtension.swift */,
 				391296A121014A5700AE1630 /* TriangleView.swift */,
+				39F118422107C7970084F5B9 /* APIServices.swift */,
+				39F118442107CCC30084F5B9 /* Secrets.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -329,6 +335,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				39E7043D2106554C00567132 /* SignupView.swift in Sources */,
+				39F118452107CCC30084F5B9 /* Secrets.swift in Sources */,
+				39F118432107C7970084F5B9 /* APIServices.swift in Sources */,
 				392074EE210100220040FC82 /* ViewController.swift in Sources */,
 				39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */,
 				39E7044121065B3700567132 /* ModalTextField.swift in Sources */,
