@@ -41,6 +41,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         label.setTitle("FEED", for: .normal)
         label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        label.addTarget(self, action: #selector(handleFeed), for: .touchUpInside)
         return label
     }()
     
@@ -78,6 +79,13 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         return label
     }()
     
+    let usernameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
     var headerHeightAnchor: NSLayoutConstraint?
     var partialWhiteBackground: UIView?
     let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
@@ -91,6 +99,10 @@ extension IndexController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
+    @objc func handleFeed() {
+        UserDefaults.standard.setIsLoggedIn(value: false)
+    }
+    
     func setupHeader() {
         view.addSubview(headerContainerView)
         headerContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
@@ -101,7 +113,7 @@ extension IndexController {
         
         triangle.backgroundColor = .white
         headerContainerView.addSubview(triangle)
-        triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 10)
+        triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 10)
         triangle.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
         
         headerContainerView.addSubview(logoView)
@@ -129,10 +141,19 @@ extension IndexController {
         signUpLabel.sizeToFit()
     }
     
-    func setupLoggedIn() {
+    func setupLoggedIn(new: Bool = false) {
         if UserDefaults.standard.isLoggedIn() {
             changeHiddenValue(toValue: false)
             headerHeightAnchor?.constant = 150
+            if new {
+                headerContainerView.addSubview(usernameLabel)
+                usernameLabel.text = user?.username
+                usernameLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
+                usernameLabel.sizeToFit()
+                
+            } else {
+                //do stuff
+            }
         } else {
             changeHiddenValue(toValue: true)
             headerHeightAnchor?.constant = 100
@@ -178,6 +199,7 @@ extension IndexController {
     @objc func handleSignUp() {
         UserDefaults.standard.setIsLoggedIn(value: false)
         signupView = SignupView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+        signupView?.indexController = self
         signupView?.cancelView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(self.handleCancelSignup)))
         signupView?.cancelButton.addTarget(self, action: #selector(self.handleCancelSignup), for: .touchUpInside)
         signupView?.alpha = 0
@@ -215,6 +237,8 @@ extension IndexController {
         pollLabel.isHidden = value
         feedLabel.isHidden = value
         triangle.isHidden = value
+        signUpLabel.isHidden = !value
+        logInLabel.isHidden = !value
     }
 }
 

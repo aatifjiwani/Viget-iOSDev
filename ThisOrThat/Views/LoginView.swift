@@ -135,7 +135,7 @@ class LoginView: UIView {
                 UserDefaults.standard.setUser(value: user.id!)
                 self.indexController?.user = user
                 self.indexController?.handleCancelLogin()
-                self.indexController?.setupLoggedIn()
+                self.indexController?.setupLoggedIn(new: true)
             } else {
                 print("error")
             }

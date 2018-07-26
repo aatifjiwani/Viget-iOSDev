@@ -14,6 +14,8 @@ class SignupView: UIView {
         setupViews()
     }
     
+    var indexController: IndexController?
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -136,10 +138,31 @@ class SignupView: UIView {
         button.titleLabel?.font = UIFont(name: "NiveauGroteskBold", size: 14)
         button.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         button.dropShadow(color: UIColor.black, opacity: 1, offSet: .zero, radius: 10)
+        button.addTarget(self, action: #selector(sendSignupData), for: .touchUpInside)
         button.layer.cornerRadius = 17
         button.clipsToBounds = true
         return button
     }()
+    
+    @objc func sendSignupData() {
+        guard let username = usernameField.text, let email = emailField.text, let password = passwordField.text, let confPass = confirmPasswordField.text else {
+            return
+        }
+        
+        APIServices.signupUser(username: username, email: email, password: password, confPassword: confPass) { (response) in
+            print(response)
+            if response["status"] as! String == "success" {
+                let user = User(json: response)
+                UserDefaults.standard.setIsLoggedIn(value: true)
+                UserDefaults.standard.setUser(value: user.id!)
+                self.indexController?.user = user
+                self.indexController?.handleCancelSignup()
+                self.indexController?.setupLoggedIn(new: true)
+            } else {
+                print("error")
+            }
+        }
+    }
     
     func setupViews() {
         
