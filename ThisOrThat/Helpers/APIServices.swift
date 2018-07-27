@@ -48,6 +48,13 @@ class APIServices {
         }
     }
     
+    static func getPolls(completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/polls?token=\(Secrets.appKey)")!
+        makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
+            completion(response)
+        }
+    }
+    
     private static func makeAPICallWithResponse(url: URL, method: String, dict: [String: Any]?, completion: @escaping ([String: Any]) -> ()) {
         
         
@@ -64,20 +71,19 @@ class APIServices {
         
         URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             if error != nil{
-                print("Error -> \(error!)")
+                print("Getting Error -> \(error!)")
                 return
             }
             
             do {
                 let result = try JSONSerialization.jsonObject(with: data!, options: []) as? [String:Any]
                 
-                print("Result -> \(result!)")
                 DispatchQueue.main.async(execute: {
                     completion(result!)
                 })
                 
             } catch {
-                print("Error -> \(error)")
+                print("Parsing Error -> \(error)")
             }
         }.resume()
     }

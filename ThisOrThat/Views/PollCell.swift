@@ -55,7 +55,7 @@ class PollCell: UICollectionViewCell {
     
     let titleButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("What should I eat for lunch?", for: .normal)
+        //button.setTitle("What should I eat for lunch?", for: .normal)
         button.setTitleColor(UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         return button
@@ -151,6 +151,35 @@ class PollCell: UICollectionViewCell {
         return image
     }()
     
+    let optionALabel: UILabel = {
+        let label = UILabel()
+        label.text = "Left"
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "NiveauGroteskBold", size: 30)
+        label.textAlignment = NSTextAlignment.center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
+        return label
+    }()
+    
+    let optionBLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Right"
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "NiveauGroteskBold", size: 30)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = NSTextAlignment.center
+        label.numberOfLines = 3
+        return label
+    }()
+    
+    var poll: Poll? {
+        didSet {
+            titleButton.setTitle(poll?.title, for: .normal)
+            optionALabel.text = poll?.optionA
+            optionBLabel.text = poll?.optionB
+        }
+    }
     
     func setupViews() {
         backgroundColor = UIColor.white
@@ -168,6 +197,18 @@ class PollCell: UICollectionViewCell {
         
         addSubview(optionAView)
         optionAView.anchor(nil, left: leftAnchor, bottom: bottomContainerView.topAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width / 2, heightConstant: 230)
+        
+        optionAView.addSubview(optionALabel)
+        optionALabel.centerXAnchor.constraint(equalTo: optionAView.centerXAnchor).isActive = true
+        optionALabel.centerYAnchor.constraint(equalTo: optionAView.centerYAnchor).isActive = true
+        optionALabel.widthAnchor.constraint(equalTo: optionAView.widthAnchor).isActive = true
+        optionALabel.heightAnchor.constraint(equalTo: optionAView.heightAnchor).isActive = true
+        
+        optionBView.addSubview(optionBLabel)
+        optionBLabel.centerXAnchor.constraint(equalTo: optionBView.centerXAnchor).isActive = true
+        optionBLabel.centerYAnchor.constraint(equalTo: optionBView.centerYAnchor).isActive = true
+        optionBLabel.widthAnchor.constraint(equalTo: optionBView.widthAnchor).isActive = true
+        optionBLabel.heightAnchor.constraint(equalTo: optionBView.heightAnchor).isActive = true
         
         addSubview(headerView)
         headerView.anchor(topAnchor, left: leftAnchor, bottom: optionBView.topAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)

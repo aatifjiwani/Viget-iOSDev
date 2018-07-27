@@ -19,12 +19,30 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         configureNavBar()
         setupHeader()
         setupLoggedIn()
+        fetchPolls()
+    }
+    
+    var polls = [Poll]()
+    
+    func fetchPolls() {
+        APIServices.getPolls { (response) in
+            if response["status"] as! String == "success" {
+                if let polls = response["poll"] as? NSArray {
+                    for poll in polls {
+                        let individual = poll as! [String: Any]
+                        self.polls.append(Poll(json: individual))
+                        self.collectionView?.reloadData()
+                    }
+                    print("finished")
+                }
+            }
+        }
     }
     
     let pollCellID = "pollCellID"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return polls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -32,7 +50,9 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
+        cell.poll = polls[indexPath.item]
+        return cell
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
