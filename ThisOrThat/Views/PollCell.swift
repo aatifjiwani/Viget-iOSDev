@@ -178,6 +178,15 @@ class PollCell: UICollectionViewCell {
             titleButton.setTitle(poll?.title, for: .normal)
             optionALabel.text = poll?.optionA
             optionBLabel.text = poll?.optionB
+            APIServices.getUser(id: (poll?.userId)!) { (response) in
+                self.user = User(json: response)
+            }
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            usernameLabel.text = user?.username
         }
     }
     
