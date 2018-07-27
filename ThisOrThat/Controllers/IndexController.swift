@@ -11,10 +11,28 @@ import UIKit
 class IndexController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.white
+        collectionView?.backgroundColor = UIColor.red
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.register(PollCell.self, forCellWithReuseIdentifier: pollCellID)
+        collectionView?.alwaysBounceVertical = true
         configureNavBar()
         setupHeader()
         setupLoggedIn()
+    }
+    
+    let pollCellID = "pollCellID"
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 25
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -110,6 +128,9 @@ extension IndexController {
         headerContainerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
         headerHeightAnchor = headerContainerView.heightAnchor.constraint(equalToConstant: 150)
         headerHeightAnchor?.isActive = true
+        
+        collectionView?.translatesAutoresizingMaskIntoConstraints = false
+        collectionView?.anchor(headerContainerView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         triangle.backgroundColor = .white
         headerContainerView.addSubview(triangle)
