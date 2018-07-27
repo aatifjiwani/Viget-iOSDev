@@ -72,7 +72,7 @@ class PollCell: UICollectionViewCell {
     let commentLabel: UILabel = {
         let label = UILabel()
         label.text = "6 comments"
-        label.textColor = UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1)
+        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -81,10 +81,74 @@ class PollCell: UICollectionViewCell {
     let followLabel: UILabel = {
         let label = UILabel()
         label.text = "follow"
-        label.textColor = UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1)
+        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    let voteLabel: UILabel = {
+        let label = UILabel()
+        label.text = "56 votes"
+        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "6 hrs. left"
+        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
+        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let voteIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "fire-icon")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let clockIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "clock-icon")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let commentIcon: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = UIImage(named: "comment-icon")
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let expiredIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "expired-icon")
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let followIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "follow-icon")
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        return image
+    }()
+    
+    let followingIcon: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "following-icon")
+        image.contentMode = .scaleAspectFill
+        return image
     }()
     
     
@@ -116,14 +180,44 @@ class PollCell: UICollectionViewCell {
         usernameLabel.anchor(titleButton.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         usernameLabel.sizeToFit()
         
+        headerView.addSubview(voteIcon)
+        voteIcon.anchor(nil, left: usernameLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 25, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
+        voteIcon.centerYAnchor.constraint(equalTo: usernameLabel.centerYAnchor).isActive = true
+        
+        headerView.addSubview(voteLabel)
+        voteLabel.anchor(nil, left: voteIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        voteLabel.centerYAnchor.constraint(equalTo: voteIcon.centerYAnchor).isActive = true
+        voteLabel.sizeToFit()
+        
+        headerView.addSubview(clockIcon)
+        clockIcon.anchor(nil, left: voteLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
+        clockIcon.centerYAnchor.constraint(equalTo: usernameLabel.centerYAnchor).isActive = true
+        
+        headerView.addSubview(timeLabel)
+        timeLabel.anchor(nil, left: clockIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        timeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        timeLabel.sizeToFit()
+        
+        bottomContainerView.addSubview(followIcon)
+        followIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
+        followIcon.leftAnchor.constraint(equalTo: centerXAnchor, constant: 20).isActive = true
+        followIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
+        followIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        
         bottomContainerView.addSubview(followLabel)
         followLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
-        followLabel.leftAnchor.constraint(equalTo: centerXAnchor, constant: 20).isActive = true
+        followLabel.leftAnchor.constraint(equalTo: followIcon.rightAnchor, constant: 10).isActive = true
         followLabel.sizeToFit()
         
         bottomContainerView.addSubview(commentLabel)
         commentLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
         commentLabel.rightAnchor.constraint(equalTo: centerXAnchor, constant: -20).isActive = true
         commentLabel.sizeToFit()
+        
+        bottomContainerView.addSubview(commentIcon)
+        commentIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
+        commentIcon.rightAnchor.constraint(equalTo: commentLabel.leftAnchor, constant: -10).isActive = true
+        commentIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
+        commentIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
     }
 }
