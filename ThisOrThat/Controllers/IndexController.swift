@@ -177,7 +177,14 @@ extension IndexController {
                 usernameLabel.sizeToFit()
                 
             } else {
-                //do stuff
+                APIServices.getUser(id: UserDefaults.standard.getUser()) { (response) in
+                    let responseUser = User(json: response)
+                    self.user = responseUser
+                    self.headerContainerView.addSubview(self.usernameLabel)
+                    self.usernameLabel.text = self.user?.username
+                    self.usernameLabel.anchor(self.headerContainerView.topAnchor, left: nil, bottom: nil, right: self.headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
+                    self.usernameLabel.sizeToFit()
+                }
             }
         } else {
             changeHiddenValue(toValue: true)

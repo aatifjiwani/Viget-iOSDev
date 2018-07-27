@@ -41,16 +41,26 @@ class APIServices {
         }
     }
     
-    private static func makeAPICallWithResponse(url: URL, method: String, dict: [String: Any], completion: @escaping ([String: Any]) -> ()) {
-        let jsonData = self.dictToJSONObject(dict: dict)
+    static func getUser(id: Int, completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/users/\(id)?token=\(Secrets.appKey)")!
+        makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
+            completion(response)
+        }
+    }
+    
+    private static func makeAPICallWithResponse(url: URL, method: String, dict: [String: Any]?, completion: @escaping ([String: Any]) -> ()) {
+        
         
         // create post request
         let request = NSMutableURLRequest(url: url)
         request.httpMethod = method
         
         // insert json data to the request
-        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        if method == "POST" {
+            let jsonData = self.dictToJSONObject(dict: dict!)
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+        }
         
         URLSession.shared.dataTask(with: request as URLRequest){ data, response, error in
             if error != nil{
