@@ -59,7 +59,7 @@ class PollCell: UICollectionViewCell {
     
     let titleButton: UIButton = {
         let button = UIButton(type: .system)
-        //button.setTitle("What should I eat for lunch?", for: .normal)
+        button.setTitle("...", for: .normal)
         button.setTitleColor(UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
         return button
@@ -67,7 +67,7 @@ class PollCell: UICollectionViewCell {
     
     let usernameLabel: UILabel = {
         let label = UILabel()
-        label.text = "iosuser"
+        label.text = "..."
         label.textColor = UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         return label
@@ -75,7 +75,7 @@ class PollCell: UICollectionViewCell {
     
     let commentLabel: UILabel = {
         let label = UILabel()
-        label.text = "6 comments"
+        label.text = "..."
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +84,7 @@ class PollCell: UICollectionViewCell {
     
     let followLabel: UILabel = {
         let label = UILabel()
-        label.text = "follow"
+        label.text = "..."
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +93,7 @@ class PollCell: UICollectionViewCell {
     
     let voteLabel: UILabel = {
         let label = UILabel()
-        label.text = "56 votes"
+        label.text = "..."
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +102,7 @@ class PollCell: UICollectionViewCell {
     
     let timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "6 hrs. left"
+        label.text = "..."
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -157,7 +157,7 @@ class PollCell: UICollectionViewCell {
     
     let optionALabel: UILabel = {
         let label = UILabel()
-        label.text = "Left"
+        label.text = "..."
         label.textColor = UIColor.white
         label.font = UIFont(name: "NiveauGroteskBold", size: 30)
         label.textAlignment = NSTextAlignment.center
@@ -168,7 +168,7 @@ class PollCell: UICollectionViewCell {
     
     let optionBLabel: UILabel = {
         let label = UILabel()
-        label.text = "Right"
+        label.text = "..."
         label.textColor = UIColor.white
         label.font = UIFont(name: "NiveauGroteskBold", size: 30)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -188,7 +188,7 @@ class PollCell: UICollectionViewCell {
     
     let optionAImageOverlayLabel: UILabel = {
         let label = UILabel()
-        label.text = "Left"
+        label.text = "..."
         label.textColor = UIColor.white
         label.font = UIFont(name: "NiveauGroteskBold", size: 16)
         label.textAlignment = NSTextAlignment.center
@@ -209,7 +209,7 @@ class PollCell: UICollectionViewCell {
     
     let optionBImageOverlayLabel: UILabel = {
         let label = UILabel()
-        label.text = "Left"
+        label.text = "..."
         label.textColor = UIColor.white
         label.font = UIFont(name: "NiveauGroteskBold", size: 16)
         label.textAlignment = NSTextAlignment.center

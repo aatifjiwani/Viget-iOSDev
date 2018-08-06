@@ -24,16 +24,33 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     var polls = [Poll]()
     
-    func fetchPolls() {
-        APIServices.getPolls { (response) in
-            if response["status"] as! String == "success" {
-                if let polls = response["poll"] as? NSArray {
-                    for poll in polls {
-                        let individual = poll as! [String: Any]
-                        self.polls.append(Poll(json: individual))
-                        self.collectionView?.reloadData()
+    func fetchPolls(filter: String? = nil) {
+        if let filteredString = filter {
+            currentFilter = filter
+            APIServices.getUserPolls(filter: filteredString, user_id: UserDefaults.standard.getUser()) { (response) in
+                if response["status"] as! String == "success" {
+                    if let polls = response["poll"] as? NSArray {
+                        for poll in polls {
+                            let individual = poll as! [String: Any]
+                            self.polls.append(Poll(json: individual))
+                            self.collectionView?.reloadData()
+                        }
+                        print("finished")
                     }
-                    print("finished")
+                }
+            }
+        } else {
+            currentFilter = "feed"
+            APIServices.getPolls { (response) in
+                if response["status"] as! String == "success" {
+                    if let polls = response["poll"] as? NSArray {
+                        for poll in polls {
+                            let individual = poll as! [String: Any]
+                            self.polls.append(Poll(json: individual))
+                            self.collectionView?.reloadData()
+                        }
+                        print("finished")
+                    }
                 }
             }
         }
@@ -145,6 +162,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     var signupView: SignupView?
     var user: User?
     var squigglyCenterAnchor: NSLayoutConstraint?
+    var currentFilter: String?
 }
 
 extension IndexController {
@@ -154,24 +172,38 @@ extension IndexController {
     
     @objc func handleFeed() {
         UserDefaults.standard.setIsLoggedIn(value: false)
+        if currentFilter != "feed" {
+            polls.removeAll()
+            collectionView?.reloadData()
+            squigglyCenterAnchor?.isActive = false
+            squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: feedLabel.centerXAnchor)
+            squigglyCenterAnchor?.isActive = true
+            fetchPolls()
+        }
     }
     
     @objc func handleMyPolls() {
         print("My polls")
-        polls.removeAll()
-        collectionView?.reloadData()
-        squigglyCenterAnchor?.isActive = false
-        squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: pollLabel.centerXAnchor)
-        squigglyCenterAnchor?.isActive = true
+        if currentFilter != "mypolls" {
+            polls.removeAll()
+            collectionView?.reloadData()
+            squigglyCenterAnchor?.isActive = false
+            squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: pollLabel.centerXAnchor)
+            squigglyCenterAnchor?.isActive = true
+            fetchPolls(filter: "mypolls")
+        }
     }
     
     @objc func handleFollowing() {
         print("Following")
-        polls.removeAll()
-        collectionView?.reloadData()
-        squigglyCenterAnchor?.isActive = false
-        squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: followingLabel.centerXAnchor)
-        squigglyCenterAnchor?.isActive = true
+        if currentFilter != "following" {
+            polls.removeAll()
+            collectionView?.reloadData()
+            squigglyCenterAnchor?.isActive = false
+            squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: followingLabel.centerXAnchor)
+            squigglyCenterAnchor?.isActive = true
+            fetchPolls(filter: "following")
+        }
     }
     
     func setupHeader() {

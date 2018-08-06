@@ -69,6 +69,13 @@ class APIServices {
         }
     }
     
+    static func getUserPolls(filter: String, user_id: Int?, completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/users/\(user_id!)?filter=\(filter)&token=\(Secrets.appKey)")!
+        makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
+            completion(response)
+        }
+    }
+    
     static func getImageFromURL(url: URL, completion: @escaping (Data) -> ()) {
         URLSession.shared.dataTask(with: url) { data, response, error in
             if error != nil{
