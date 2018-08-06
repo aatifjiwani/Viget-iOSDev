@@ -29,14 +29,16 @@ class PollCell: UICollectionViewCell {
     
     let optionAView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
+        view.clipsToBounds = true
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         return view
     }()
     
     let optionBView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleToFill
+        view.clipsToBounds = true
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
@@ -175,16 +177,61 @@ class PollCell: UICollectionViewCell {
         return label
     }()
     
+    let optionAImageOverlay: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor(red: 97/255, green: 183/255, blue: 242/255, alpha: 1)
+        view.dropShadow(color:  UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1), opacity: 1.0, offSet: CGSize(width: 0, height: -30), radius: 50)
+        view.layer.cornerRadius = 100
+        return view
+    }()
+    
+    let optionAImageOverlayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Left"
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "NiveauGroteskBold", size: 16)
+        label.textAlignment = NSTextAlignment.center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
+        return label
+    }()
+    
+    let optionBImageOverlay: UIView = {
+        let view = UIView()
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
+        view.dropShadow(color: UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1), opacity: 1, offSet: CGSize(width: 0, height: -40), radius: 50)
+        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer.cornerRadius = 30
+        return view
+    }()
+    
+    let optionBImageOverlayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Left"
+        label.textColor = UIColor.white
+        label.font = UIFont(name: "NiveauGroteskBold", size: 16)
+        label.textAlignment = NSTextAlignment.center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 3
+        return label
+    }()
+    
     var poll: Poll? {
         didSet {
             titleButton.setTitle(poll?.title, for: .normal)
             optionALabel.text = poll?.optionA
+            optionAImageOverlayLabel.text = poll?.optionA
+            
             optionBLabel.text = poll?.optionB
+            optionBImageOverlayLabel.text = poll?.optionB
             
             if (poll?.expired)! {
                 clockIcon.image = UIImage(named: "expired-icon")
                 timeLabel.text = "expired"
             } else {
+                clockIcon.image = UIImage(named: "clock-icon")
                 timeLabel.text = "\((poll?.timeLeft)!) left"
             }
             
@@ -197,6 +244,32 @@ class PollCell: UICollectionViewCell {
                     self.setComments(count: response["comment"] as! Int)
                 }
             }
+            
+            if !((poll?.getOptionAImg()?.isEmpty)!) {
+                // print(poll?.title, poll?.getOptionAImg())
+                optionAView.loadImagesUsingCacheWithURLString(url: (poll?.getOptionAImg())!)
+                optionALabel.isHidden = true
+                optionAImageOverlayLabel.isHidden = false
+                optionAImageOverlay.isHidden = false
+            } else {
+                optionAImageOverlayLabel.isHidden = true
+                optionAImageOverlay.isHidden = true
+                optionALabel.isHidden = false
+                optionAView.image = nil
+            }
+            
+            if !((poll?.getOptionBImg()?.isEmpty)!) {
+                // print(poll?.title, poll?.getOptionAImg())
+                optionBView.loadImagesUsingCacheWithURLString(url: (poll?.getOptionBImg())!)
+                optionBLabel.isHidden = true
+                optionBImageOverlayLabel.isHidden = false
+                optionBImageOverlay.isHidden = false
+            } else {
+                optionBImageOverlayLabel.isHidden = true
+                optionBImageOverlay.isHidden = true
+                optionBLabel.isHidden = false
+                optionBView.image = nil
+            }
         }
     }
     
@@ -204,7 +277,6 @@ class PollCell: UICollectionViewCell {
         didSet {
             usernameLabel.text = user?.username
             APIServices.getFollow(poll_id: poll?.id, user_id: UserDefaults.standard.getUser()) { (response) in
-                print(response)
                 if response["status"] as! String == "success" {
                     self.setFollows(follow: response["follow"] as! Bool)
                 }
@@ -221,10 +293,12 @@ class PollCell: UICollectionViewCell {
     }
     
     func setFollows(follow: Bool) {
-        print(follow)
         if follow {
             followIcon.image = UIImage(named: "following-icon")
             followLabel.text = "following"
+        } else {
+            followIcon.image = UIImage(named: "follow-icon")
+            followLabel.text = "follow"
         }
     }
     
@@ -244,6 +318,7 @@ class PollCell: UICollectionViewCell {
         
         addSubview(optionAView)
         optionAView.anchor(nil, left: leftAnchor, bottom: bottomContainerView.topAnchor, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width / 2, heightConstant: 230)
+        print(optionAView.frame.size.width)
         
         optionAView.addSubview(optionALabel)
         optionALabel.centerXAnchor.constraint(equalTo: optionAView.centerXAnchor).isActive = true
@@ -251,11 +326,26 @@ class PollCell: UICollectionViewCell {
         optionALabel.widthAnchor.constraint(equalTo: optionAView.widthAnchor).isActive = true
         optionALabel.heightAnchor.constraint(equalTo: optionAView.heightAnchor).isActive = true
         
+        optionAView.addSubview(optionAImageOverlay)
+        optionAImageOverlay.anchor(optionAView.centerYAnchor, left: optionAView.leftAnchor, bottom: nil, right: optionAView.rightAnchor, topConstant: 45, leftConstant: -10, bottomConstant: 0, rightConstant: -10, widthConstant: 0, heightConstant: 0)
+        optionAImageOverlay.centerYAnchor.constraint(equalTo: optionAView.bottomAnchor, constant: 20).isActive = true
+        
+        optionAImageOverlay.addSubview(optionAImageOverlayLabel)
+        optionAImageOverlayLabel.anchor(optionAImageOverlay.topAnchor, left: optionAView.leftAnchor, bottom: optionAView.bottomAnchor, right: optionAView.rightAnchor, topConstant: 0, leftConstant: 30, bottomConstant: 0, rightConstant: 30, widthConstant: 0, heightConstant: 0)
+        
+        
         optionBView.addSubview(optionBLabel)
         optionBLabel.centerXAnchor.constraint(equalTo: optionBView.centerXAnchor).isActive = true
         optionBLabel.centerYAnchor.constraint(equalTo: optionBView.centerYAnchor).isActive = true
         optionBLabel.widthAnchor.constraint(equalTo: optionBView.widthAnchor).isActive = true
         optionBLabel.heightAnchor.constraint(equalTo: optionBView.heightAnchor).isActive = true
+        
+        optionBView.addSubview(optionBImageOverlay)
+        optionBImageOverlay.anchor(optionBView.centerYAnchor, left: optionBView.leftAnchor, bottom: optionBView.bottomAnchor, right: optionBView.rightAnchor, topConstant: 45, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        
+        
+        optionBImageOverlay.addSubview(optionBImageOverlayLabel)
+        optionBImageOverlayLabel.anchor(optionBImageOverlay.topAnchor, left: optionBImageOverlay.leftAnchor, bottom: optionBView.bottomAnchor, right: optionBImageOverlay.rightAnchor, topConstant: 0, leftConstant: 30, bottomConstant: 0, rightConstant: 30, widthConstant: 0, heightConstant: 0)
         
         addSubview(headerView)
         headerView.anchor(topAnchor, left: leftAnchor, bottom: optionBView.topAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)

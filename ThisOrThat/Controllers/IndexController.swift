@@ -92,6 +92,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         label.setTitle("MY POLLS", for: .normal)
         label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        label.addTarget(self, action: #selector(handleMyPolls), for: .touchUpInside)
         return label
     }()
     
@@ -100,6 +101,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         label.setTitle("FOLLOWING", for: .normal)
         label.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         label.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        label.addTarget(self, action: #selector(handleFollowing), for: .touchUpInside)
         return label
     }()
     
@@ -128,12 +130,21 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         return label
     }()
     
+    let squiggly: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "squiggle")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     var headerHeightAnchor: NSLayoutConstraint?
     var partialWhiteBackground: UIView?
     let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
     var loginView: LoginView?
     var signupView: SignupView?
-    var user: User? 
+    var user: User?
+    var squigglyCenterAnchor: NSLayoutConstraint?
 }
 
 extension IndexController {
@@ -143,6 +154,24 @@ extension IndexController {
     
     @objc func handleFeed() {
         UserDefaults.standard.setIsLoggedIn(value: false)
+    }
+    
+    @objc func handleMyPolls() {
+        print("My polls")
+        polls.removeAll()
+        collectionView?.reloadData()
+        squigglyCenterAnchor?.isActive = false
+        squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: pollLabel.centerXAnchor)
+        squigglyCenterAnchor?.isActive = true
+    }
+    
+    @objc func handleFollowing() {
+        print("Following")
+        polls.removeAll()
+        collectionView?.reloadData()
+        squigglyCenterAnchor?.isActive = false
+        squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: followingLabel.centerXAnchor)
+        squigglyCenterAnchor?.isActive = true
     }
     
     func setupHeader() {
@@ -184,6 +213,13 @@ extension IndexController {
         headerContainerView.addSubview(signUpLabel)
         signUpLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: logInLabel.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 70, widthConstant: 0, heightConstant: 0)
         signUpLabel.sizeToFit()
+        
+        headerContainerView.addSubview(squiggly)
+        squiggly.topAnchor.constraint(equalTo: feedLabel.bottomAnchor, constant: -15).isActive = true
+        squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: feedLabel.centerXAnchor)
+        squigglyCenterAnchor?.isActive = true
+        squiggly.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
     }
     
     func setupLoggedIn(new: Bool = false) {
@@ -285,6 +321,7 @@ extension IndexController {
     }
     
     func changeHiddenValue(toValue value: Bool) {
+        squiggly.isHidden = value
         followingLabel.isHidden = value
         pollLabel.isHidden = value
         feedLabel.isHidden = value

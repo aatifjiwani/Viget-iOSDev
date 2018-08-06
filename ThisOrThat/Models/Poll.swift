@@ -48,4 +48,24 @@ class Poll: NSObject {
         
         timeLeft = json["time"] as? String
     }
+    
+    func getOptionAImg() -> String? {
+        if !(optionAUrl?.isEmpty)! {
+            return optionAUrl
+        } else if !(optionAImgUrl?.isEmpty)! {
+            return optionAImgUrl
+        } else {
+            return ""
+        }
+    }
+    
+    func getOptionBImg() -> String? {
+        if !(optionBUrl?.isEmpty)! {
+            return optionBUrl
+        } else if !(optionBImgUrl?.isEmpty)! {
+            return optionBImgUrl
+        } else {
+            return ""
+        }
+    }
 }
