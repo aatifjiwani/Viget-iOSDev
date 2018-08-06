@@ -16,6 +16,12 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         collectionView?.dataSource = self
         collectionView?.register(PollCell.self, forCellWithReuseIdentifier: pollCellID)
         collectionView?.alwaysBounceVertical = true
+        
+        UIFont.familyNames.forEach({ familyName in
+            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+            print(familyName, fontNames)
+        })
+        
         configureNavBar()
         setupHeader()
         setupLoggedIn()
@@ -262,26 +268,25 @@ extension IndexController {
         if UserDefaults.standard.isLoggedIn() {
             changeHiddenValue(toValue: false)
             headerHeightAnchor?.constant = 150
+            let userTap = UITapGestureRecognizer(target: self, action: #selector(handleUserOptions))
+            let triTap = UITapGestureRecognizer(target: self, action: #selector(handleUserOptions))
             if new {
                 headerContainerView.addSubview(usernameLabel)
-                let tap = UITapGestureRecognizer(target: self, action: #selector(handleUserOptions))
-                usernameLabel.addGestureRecognizer(tap)
-                triangle.addGestureRecognizer(tap)
+                triangle.addGestureRecognizer(triTap)
                 usernameLabel.text = user?.username
                 usernameLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
                 usernameLabel.sizeToFit()
-                
+                usernameLabel.addGestureRecognizer(userTap)
             } else {
                 APIServices.getUser(id: UserDefaults.standard.getUser()) { (response) in
                     let responseUser = User(json: response)
                     self.user = responseUser
                     self.headerContainerView.addSubview(self.usernameLabel)
-                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleUserOptions))
-                    self.usernameLabel.addGestureRecognizer(tap)
-                    self.triangle.addGestureRecognizer(tap)
+                    self.triangle.addGestureRecognizer(triTap)
                     self.usernameLabel.text = self.user?.username
                     self.usernameLabel.anchor(self.headerContainerView.topAnchor, left: nil, bottom: nil, right: self.headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
                     self.usernameLabel.sizeToFit()
+                    self.usernameLabel.addGestureRecognizer(userTap)
                 }
             }
         } else {

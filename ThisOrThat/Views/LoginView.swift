@@ -114,6 +114,7 @@ class LoginView: UIView {
         return button
     }()
     
+    
     let forgotPasswordButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Forgot password?", for: .normal)
