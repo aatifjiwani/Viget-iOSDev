@@ -71,9 +71,15 @@ class UserOptionsView: UIView {
         
         addSubview(resetPasswordView)
         resetPasswordView.anchor(topAnchor, left: leftAnchor, bottom: centerYAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        resetPasswordView.isUserInteractionEnabled = true
+        let resetTap = UITapGestureRecognizer(target: self, action: #selector(handleResetPassword(sender:)))
+        resetPasswordView.addGestureRecognizer(resetTap)
         
         addSubview(logoutView)
         logoutView.anchor(centerYAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        logoutView.isUserInteractionEnabled = true
+        let logoutTap = UITapGestureRecognizer(target: self, action: #selector(handleLogOut(sender:)))
+        logoutView.addGestureRecognizer(logoutTap)
         
         resetPasswordView.addSubview(resetPasswordLabel)
         resetPasswordLabel.anchorCenterXToSuperview()
@@ -93,10 +99,11 @@ class UserOptionsView: UIView {
     }
     
     @objc func handleResetPassword(sender: UITapGestureRecognizer) {
-        
+        print("resetting password")
     }
     
     @objc func handleLogOut(sender: UITapGestureRecognizer) {
-        
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        indexController?.logoutUser()
     }
 }

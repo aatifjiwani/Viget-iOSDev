@@ -180,7 +180,6 @@ extension IndexController {
     }
     
     @objc func handleFeed() {
-        UserDefaults.standard.setIsLoggedIn(value: false)
         if currentFilter != "feed" {
             polls.removeAll()
             collectionView?.reloadData()
@@ -404,6 +403,14 @@ extension IndexController {
             self.signupView?.removeFromSuperview()
             self.partialWhiteBackground?.removeFromSuperview()
         })
+    }
+    
+    func logoutUser() {
+        handleCancelUserOptions()
+        changeHiddenValue(toValue: true)
+        usernameLabel.removeFromSuperview()
+        headerHeightAnchor?.constant = 100
+        handleFeed()
     }
     
     func changeHiddenValue(toValue value: Bool) {
