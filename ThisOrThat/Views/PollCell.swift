@@ -27,14 +27,16 @@ class PollCell: UICollectionViewCell {
         return view
     }()
     
-    let optionAView: UIView = {
-        let view = UIView()
+    let optionAView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         return view
     }()
     
-    let optionBView: UIView = {
-        let view = UIView()
+    let optionBView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
@@ -178,6 +180,14 @@ class PollCell: UICollectionViewCell {
             titleButton.setTitle(poll?.title, for: .normal)
             optionALabel.text = poll?.optionA
             optionBLabel.text = poll?.optionB
+            
+            if (poll?.expired)! {
+                clockIcon.image = UIImage(named: "expired-icon")
+                timeLabel.text = "expired"
+            } else {
+                timeLabel.text = "\((poll?.timeLeft)!) left"
+            }
+            
             APIServices.getUser(id: (poll?.userId)!) { (response) in
                 self.user = User(json: response)
             }

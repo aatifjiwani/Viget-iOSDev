@@ -22,6 +22,11 @@ class Poll: NSObject {
     var optionB: String?
     var optionBUrl: String?
     
+    var optionAImgUrl: String?
+    var optionBImgUrl: String?
+    
+    var timeLeft: String?
+    
     init(json: [String: Any]) {
         title = json["title"] as? String
         userId = json["user_id"] as? Int
@@ -37,5 +42,10 @@ class Poll: NSObject {
         optionAUrl = json["option_a_url"] as? String
         optionB = json["option_b"] as? String
         optionBUrl = json["option_b_url"] as? String
+        
+        optionAImgUrl = json["option_a_img"] as? String
+        optionBImgUrl = json["option_b_img"] as? String
+        
+        timeLeft = json["time"] as? String
     }
 }

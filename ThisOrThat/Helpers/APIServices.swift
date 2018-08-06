@@ -69,6 +69,21 @@ class APIServices {
         }
     }
     
+    static func getImageFromURL(url: URL, completion: @escaping (Data) -> ()) {
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if error != nil{
+                print("Getting Error -> \(error!)")
+                return
+            }
+            
+            DispatchQueue.main.async {
+                if let unwrappedData = data {
+                    completion(unwrappedData)
+                }
+            }
+        }.resume()
+    }
+    
     private static func makeAPICallWithResponse(url: URL, method: String, dict: [String: Any]?, completion: @escaping ([String: Any]) -> ()) {
         
         
