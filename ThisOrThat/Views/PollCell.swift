@@ -181,12 +181,40 @@ class PollCell: UICollectionViewCell {
             APIServices.getUser(id: (poll?.userId)!) { (response) in
                 self.user = User(json: response)
             }
+            
+            APIServices.getCommentCount(poll_id: (poll?.id)!) { (response) in
+                if response["status"] as! String == "success" {
+                    self.setComments(count: response["comment"] as! Int)
+                }
+            }
         }
     }
     
     var user: User? {
         didSet {
             usernameLabel.text = user?.username
+            APIServices.getFollow(poll_id: poll?.id, user_id: UserDefaults.standard.getUser()) { (response) in
+                print(response)
+                if response["status"] as! String == "success" {
+                    self.setFollows(follow: response["follow"] as! Bool)
+                }
+            }
+        }
+    }
+    
+    func setComments(count: Int) {
+        if count == 1 {
+            commentLabel.text = "1 comment"
+        } else {
+            commentLabel.text = "\(count) comments"
+        }
+    }
+    
+    func setFollows(follow: Bool) {
+        print(follow)
+        if follow {
+            followIcon.image = UIImage(named: "following-icon")
+            followLabel.text = "following"
         }
     }
     
