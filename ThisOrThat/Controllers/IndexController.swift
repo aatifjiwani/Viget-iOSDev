@@ -144,6 +144,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 14)
         label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -160,9 +161,11 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
     var loginView: LoginView?
     var signupView: SignupView?
+    var optionsView: UserOptionsView?
     var user: User?
     var squigglyCenterAnchor: NSLayoutConstraint?
     var currentFilter: String?
+    var partialWhiteBackgroundGesture: UITapGestureRecognizer?
 }
 
 extension IndexController {
@@ -218,6 +221,7 @@ extension IndexController {
         collectionView?.anchor(headerContainerView.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         triangle.backgroundColor = .white
+        triangle.isUserInteractionEnabled = true
         headerContainerView.addSubview(triangle)
         triangle.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 32, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 10, heightConstant: 10)
         triangle.transform = CGAffineTransform(rotationAngle: CGFloat(Double.pi))
@@ -260,6 +264,9 @@ extension IndexController {
             headerHeightAnchor?.constant = 150
             if new {
                 headerContainerView.addSubview(usernameLabel)
+                let tap = UITapGestureRecognizer(target: self, action: #selector(handleUserOptions))
+                usernameLabel.addGestureRecognizer(tap)
+                triangle.addGestureRecognizer(tap)
                 usernameLabel.text = user?.username
                 usernameLabel.anchor(headerContainerView.topAnchor, left: nil, bottom: nil, right: headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
                 usernameLabel.sizeToFit()
@@ -269,6 +276,9 @@ extension IndexController {
                     let responseUser = User(json: response)
                     self.user = responseUser
                     self.headerContainerView.addSubview(self.usernameLabel)
+                    let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleUserOptions))
+                    self.usernameLabel.addGestureRecognizer(tap)
+                    self.triangle.addGestureRecognizer(tap)
                     self.usernameLabel.text = self.user?.username
                     self.usernameLabel.anchor(self.headerContainerView.topAnchor, left: nil, bottom: nil, right: self.headerContainerView.rightAnchor, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 40, widthConstant: 0, heightConstant: 0)
                     self.usernameLabel.sizeToFit()
@@ -304,6 +314,45 @@ extension IndexController {
 //        UserDefaults.standard.setIsLoggedIn(value: true)
 //        changeHiddenValue(toValue: false)
 //        headerHeightAnchor?.constant = 150
+    }
+    
+    @objc func handleUserOptions(sender: UITapGestureRecognizer) {
+        optionsView = UserOptionsView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+        optionsView?.indexController = self
+        optionsView?.alpha = 0
+        
+        if let window = UIApplication.shared.keyWindow {
+            partialWhiteBackground = UIView(frame: window.frame)
+            partialWhiteBackground?.backgroundColor = UIColor.white
+            partialWhiteBackground?.alpha = 0
+            
+            window.addSubview(partialWhiteBackground!)
+            window.addSubview(optionsView!)
+            
+            optionsView?.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: window.frame.width - 50, heightConstant: 100)
+            optionsView?.anchorCenterXToSuperview()
+            optionsView?.anchorCenterYToSuperview()
+            
+            partialWhiteBackground?.isUserInteractionEnabled = true
+            partialWhiteBackgroundGesture = UITapGestureRecognizer(target: self, action: #selector(handleCancelUserOptions))
+            partialWhiteBackground?.addGestureRecognizer(partialWhiteBackgroundGesture!)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                self.optionsView?.alpha = 1
+                self.partialWhiteBackground?.alpha = 0.7
+            }, completion: nil)
+        }
+    }
+    
+    @objc func handleCancelUserOptions() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+            self.optionsView?.alpha = 0
+            self.partialWhiteBackground?.alpha = 0
+        }, completion: { (completed) in
+            self.optionsView?.removeFromSuperview()
+            self.partialWhiteBackground?.removeFromSuperview()
+            self.partialWhiteBackground?.removeGestureRecognizer(self.partialWhiteBackgroundGesture!)
+        })
     }
     
     @objc func handleCancelLogin() {

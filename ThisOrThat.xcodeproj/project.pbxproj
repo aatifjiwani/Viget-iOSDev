@@ -19,6 +19,7 @@
 		39207501210100240040FC82 /* ThisOrThatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39207500210100240040FC82 /* ThisOrThatTests.swift */; };
 		3920750C210100240040FC82 /* ThisOrThatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920750B210100240040FC82 /* ThisOrThatUITests.swift */; };
 		395479562118B43A00D8BC66 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479552118B43A00D8BC66 /* UIImageViewExtensions.swift */; };
+		395479582118EAF800D8BC66 /* UserOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479572118EAF800D8BC66 /* UserOptionsView.swift */; };
 		395CB2C3210BB53E0020CD7D /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395CB2C2210BB53E0020CD7D /* Poll.swift */; };
 		395CB2C5210BBD450020CD7D /* LabelAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395CB2C4210BBD450020CD7D /* LabelAdjuster.swift */; };
 		3965CCB6210B707C0049EAE2 /* PollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3965CCB5210B707C0049EAE2 /* PollCell.swift */; };
@@ -73,6 +74,7 @@
 		3920750B210100240040FC82 /* ThisOrThatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatUITests.swift; sourceTree = "<group>"; };
 		3920750D210100240040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		395479552118B43A00D8BC66 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
+		395479572118EAF800D8BC66 /* UserOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptionsView.swift; sourceTree = "<group>"; };
 		395CB2C2210BB53E0020CD7D /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
 		395CB2C4210BBD450020CD7D /* LabelAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAdjuster.swift; sourceTree = "<group>"; };
 		3965CCB5210B707C0049EAE2 /* PollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCell.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 				39E7043C2106554C00567132 /* SignupView.swift */,
 				39E7044021065B3700567132 /* ModalTextField.swift */,
 				3965CCB5210B707C0049EAE2 /* PollCell.swift */,
+				395479572118EAF800D8BC66 /* UserOptionsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				395479582118EAF800D8BC66 /* UserOptionsView.swift in Sources */,
 				395CB2C5210BBD450020CD7D /* LabelAdjuster.swift in Sources */,
 				39E7043D2106554C00567132 /* SignupView.swift in Sources */,
 				395479562118B43A00D8BC66 /* UIImageViewExtensions.swift in Sources */,
