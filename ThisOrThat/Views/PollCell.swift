@@ -284,6 +284,8 @@ class PollCell: UICollectionViewCell {
         }
     }
     
+    var indexController: IndexController?
+    
     func setComments(count: Int) {
         if count == 1 {
             commentLabel.text = "1 comment"
@@ -300,6 +302,11 @@ class PollCell: UICollectionViewCell {
             followIcon.image = UIImage(named: "follow-icon")
             followLabel.text = "follow"
         }
+    }
+    
+    @objc func handleSinglePollView(sender: UIButton) {
+        print("going to single poll")
+        indexController?.changeToSinglePollView()
     }
     
     func setupViews() {
@@ -353,6 +360,8 @@ class PollCell: UICollectionViewCell {
         headerView.addSubview(titleButton)
         titleButton.anchor(headerView.topAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         titleButton.sizeToFit()
+        titleButton.addTarget(self, action: #selector(handleSinglePollView), for: .touchUpInside)
+
         
         headerView.addSubview(usernameLabel)
         usernameLabel.anchor(titleButton.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -391,11 +400,17 @@ class PollCell: UICollectionViewCell {
         commentLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
         commentLabel.rightAnchor.constraint(equalTo: centerXAnchor, constant: -20).isActive = true
         commentLabel.sizeToFit()
+        commentLabel.isUserInteractionEnabled = true
+        let commentLabelTap = UITapGestureRecognizer(target: self, action: #selector(handleSinglePollView(sender:)))
+        commentLabel.addGestureRecognizer(commentLabelTap)
         
         bottomContainerView.addSubview(commentIcon)
         commentIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
         commentIcon.rightAnchor.constraint(equalTo: commentLabel.leftAnchor, constant: -10).isActive = true
         commentIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
         commentIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        commentIcon.isUserInteractionEnabled = true
+        let commentIconTap = UITapGestureRecognizer(target: self, action: #selector(handleSinglePollView(sender:)))
+        commentIcon.addGestureRecognizer(commentIconTap)
     }
 }

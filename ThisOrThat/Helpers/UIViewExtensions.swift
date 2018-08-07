@@ -107,20 +107,10 @@ extension UIView {
         anchorCenterYToSuperview()
     }
     
-//    func addBorder(border: , color: UIColor, width: CGFloat) {
-//        let borderLayer = CALayer()
-//        borderLayer.backgroundColor = color.cgColor
-//        borderLayer.name = border.rawValue
-//        switch border {
-//        case .left:
-//            borderLayer.frame = CGRect(x: 0, y: 0, width: width, height: self.frame.size.height)
-//        case .right:
-//            borderLayer.frame = CGRect(x: self.frame.size.width - width, y: 0, width: width, height: self.frame.size.height)
-//        case .top:
-//            borderLayer.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: width)
-//        case .bottom:
-//            borderLayer.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
-//        }
-//        self.layer.addSublayer(borderLayer)
-//    }
+    func addBottomBorder(color: UIColor, width: CGFloat) {
+        let borderLayer = CALayer()
+        borderLayer.backgroundColor = color.cgColor
+        borderLayer.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
+        self.layer.addSublayer(borderLayer)
+    }
 }

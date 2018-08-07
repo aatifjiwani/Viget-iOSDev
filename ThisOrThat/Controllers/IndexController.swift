@@ -16,11 +16,11 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         collectionView?.dataSource = self
         collectionView?.register(PollCell.self, forCellWithReuseIdentifier: pollCellID)
         collectionView?.alwaysBounceVertical = true
-        
-        UIFont.familyNames.forEach({ familyName in
-            let fontNames = UIFont.fontNames(forFamilyName: familyName)
-            print(familyName, fontNames)
-        })
+//
+//        UIFont.familyNames.forEach({ familyName in
+//            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+//            print(familyName, fontNames)
+//        })
         
         configureNavBar()
         setupHeader()
@@ -75,6 +75,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
         cell.poll = polls[indexPath.item]
+        cell.indexController = self
         return cell
     }
     
@@ -177,6 +178,21 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
 extension IndexController {
     func configureNavBar() {
         self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    func changeToSinglePollView() {
+        let singlePollLayout = UICollectionViewFlowLayout()
+        let singlePollView = SinglePollController(collectionViewLayout: singlePollLayout)
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        
+        present(singlePollView, animated: false) {
+        }
     }
     
     @objc func handleFeed() {
