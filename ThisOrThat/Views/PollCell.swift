@@ -308,6 +308,38 @@ class PollCell: UICollectionViewCell {
         indexController?.changeToSinglePollView(poll: poll)
     }
     
+    @objc func handleFollow() {
+        if followLabel.text == "follow" {
+            followIcon.image = UIImage(named: "following-icon")
+            followLabel.text = "following"
+            
+            APIServices.makeFollow(method: "POST", user_id: UserDefaults.standard.getUser(), poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    if response["follow"] as! Bool {
+                        return
+                    } else {
+                        self.followIcon.image = UIImage(named: "follow-icon")
+                        self.followLabel.text = "follow"
+                    }
+                }
+            }
+            
+        } else {
+            followIcon.image = UIImage(named: "follow-icon")
+            followLabel.text = "follow"
+            APIServices.makeFollow(method: "DELETE", user_id: UserDefaults.standard.getUser(), poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    if !(response["follow"] as! Bool) {
+                        return
+                    } else {
+                        self.followIcon.image = UIImage(named: "following-icon")
+                        self.followLabel.text = "follow"
+                    }
+                }
+            }
+        }
+    }
+    
     func setupViews() {
         backgroundColor = UIColor.white
         
@@ -389,11 +421,17 @@ class PollCell: UICollectionViewCell {
         followIcon.leftAnchor.constraint(equalTo: centerXAnchor, constant: 20).isActive = true
         followIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
         followIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        followIcon.isUserInteractionEnabled = true
+        let followIconTap = UITapGestureRecognizer(target: self, action: #selector(handleFollow))
+        followIcon.addGestureRecognizer(followIconTap)
         
         bottomContainerView.addSubview(followLabel)
         followLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
         followLabel.leftAnchor.constraint(equalTo: followIcon.rightAnchor, constant: 10).isActive = true
         followLabel.sizeToFit()
+        followLabel.isUserInteractionEnabled = true
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollow))
+        followLabel.addGestureRecognizer(followTap)
         
         bottomContainerView.addSubview(commentLabel)
         commentLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true

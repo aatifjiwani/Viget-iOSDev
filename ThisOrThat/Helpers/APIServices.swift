@@ -69,6 +69,18 @@ class APIServices {
         }
     }
     
+    static func makeFollow(method: String, user_id: Int, poll_id: Int, completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/follows/?token=\(Secrets.appKey)")!
+        let json: [String: Any] = [
+            "poll_id": poll_id,
+            "user_id": user_id
+        ]
+        
+        makeAPICallWithResponse(url: url, method: method, dict: json) { (response) in
+            completion(response)
+        }
+    }
+    
     static func getPolls(completion: @escaping ([String: Any]) -> ()) {
         let url = URL(string: "\(baseURL)/api/polls?token=\(Secrets.appKey)")!
         makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
@@ -106,7 +118,7 @@ class APIServices {
         request.httpMethod = method
         
         // insert json data to the request
-        if method == "POST" {
+        if method == "POST" || method == "DELETE" {
             let jsonData = self.dictToJSONObject(dict: dict!)
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
             request.httpBody = jsonData
