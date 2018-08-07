@@ -20,6 +20,16 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Niveau-Grotesk-Light-Smallcaps.otf</string>
+		<string>Niveau-Grotesk-Bold.otf</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -28,22 +38,10 @@
 	</array>
 	<key>UIStatusBarHidden</key>
 	<true/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Niveau-Grotesk-Light-Smallcaps.otf</string>
-		<string>Niveau-Grotesk-Bold.otf</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

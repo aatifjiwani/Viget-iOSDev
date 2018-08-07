@@ -151,6 +151,13 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return label
     }()
     
+    let commentSendButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "send-button"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     let optionALabel: UILabel = {
         let label = UILabel()
         label.text = "..."
@@ -356,6 +363,10 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return h
     }
     
+    @objc func handleComment() {
+        print("commenting")
+    }
+    
     @objc func handleGoBack() {
         let transition = CATransition()
         transition.duration = 0.25
@@ -472,8 +483,13 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         commentUserNameLabel.centerYAnchor.constraint(equalTo: commentView.centerYAnchor).isActive = true
         commentUserNameLabel.sizeToFit()
         
+        commentView.addSubview(commentSendButton)
+        commentSendButton.anchor(nil, left: nil, bottom: nil, right: commentView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 24, heightConstant: 24)
+        commentSendButton.centerYAnchor.constraint(equalTo: commentView.centerYAnchor).isActive = true
+        commentSendButton.addTarget(self, action: #selector(handleComment), for: .touchUpInside)
+        
         commentView.addSubview(commentTextField)
-        commentTextField.anchor(nil, left: commentUserNameLabel.rightAnchor, bottom: nil, right: commentView.rightAnchor, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 30)
+        commentTextField.anchor(nil, left: commentUserNameLabel.rightAnchor, bottom: nil, right: commentSendButton.leftAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 30)
         commentTextField.centerYAnchor.constraint(equalTo: commentView.centerYAnchor).isActive = true
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
