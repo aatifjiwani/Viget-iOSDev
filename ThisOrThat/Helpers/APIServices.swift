@@ -62,6 +62,21 @@ class APIServices {
         }
     }
     
+    static func createComment(body: String, user_id: Int, poll_id: Int, completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/comments/?token=\(Secrets.appKey)")!
+        let json: [String: Any] = [
+            "poll_id": poll_id,
+            "user_id": user_id,
+            "comment": [
+                "body": body
+            ]
+        ]
+        
+        makeAPICallWithResponse(url: url, method: "POST", dict: json) { (response) in
+            completion(response)
+        }
+    }
+    
     static func getFollow(poll_id: Int?, user_id: Int?, completion: @escaping ([String: Any]) -> ()) {
         let url = URL(string: "\(baseURL)/api/follows/?user_id=\(user_id!)&poll_id=\(poll_id!)&token=\(Secrets.appKey)")!
         makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in

@@ -364,7 +364,20 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     }
     
     @objc func handleComment() {
-        print("commenting")
+        guard let commentText = commentTextField.text else {
+            return
+        }
+        
+        if !commentText.isEmpty {
+            APIServices.createComment(body: commentText, user_id: UserDefaults.standard.getUser(), poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    let comment = Comment(json: response["comment"] as! [String: Any])
+                    self.comments.append(comment)
+                    self.collectionView?.reloadData()
+                    self.commentTextField.text = ""
+                }
+            }
+        }
     }
     
     @objc func handleGoBack() {
@@ -491,6 +504,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         commentView.addSubview(commentTextField)
         commentTextField.anchor(nil, left: commentUserNameLabel.rightAnchor, bottom: nil, right: commentSendButton.leftAnchor, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 30)
         commentTextField.centerYAnchor.constraint(equalTo: commentView.centerYAnchor).isActive = true
+        commentTextField.placeholder = "add a comment"
         
         collectionView?.translatesAutoresizingMaskIntoConstraints = false
         collectionView?.anchor(nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
