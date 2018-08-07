@@ -180,10 +180,11 @@ extension IndexController {
         self.navigationController?.navigationBar.isHidden = true
     }
     
-    func changeToSinglePollView() {
+    func changeToSinglePollView(poll: Poll?) {
         let singlePollLayout = UICollectionViewFlowLayout()
         singlePollLayout.minimumInteritemSpacing = 0
         let singlePollView = SinglePollController(collectionViewLayout: singlePollLayout)
+        singlePollView.poll = poll
         
         let transition = CATransition()
         transition.duration = 0.5

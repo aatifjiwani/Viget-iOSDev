@@ -305,8 +305,7 @@ class PollCell: UICollectionViewCell {
     }
     
     @objc func handleSinglePollView(sender: UIButton) {
-        print("going to single poll")
-        indexController?.changeToSinglePollView()
+        indexController?.changeToSinglePollView(poll: poll)
     }
     
     func setupViews() {

@@ -12,7 +12,6 @@ class CommentCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
-        print("yo")
     }
     
     required init?(coder aDecoder: NSCoder) {
