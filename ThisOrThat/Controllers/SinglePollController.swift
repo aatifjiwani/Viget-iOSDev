@@ -53,9 +53,9 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     
     let followLabel: UILabel = {
         let label = UILabel()
-        label.text = "follow"
+        label.text = "following"
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -64,7 +64,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         let label = UILabel()
         label.text = "56 votes"
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -73,7 +73,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         let label = UILabel()
         label.text = "7 days left"
         label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: UIFont.Weight.medium)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -117,5 +117,30 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         headerContainerView.addSubview(goBackButton)
         goBackButton.anchor(headerContainerView.topAnchor, left: headerContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 15, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         goBackButton.sizeToFit()
+        
+        pollInfoView.addSubview(voteIcon)
+        voteIcon.anchor(pollInfoView.topAnchor, left: pollInfoView.leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 15, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        
+        pollInfoView.addSubview(voteLabel)
+        voteLabel.anchor(nil, left: voteIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        voteLabel.centerYAnchor.constraint(equalTo: voteIcon.centerYAnchor).isActive = true
+        voteLabel.sizeToFit()
+        
+        pollInfoView.addSubview(clockIcon)
+        clockIcon.anchor(pollInfoView.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)
+        clockIcon.anchorCenterXToSuperview(constant: -40)
+        
+        pollInfoView.addSubview(timeLabel)
+        timeLabel.anchor(nil, left: clockIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        timeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        timeLabel.sizeToFit()
+        
+        pollInfoView.addSubview(followLabel)
+        followLabel.anchor(nil, left: nil, bottom: nil, right: pollInfoView.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 15, widthConstant: 0, heightConstant: 0)
+        followLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
+        followLabel.sizeToFit()
+        
+        pollInfoView.addSubview(followIcon)
+        followIcon.anchor(pollInfoView.topAnchor, left: nil, bottom: nil, right: followLabel.leftAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 20, heightConstant: 20)
     }
 }
