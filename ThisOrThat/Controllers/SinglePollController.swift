@@ -11,7 +11,7 @@ import UIKit
 class SinglePollController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.backgroundColor = UIColor.green
+        collectionView?.backgroundColor = UIColor(red: 250, green: 250, blue: 250, alpha: 1)
         collectionView?.delegate = self
         collectionView?.dataSource = self
         collectionView?.alwaysBounceVertical = true
@@ -143,7 +143,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return view
     }()
     
-    let commentUserNameLabel: UIView = {
+    let commentUserNameLabel: UILabel = {
         let label = UILabel()
         label.text = "username"
         label.textColor = UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1)
@@ -218,6 +218,8 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     
     let commentID = "commentID"
     
+    var comments = [Comment]()
+    
     var poll: Poll? {
         didSet {
             titleLabel.text = poll?.title
@@ -258,11 +260,44 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
                 optionBLabel.isHidden = false
                 optionBView.image = nil
             }
+            
+            APIServices.getComments(poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    let commentArray = response["comment"] as! NSArray
+                    for comment in commentArray {
+                        let individualComment = comment as! [String:Any]
+                        let commentObject = Comment(json: individualComment)
+                        self.comments.append(commentObject)
+                        self.collectionView?.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    var user: User? {
+        didSet {
+            commentUserNameLabel.text = user?.username
+            APIServices.getFollow(poll_id: poll?.id, user_id: UserDefaults.standard.getUser()) { (response) in
+                if response["status"] as! String == "success" {
+                    self.setFollows(follow: response["follow"] as! Bool)
+                }
+            }
+        }
+    }
+    
+    func setFollows(follow: Bool) {
+        if follow {
+            followIcon.image = UIImage(named: "following-icon")
+            followLabel.text = "following"
+        } else {
+            followIcon.image = UIImage(named: "follow-icon")
+            followLabel.text = "follow"
         }
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return comments.count
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -275,11 +310,13 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentID, for: indexPath) as! CommentCell
+        cell.comment = self.comments[indexPath.item]
         return cell
     }
     
     func heightForCommentCell(indexPath: IndexPath) -> CGFloat{
         let cell = CommentCell()
+        cell.comment = self.comments[indexPath.item]
         cell.setupViews()
         var h = CGFloat(cell.commentLabel.sizeThatFits(CGSize(width: view.frame.width - 140, height: 200)).height)
         h.round(.up)
@@ -347,7 +384,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         timeLabel.sizeToFit()
         
         pollInfoView.addSubview(followLabel)
-        followLabel.anchor(nil, left: nil, bottom: nil, right: pollInfoView.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 15, widthConstant: 0, heightConstant: 0)
+        followLabel.anchor(nil, left: nil, bottom: nil, right: pollInfoView.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 25, widthConstant: 0, heightConstant: 0)
         followLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         followLabel.sizeToFit()
         

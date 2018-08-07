@@ -185,6 +185,7 @@ extension IndexController {
         singlePollLayout.minimumInteritemSpacing = 0
         let singlePollView = SinglePollController(collectionViewLayout: singlePollLayout)
         singlePollView.poll = poll
+        singlePollView.user = user
         
         let transition = CATransition()
         transition.duration = 0.5

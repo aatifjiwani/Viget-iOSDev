@@ -26,6 +26,7 @@
 		399FA4E5210258A90006A285 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FA4E4210258A90006A285 /* LoginView.swift */; };
 		39BE21942119FAEB00ECD8AA /* SinglePollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE21932119FAEB00ECD8AA /* SinglePollController.swift */; };
 		39BE2196211A159C00ECD8AA /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE2195211A159C00ECD8AA /* CommentCell.swift */; };
+		39BE2198211A413600ECD8AA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE2197211A413600ECD8AA /* Comment.swift */; };
 		39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0ABE4210134040021855D /* UIViewExtensions.swift */; };
 		39E7043D2106554C00567132 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7043C2106554C00567132 /* SignupView.swift */; };
 		39E7044121065B3700567132 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7044021065B3700567132 /* ModalTextField.swift */; };
@@ -83,6 +84,7 @@
 		399FA4E4210258A90006A285 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		39BE21932119FAEB00ECD8AA /* SinglePollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePollController.swift; sourceTree = "<group>"; };
 		39BE2195211A159C00ECD8AA /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
+		39BE2197211A413600ECD8AA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		39E0ABE4210134040021855D /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		39E7043C2106554C00567132 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		39E7044021065B3700567132 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextField.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				3912969D210141B900AE1630 /* User.swift */,
 				395CB2C2210BB53E0020CD7D /* Poll.swift */,
+				39BE2197211A413600ECD8AA /* Comment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				392074EC210100210040FC82 /* AppDelegate.swift in Sources */,
 				391296A02101438800AE1630 /* UserDefaultExtension.swift in Sources */,
 				391296A221014A5700AE1630 /* TriangleView.swift in Sources */,
+				39BE2198211A413600ECD8AA /* Comment.swift in Sources */,
 				395CB2C3210BB53E0020CD7D /* Poll.swift in Sources */,
 				3965CCB6210B707C0049EAE2 /* PollCell.swift in Sources */,
 				399FA4E5210258A90006A285 /* LoginView.swift in Sources */,

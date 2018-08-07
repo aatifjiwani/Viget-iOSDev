@@ -38,8 +38,15 @@ class CommentCell: UICollectionViewCell {
         return label
     }()
     
+    var comment: Comment? {
+        didSet {
+            userNameLabel.text = comment?.username
+            commentLabel.text = comment?.body
+        }
+    }
+    
     func setupViews() {
-        backgroundColor = UIColor.red
+        backgroundColor = UIColor.clear
         
         addSubview(userNameLabel)
         userNameLabel.anchor(nil, left: leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 0)

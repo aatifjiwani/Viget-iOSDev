@@ -55,6 +55,13 @@ class APIServices {
         }
     }
     
+    static func getComments(poll_id: Int, completion: @escaping ([String: Any]) -> ()) {
+        let url = URL(string: "\(baseURL)/api/comments/?poll_id=\(poll_id)&token=\(Secrets.appKey)")!
+        makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
+            completion(response)
+        }
+    }
+    
     static func getFollow(poll_id: Int?, user_id: Int?, completion: @escaping ([String: Any]) -> ()) {
         let url = URL(string: "\(baseURL)/api/follows/?user_id=\(user_id!)&poll_id=\(poll_id!)&token=\(Secrets.appKey)")!
         makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
