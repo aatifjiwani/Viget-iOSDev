@@ -314,6 +314,38 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return cell
     }
     
+    @objc func handleFollow() {
+        if followLabel.text == "follow" {
+            followIcon.image = UIImage(named: "following-icon")
+            followLabel.text = "following"
+            
+            APIServices.makeFollow(method: "POST", user_id: UserDefaults.standard.getUser(), poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    if response["follow"] as! Bool {
+                        return
+                    } else {
+                        self.followIcon.image = UIImage(named: "follow-icon")
+                        self.followLabel.text = "follow"
+                    }
+                }
+            }
+            
+        } else {
+            followIcon.image = UIImage(named: "follow-icon")
+            followLabel.text = "follow"
+            APIServices.makeFollow(method: "DELETE", user_id: UserDefaults.standard.getUser(), poll_id: (poll?.id)!) { (response) in
+                if response["status"] as? String == "success" {
+                    if !(response["follow"] as! Bool) {
+                        return
+                    } else {
+                        self.followIcon.image = UIImage(named: "following-icon")
+                        self.followLabel.text = "follow"
+                    }
+                }
+            }
+        }
+    }
+    
     func heightForCommentCell(indexPath: IndexPath) -> CGFloat{
         let cell = CommentCell()
         cell.comment = self.comments[indexPath.item]
@@ -387,9 +419,15 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         followLabel.anchor(nil, left: nil, bottom: nil, right: pollInfoView.rightAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 25, widthConstant: 0, heightConstant: 0)
         followLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         followLabel.sizeToFit()
+        followLabel.isUserInteractionEnabled = true
+        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollow))
+        followLabel.addGestureRecognizer(followTap)
         
         pollInfoView.addSubview(followIcon)
         followIcon.anchor(pollInfoView.topAnchor, left: nil, bottom: nil, right: followLabel.leftAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 20, heightConstant: 20)
+        followIcon.isUserInteractionEnabled = true
+        let followIconTap = UITapGestureRecognizer(target: self, action: #selector(handleFollow))
+        followIcon.addGestureRecognizer(followIconTap)
         
         pollInfoView.addSubview(optionAView)
         optionAView.anchor(voteIcon.bottomAnchor, left: pollInfoView.leftAnchor, bottom: nil, right: nil, topConstant: 35, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: (view.frame.width / 2) - 10, heightConstant: 200)
