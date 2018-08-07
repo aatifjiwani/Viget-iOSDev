@@ -182,6 +182,7 @@ extension IndexController {
     
     func changeToSinglePollView() {
         let singlePollLayout = UICollectionViewFlowLayout()
+        singlePollLayout.minimumInteritemSpacing = 0
         let singlePollView = SinglePollController(collectionViewLayout: singlePollLayout)
         
         let transition = CATransition()

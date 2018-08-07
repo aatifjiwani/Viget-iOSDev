@@ -156,20 +156,29 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     let commentID = "commentID"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 5
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10.0, left: 0.0, bottom: 5.0, right: 0.0)
+        return UIEdgeInsets.zero
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 20)
+        return CGSize(width: view.frame.width, height: heightForCommentCell(indexPath: indexPath) + 10)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: commentID, for: indexPath) as! CommentCell
         return cell
+    }
+    
+    func heightForCommentCell(indexPath: IndexPath) -> CGFloat{
+        let cell = CommentCell()
+        cell.setupViews()
+        var h = CGFloat(cell.commentLabel.sizeThatFits(CGSize(width: view.frame.width - 140, height: 200)).height)
+        h.round(.up)
+        print(h)
+        return h
     }
     
     @objc func handleGoBack() {
