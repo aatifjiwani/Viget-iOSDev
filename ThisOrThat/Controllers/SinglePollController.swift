@@ -110,8 +110,8 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     
     let optionAView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleToFill
         view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         view.layer.cornerRadius = 100
         return view
@@ -119,8 +119,8 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
     
     let optionBView: UIImageView = {
         let view = UIImageView()
-        view.contentMode = .scaleToFill
         view.clipsToBounds = true
+        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
