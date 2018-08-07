@@ -18,6 +18,8 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         setupViews()
     }
     
+    var indexController: IndexController?
+    
     let headerContainerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -119,6 +121,15 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return view
     }()
     
+    @objc func handleGoBack() {
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false) {}
+    }
+    
     func setupViews() {
         view.addSubview(pollInfoView)
         pollInfoView.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 125, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 350)
@@ -134,6 +145,7 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         headerContainerView.addSubview(goBackButton)
         goBackButton.anchor(headerContainerView.topAnchor, left: headerContainerView.leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 15, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         goBackButton.sizeToFit()
+        goBackButton.addTarget(self, action: #selector(handleGoBack), for: .touchUpInside)
         
         pollInfoView.addSubview(voteIcon)
         voteIcon.anchor(pollInfoView.topAnchor, left: pollInfoView.leftAnchor, bottom: nil, right: nil, topConstant: 25, leftConstant: 15, bottomConstant: 0, rightConstant: 0, widthConstant: 20, heightConstant: 20)

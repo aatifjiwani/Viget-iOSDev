@@ -192,6 +192,7 @@ extension IndexController {
         view.window!.layer.add(transition, forKey: kCATransition)
         
         present(singlePollView, animated: false) {
+            singlePollView.indexController = self
         }
     }
     
