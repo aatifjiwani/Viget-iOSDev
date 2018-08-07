@@ -102,6 +102,23 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         return image
     }()
     
+    let optionAView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleToFill
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
+        view.layer.cornerRadius = 100
+        return view
+    }()
+    
+    let optionBView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleToFill
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
+        return view
+    }()
+    
     func setupViews() {
         view.addSubview(pollInfoView)
         pollInfoView.anchor(view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, topConstant: 125, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 350)
@@ -142,5 +159,11 @@ class SinglePollController: UICollectionViewController, UICollectionViewDelegate
         
         pollInfoView.addSubview(followIcon)
         followIcon.anchor(pollInfoView.topAnchor, left: nil, bottom: nil, right: followLabel.leftAnchor, topConstant: 25, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 20, heightConstant: 20)
+        
+        pollInfoView.addSubview(optionAView)
+        optionAView.anchor(voteIcon.bottomAnchor, left: pollInfoView.leftAnchor, bottom: nil, right: nil, topConstant: 35, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: (view.frame.width / 2) - 10, heightConstant: 200)
+        
+        pollInfoView.addSubview(optionBView)
+        optionBView.anchor(voteIcon.bottomAnchor, left: nil, bottom: nil, right: pollInfoView.rightAnchor, topConstant: 35, leftConstant: 0, bottomConstant: 0, rightConstant: 5, widthConstant: (view.frame.width / 2) - 10, heightConstant: 200)
     }
 }
