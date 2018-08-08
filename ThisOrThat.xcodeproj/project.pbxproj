@@ -24,6 +24,7 @@
 		395CB2C5210BBD450020CD7D /* LabelAdjuster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395CB2C4210BBD450020CD7D /* LabelAdjuster.swift */; };
 		3965CCB6210B707C0049EAE2 /* PollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3965CCB5210B707C0049EAE2 /* PollCell.swift */; };
 		399FA4E5210258A90006A285 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 399FA4E4210258A90006A285 /* LoginView.swift */; };
+		39B626CF211B634E006C7A00 /* LoeadingPollCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39B626CE211B634E006C7A00 /* LoeadingPollCell.swift */; };
 		39BE21942119FAEB00ECD8AA /* SinglePollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE21932119FAEB00ECD8AA /* SinglePollController.swift */; };
 		39BE2196211A159C00ECD8AA /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE2195211A159C00ECD8AA /* CommentCell.swift */; };
 		39BE2198211A413600ECD8AA /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BE2197211A413600ECD8AA /* Comment.swift */; };
@@ -83,6 +84,7 @@
 		395CB2C4210BBD450020CD7D /* LabelAdjuster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelAdjuster.swift; sourceTree = "<group>"; };
 		3965CCB5210B707C0049EAE2 /* PollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCell.swift; sourceTree = "<group>"; };
 		399FA4E4210258A90006A285 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		39B626CE211B634E006C7A00 /* LoeadingPollCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoeadingPollCell.swift; sourceTree = "<group>"; };
 		39BE21932119FAEB00ECD8AA /* SinglePollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePollController.swift; sourceTree = "<group>"; };
 		39BE2195211A159C00ECD8AA /* CommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		39BE2197211A413600ECD8AA /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				395479572118EAF800D8BC66 /* UserOptionsView.swift */,
 				39BE2195211A159C00ECD8AA /* CommentCell.swift */,
 				39BE2199211A525E00ECD8AA /* PopularRecentCell.swift */,
+				39B626CE211B634E006C7A00 /* LoeadingPollCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				3965CCB6210B707C0049EAE2 /* PollCell.swift in Sources */,
 				399FA4E5210258A90006A285 /* LoginView.swift in Sources */,
 				3912969E210141B900AE1630 /* User.swift in Sources */,
+				39B626CF211B634E006C7A00 /* LoeadingPollCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
