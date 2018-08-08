@@ -32,6 +32,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     var polls = [Poll]()
     var isOnPopular = false
+    var loadingCounter = 0
     
     func fetchPolls(filter: String? = nil, popular: Bool = false) {
 //        if let filteredString = filter {
@@ -95,6 +96,8 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingPollCellID, for: indexPath) as! LoadingPollCell
+        cell.whichColor = (loadingCounter % 2 == 0)
+        loadingCounter += 1
         return cell
 
 //        if indexPath.item == 0 && currentHeaderState == "feed" {

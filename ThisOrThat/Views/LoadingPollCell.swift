@@ -18,6 +18,48 @@ class LoadingPollCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    let lightBlue = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+    let midBlue = UIColor(red: 122/255, green: 204/255, blue: 255/255, alpha: 1)
+    let lightOrange = UIColor(red: 252/255, green: 233/255, blue: 182/255, alpha: 1)
+    let midOrange = UIColor(red: 255/255, green: 213/255, blue: 122/255, alpha: 1)
+    
+    var lightColor: CGColor?
+    var midColor: CGColor?
+    
+    var alreadyCreated = false
+    
+    var whichColor: Bool? {
+        didSet {
+            if !alreadyCreated {
+                if whichColor! {
+                    lightColor = lightBlue.cgColor
+                    midColor = midBlue.cgColor
+                    
+                    upperTitleView.backgroundColor = lightBlue
+                    usernameLabel.backgroundColor = lightBlue
+                    voteLabel.backgroundColor = lightBlue
+                    timeLabel.backgroundColor = lightBlue
+                    commentLabel.backgroundColor = lightBlue
+                    followLabel.backgroundColor = lightBlue
+                } else {
+                    lightColor = lightOrange.cgColor
+                    midColor = midOrange.cgColor
+                    
+                    upperTitleView.backgroundColor = lightOrange
+                    usernameLabel.backgroundColor = lightOrange
+                    voteLabel.backgroundColor = lightOrange
+                    timeLabel.backgroundColor = lightOrange
+                    commentLabel.backgroundColor = lightOrange
+                    followLabel.backgroundColor = lightOrange
+                }
+                
+                startAnimation()
+                alreadyCreated = true
+            }
+        }
+    }
+    
+    
     let bottomContainerView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 235/255, green: 235/255, blue: 235/255, alpha: 1)
@@ -252,23 +294,19 @@ class LoadingPollCell: UICollectionViewCell {
         bottomContainerView.addSubview(commentIcon)
         commentIcon.anchorCenterYToSuperview()
         commentIcon.anchor(nil, left: nil, bottom: nil, right: commentLabel.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 14, heightConstant: 14)
-        
-        startAnimation()
     }
     
     func startAnimation() {
-        let lightBlue = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1).cgColor
-        let midBlue = UIColor(red: 122/255, green: 204/255, blue: 255/255, alpha: 1).cgColor
         
         //Header View gradients
-        let titleGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
-        let usernameGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
-        let voteGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
-        let timeGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let titleGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let usernameGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let voteGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let timeGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
         
         //Bottom View gradients
-        let commentGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
-        let followGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
+        let commentGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
+        let followGradient = createGradient(lowerColor: lightColor!, upperColor: midColor!, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
         
         //Header View labels
         gradientTitleView.layer.insertSublayer(titleGradient, at: 0)
