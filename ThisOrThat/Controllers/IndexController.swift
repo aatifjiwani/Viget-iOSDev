@@ -30,35 +30,40 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     var polls = [Poll]()
+    var isOnPopular = false
     
-    func fetchPolls(filter: String? = nil) {
+    func fetchPolls(filter: String? = nil, popular: Bool = false) {
         if let filteredString = filter {
             currentFilter = filter
             APIServices.getUserPolls(filter: filteredString, user_id: UserDefaults.standard.getUser()) { (response) in
-                if response["status"] as! String == "success" {
-                    if let polls = response["poll"] as? NSArray {
-                        for poll in polls {
-                            let individual = poll as! [String: Any]
-                            self.polls.append(Poll(json: individual))
-                            self.collectionView?.reloadData()
-                        }
-                        print("finished")
-                    }
-                }
+                self.reloadCollectionViewWithResponse(response: response)
             }
         } else {
             currentFilter = "feed"
-            APIServices.getPolls { (response) in
-                if response["status"] as! String == "success" {
-                    if let polls = response["poll"] as? NSArray {
-                        for poll in polls {
-                            let individual = poll as! [String: Any]
-                            self.polls.append(Poll(json: individual))
-                            self.collectionView?.reloadData()
-                        }
-                        print("finished")
-                    }
+            if popular {
+                isOnPopular = true
+                APIServices.getPolls(filter: "popular") { (response) in
+                    self.reloadCollectionViewWithResponse(response: response)
                 }
+            } else {
+                isOnPopular = false
+                APIServices.getPolls { (response) in
+                    self.reloadCollectionViewWithResponse(response: response)
+                }
+            }
+            
+        }
+    }
+    
+    func reloadCollectionViewWithResponse(response: [String:Any]) {
+        if response["status"] as! String == "success" {
+            if let polls = response["poll"] as? NSArray {
+                for poll in polls {
+                    let individual = poll as! [String: Any]
+                    self.polls.append(Poll(json: individual))
+                    self.collectionView?.reloadData()
+                }
+                print("finished")
             }
         }
     }
@@ -86,6 +91,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.item == 0 && currentHeaderState == "feed" {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularRecentCellID, for: indexPath) as! PopularRecentCell
+            cell.indexController = self
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
@@ -229,7 +235,7 @@ extension IndexController {
             squigglyCenterAnchor?.isActive = false
             squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: feedLabel.centerXAnchor)
             squigglyCenterAnchor?.isActive = true
-            fetchPolls()
+            fetchPolls(filter: nil, popular: isOnPopular)
         }
     }
     
@@ -242,7 +248,7 @@ extension IndexController {
             squigglyCenterAnchor?.isActive = false
             squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: pollLabel.centerXAnchor)
             squigglyCenterAnchor?.isActive = true
-            fetchPolls(filter: "mypolls")
+            fetchPolls(filter: "mypolls", popular: isOnPopular)
         }
     }
     
@@ -255,7 +261,7 @@ extension IndexController {
             squigglyCenterAnchor?.isActive = false
             squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: followingLabel.centerXAnchor)
             squigglyCenterAnchor?.isActive = true
-            fetchPolls(filter: "following")
+            fetchPolls(filter: "following", popular: isOnPopular)
         }
     }
     

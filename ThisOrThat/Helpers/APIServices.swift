@@ -96,8 +96,14 @@ class APIServices {
         }
     }
     
-    static func getPolls(completion: @escaping ([String: Any]) -> ()) {
-        let url = URL(string: "\(baseURL)/api/polls?token=\(Secrets.appKey)")!
+    static func getPolls(filter: String? = nil, completion: @escaping ([String: Any]) -> ()) {
+        var url: URL
+        if let filteredString = filter {
+            url = URL(string: "\(baseURL)/api/polls?filter=\(filteredString)&token=\(Secrets.appKey)")!
+        } else {
+            url = URL(string: "\(baseURL)/api/polls?token=\(Secrets.appKey)")!
+        }
+        
         makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in
             completion(response)
         }

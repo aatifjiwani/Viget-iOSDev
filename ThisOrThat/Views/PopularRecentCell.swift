@@ -20,6 +20,7 @@ class PopularRecentCell: UICollectionViewCell {
     
     let orangeBorder = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1).cgColor
     let blueBorder = UIColor(red: 97/255, green: 183/255, blue: 242/255, alpha: 1).cgColor
+    var indexController: IndexController?
     
     let popularView: UIView = {
         let view = UIView()
@@ -41,7 +42,7 @@ class PopularRecentCell: UICollectionViewCell {
     
     let highlightLabel: UILabel = {
         let label = UILabel()
-        label.text = "Popular"
+        label.text = "Most Recent"
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
         return label
@@ -68,35 +69,36 @@ class PopularRecentCell: UICollectionViewCell {
         view.backgroundColor = UIColor.white
         view.clipsToBounds = true
         view.layer.masksToBounds = true
-        view.layer.cornerRadius = 20
-        view.layer.borderColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1).cgColor
+        view.layer.cornerRadius = 0
+        view.layer.borderColor = UIColor(red: 97/255, green: 183/255, blue: 242/255, alpha: 1).cgColor
         view.layer.borderWidth = 5
         return view
     }()
     
-    var highlightLeftAnchor: NSLayoutConstraint?
+    var highlightRightAnchor: NSLayoutConstraint?
     
-    var currentState = "popular"
+    var currentState = "recent"
     
     @objc func handlePopular() {
         if currentState != "popular" {
             highlightLabel.text = "Popular"
-            animateHighlightView(fromColor: blueBorder, toColor: orangeBorder, fromRadius: 0, toRadius: 20, anchorConstant: 0)
             currentState = "popular"
+            animateHighlightView(fromColor: blueBorder, toColor: orangeBorder, fromRadius: 0, toRadius: 20, anchorConstant: -100)
         }
     }
     
     @objc func handleRecent() {
         if currentState != "recent" {
             highlightLabel.text = "Most Recent"
-            animateHighlightView(fromColor: orangeBorder, toColor: blueBorder, fromRadius: 20, toRadius: 0, anchorConstant: 100)
             currentState = "recent"
+            animateHighlightView(fromColor: orangeBorder, toColor: blueBorder, fromRadius: 20, toRadius: 0, anchorConstant: 0)
+            
         }
     }
     
     func animateHighlightView(fromColor: CGColor, toColor: CGColor, fromRadius: CGFloat, toRadius: CGFloat, anchorConstant: CGFloat) {
-        highlightLeftAnchor?.constant = anchorConstant
-        UIView.animate(withDuration: 1, animations: {
+        highlightRightAnchor?.constant = anchorConstant
+        UIView.animate(withDuration: 0.5, animations: {
             self.layoutIfNeeded()
             
             let borderAnimate = CABasicAnimation(keyPath: "borderColor")
@@ -109,7 +111,7 @@ class PopularRecentCell: UICollectionViewCell {
             
             
             let animationGroup = CAAnimationGroup()
-            animationGroup.duration = 1
+            animationGroup.duration = 0.5
             animationGroup.repeatCount = 1
             animationGroup.animations = [borderAnimate, cornerRadiusAnimate]
             
@@ -117,6 +119,13 @@ class PopularRecentCell: UICollectionViewCell {
         }) { (bool) in
             self.highlightView.layer.cornerRadius = toRadius
             self.highlightView.layer.borderColor = toColor
+            self.indexController?.polls.removeAll()
+            self.indexController?.collectionView?.reloadData()
+            if (self.currentState == "popular") {
+                self.indexController?.fetchPolls(filter: nil, popular: true)
+            } else {
+                self.indexController?.fetchPolls()
+            }
         }
     }
     
@@ -149,8 +158,8 @@ class PopularRecentCell: UICollectionViewCell {
         addSubview(highlightView)
         highlightView.anchor(nil, left: nil, bottom: nil, right: nil, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 120, heightConstant: 40)
         highlightView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        highlightLeftAnchor = highlightView.leftAnchor.constraint(equalTo: popularView.leftAnchor, constant: 0)
-        highlightLeftAnchor?.isActive = true
+        highlightRightAnchor = highlightView.rightAnchor.constraint(equalTo: mostRecentView.rightAnchor, constant: 0)
+        highlightRightAnchor?.isActive = true
         
         highlightView.addSubview(highlightLabel)
         highlightLabel.anchorCenterSuperview()
