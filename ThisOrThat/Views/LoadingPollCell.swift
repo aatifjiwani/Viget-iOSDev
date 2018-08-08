@@ -90,9 +90,25 @@ class LoadingPollCell: UICollectionViewCell {
         return view
     }()
     
+    let gradientCommentLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
     let followLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let gradientFollowLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -224,10 +240,14 @@ class LoadingPollCell: UICollectionViewCell {
         bottomContainerView.addSubview(followLabel)
         followLabel.anchorCenterYToSuperview(constant: 1)
         followLabel.anchor(nil, left: followIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 75, heightConstant: 14)
+        bottomContainerView.addSubview(gradientFollowLabel)
+        gradientFollowLabel.anchor(followLabel.topAnchor, left: followLabel.leftAnchor, bottom: followLabel.bottomAnchor, right: followLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         bottomContainerView.addSubview(commentLabel)
         commentLabel.anchorCenterYToSuperview(constant: 1)
         commentLabel.anchor(nil, left: nil, bottom: nil, right: bottomContainerView.centerXAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 75, heightConstant: 14)
+        bottomContainerView.addSubview(gradientCommentLabel)
+        gradientCommentLabel.anchor(commentLabel.topAnchor, left: commentLabel.leftAnchor, bottom: commentLabel.bottomAnchor, right: commentLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         bottomContainerView.addSubview(commentIcon)
         commentIcon.anchorCenterYToSuperview()
@@ -246,15 +266,30 @@ class LoadingPollCell: UICollectionViewCell {
         let voteGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
         let timeGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
         
+        //Bottom View gradients
+        let commentGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
+        let followGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: 55, width: frame.width, height: 80))
+        
+        //Header View labels
         gradientTitleView.layer.insertSublayer(titleGradient, at: 0)
         gradientUsernameLabel.layer.insertSublayer(usernameGradient, at: 0)
         gradientVoteLabel.layer.insertSublayer(voteGradient, at: 0)
         gradientTimeLabel.layer.insertSublayer(timeGradient, at: 0)
         
+        //Bottom View labels
+        gradientCommentLabel.layer.insertSublayer(commentGradient, at: 0)
+        gradientFollowLabel.layer.insertSublayer(followGradient, at: 0)
+
+        
+        //Header view animations
         addGradientAnimation(gradient: titleGradient)
         addGradientAnimation(gradient: usernameGradient)
         addGradientAnimation(gradient: voteGradient)
         addGradientAnimation(gradient: timeGradient)
+        
+        //Bottom View animations
+        addGradientAnimation(gradient: commentGradient)
+        addGradientAnimation(gradient: followGradient)
     }
     
     func createGradient(lowerColor: CGColor, upperColor: CGColor, frame: CGRect) -> CAGradientLayer {
