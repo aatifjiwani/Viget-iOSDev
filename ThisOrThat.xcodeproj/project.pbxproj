@@ -16,7 +16,6 @@
 		392074F1210100220040FC82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 392074EF210100220040FC82 /* Main.storyboard */; };
 		392074F3210100230040FC82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 392074F2210100230040FC82 /* Assets.xcassets */; };
 		392074F6210100230040FC82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 392074F4210100230040FC82 /* LaunchScreen.storyboard */; };
-		39207501210100240040FC82 /* ThisOrThatTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39207500210100240040FC82 /* ThisOrThatTests.swift */; };
 		3920750C210100240040FC82 /* ThisOrThatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920750B210100240040FC82 /* ThisOrThatUITests.swift */; };
 		395479562118B43A00D8BC66 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479552118B43A00D8BC66 /* UIImageViewExtensions.swift */; };
 		395479582118EAF800D8BC66 /* UserOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479572118EAF800D8BC66 /* UserOptionsView.swift */; };
@@ -75,7 +74,6 @@
 		392074F5210100230040FC82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		392074F7210100230040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		392074FC210100240040FC82 /* ThisOrThatTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThisOrThatTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		39207500210100240040FC82 /* ThisOrThatTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatTests.swift; sourceTree = "<group>"; };
 		39207502210100240040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39207507210100240040FC82 /* ThisOrThatUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ThisOrThatUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3920750B210100240040FC82 /* ThisOrThatUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThisOrThatUITests.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 			children = (
 				39B4C0EF211B939100DFE82E /* Factories */,
 				39B4C0EE211B938600DFE82E /* Tests */,
-				39207500210100240040FC82 /* ThisOrThatTests.swift */,
 				39207502210100240040FC82 /* Info.plist */,
 			);
 			path = ThisOrThatTests;
@@ -536,7 +533,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				39207501210100240040FC82 /* ThisOrThatTests.swift in Sources */,
 				39B4C0F3211B969500DFE82E /* PollTests.swift in Sources */,
 				39B4C0F1211B944C00DFE82E /* PollFactory.swift in Sources */,
 			);
