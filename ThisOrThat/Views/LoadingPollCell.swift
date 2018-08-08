@@ -30,7 +30,6 @@ class LoadingPollCell: UICollectionViewCell {
     let optionAView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         return view
     }()
@@ -38,7 +37,6 @@ class LoadingPollCell: UICollectionViewCell {
     let optionBView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.contentMode = .scaleAspectFill
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
@@ -57,20 +55,22 @@ class LoadingPollCell: UICollectionViewCell {
         return view
     }()
     
-    let titleButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("...", for: .normal)
-        button.setTitleColor(UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.medium)
-        return button
+    let titleButton: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 11
+        return view
     }()
     
-    let usernameLabel: UILabel = {
-        let label = UILabel()
-        label.text = "..."
-        label.textColor = UIColor(red: 61/255, green: 62/255, blue: 68/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        return label
+    let usernameLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
     }()
     
     let commentLabel: UILabel = {
@@ -177,13 +177,11 @@ class LoadingPollCell: UICollectionViewCell {
         headerView.anchor(topAnchor, left: leftAnchor, bottom: optionBView.topAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         headerView.addSubview(titleButton)
-        titleButton.anchor(headerView.topAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        titleButton.sizeToFit()
+        titleButton.anchor(headerView.topAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width / 2, heightConstant: 22)
         
         
         headerView.addSubview(usernameLabel)
-        usernameLabel.anchor(titleButton.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        usernameLabel.sizeToFit()
+        usernameLabel.anchor(titleButton.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 13, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 14)
         
         headerView.addSubview(voteIcon)
         voteIcon.anchor(nil, left: usernameLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 25, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
