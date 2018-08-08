@@ -139,8 +139,7 @@ class PopularRecentCell: UICollectionViewCell {
         popularView.addGestureRecognizer(popularTap)
         
         popularView.addSubview(popularLabel)
-        popularLabel.anchor(nil, left: popularView.leftAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
-        popularLabel.centerYAnchor.constraint(equalTo: popularView.centerYAnchor).isActive = true
+        popularLabel.anchorCenterSuperview()
         popularLabel.sizeToFit()
         
         addSubview(mostRecentView)
