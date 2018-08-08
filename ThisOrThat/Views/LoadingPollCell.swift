@@ -29,14 +29,12 @@ class LoadingPollCell: UICollectionViewCell {
     
     let optionAView: UIImageView = {
         let view = UIImageView()
-        view.clipsToBounds = true
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         return view
     }()
     
     let optionBView: UIImageView = {
         let view = UIImageView()
-        view.clipsToBounds = true
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
@@ -51,23 +49,34 @@ class LoadingPollCell: UICollectionViewCell {
         let view = UIView()
         view.backgroundColor = UIColor(red: 230/255, green: 245/255, blue: 255/255, alpha: 1)
         view.layer.cornerRadius = 68
-        view.clipsToBounds = true
         return view
     }()
     
-    let titleButton: UIView = {
+    let upperTitleView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
-        view.layer.masksToBounds = true
         view.layer.cornerRadius = 11
+        return view
+    }()
+    
+    let gradientTitleView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
+        view.layer.cornerRadius = 11
+        view.layer.masksToBounds = true
         return view
     }()
     
     let usernameLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let gradientUsernameLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -76,7 +85,6 @@ class LoadingPollCell: UICollectionViewCell {
     let commentLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -85,7 +93,6 @@ class LoadingPollCell: UICollectionViewCell {
     let followLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -94,7 +101,14 @@ class LoadingPollCell: UICollectionViewCell {
     let voteLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let gradientVoteLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -103,7 +117,14 @@ class LoadingPollCell: UICollectionViewCell {
     let timeLabel: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
-        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
+    }()
+    
+    let gradientTimeLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.clear
         view.layer.masksToBounds = true
         view.layer.cornerRadius = 7
         return view
@@ -162,12 +183,17 @@ class LoadingPollCell: UICollectionViewCell {
         addSubview(headerView)
         headerView.anchor(topAnchor, left: leftAnchor, bottom: optionBView.topAnchor, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
-        headerView.addSubview(titleButton)
-        titleButton.anchor(headerView.topAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width / 2, heightConstant: 22)
+        headerView.addSubview(upperTitleView)
+        upperTitleView.anchor(headerView.topAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 12, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: frame.width / 2, heightConstant: 22)
+        
+        headerView.addSubview(gradientTitleView)
+        gradientTitleView.anchor(upperTitleView.topAnchor, left: upperTitleView.leftAnchor, bottom: upperTitleView.bottomAnchor, right: upperTitleView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         
         headerView.addSubview(usernameLabel)
-        usernameLabel.anchor(titleButton.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 13, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 14)
+        usernameLabel.anchor(upperTitleView.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: nil, topConstant: 13, leftConstant: 38, bottomConstant: 0, rightConstant: 0, widthConstant: 100, heightConstant: 14)
+        headerView.addSubview(gradientUsernameLabel)
+        gradientUsernameLabel.anchor(usernameLabel.topAnchor, left: usernameLabel.leftAnchor, bottom: usernameLabel.bottomAnchor, right: usernameLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         headerView.addSubview(voteIcon)
         voteIcon.anchor(nil, left: usernameLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 25, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
@@ -176,6 +202,8 @@ class LoadingPollCell: UICollectionViewCell {
         headerView.addSubview(voteLabel)
         voteLabel.anchor(nil, left: voteIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 14)
         voteLabel.centerYAnchor.constraint(equalTo: voteIcon.centerYAnchor).isActive = true
+        headerView.addSubview(gradientVoteLabel)
+        gradientVoteLabel.anchor(voteLabel.topAnchor, left: voteLabel.leftAnchor, bottom: voteLabel.bottomAnchor, right: voteLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         headerView.addSubview(clockIcon)
         clockIcon.anchor(nil, left: voteLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
@@ -184,7 +212,8 @@ class LoadingPollCell: UICollectionViewCell {
         headerView.addSubview(timeLabel)
         timeLabel.anchor(nil, left: clockIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 14)
         timeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
-        timeLabel.sizeToFit()
+        headerView.addSubview(gradientTimeLabel)
+        gradientTimeLabel.anchor(timeLabel.topAnchor, left: timeLabel.leftAnchor, bottom: timeLabel.bottomAnchor, right: timeLabel.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
         
         bottomContainerView.addSubview(followIcon)
         followIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
@@ -203,12 +232,48 @@ class LoadingPollCell: UICollectionViewCell {
         bottomContainerView.addSubview(commentIcon)
         commentIcon.anchorCenterYToSuperview()
         commentIcon.anchor(nil, left: nil, bottom: nil, right: commentLabel.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 14, heightConstant: 14)
-//
-//        bottomContainerView.addSubview(commentIcon)
-//        commentIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
-//        commentIcon.rightAnchor.constraint(equalTo: commentLabel.leftAnchor, constant: -10).isActive = true
-//        commentIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
-//        commentIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
-
+        
+        startAnimation()
+    }
+    
+    func startAnimation() {
+        let lightBlue = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1).cgColor
+        let midBlue = UIColor(red: 122/255, green: 204/255, blue: 255/255, alpha: 1).cgColor
+        
+        //Header View gradients
+        let titleGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let usernameGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let voteGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        let timeGradient = createGradient(lowerColor: lightBlue, upperColor: midBlue, frame: CGRect(x: 0, y: -30, width: frame.width, height: 70))
+        
+        gradientTitleView.layer.insertSublayer(titleGradient, at: 0)
+        gradientUsernameLabel.layer.insertSublayer(usernameGradient, at: 0)
+        gradientVoteLabel.layer.insertSublayer(voteGradient, at: 0)
+        gradientTimeLabel.layer.insertSublayer(timeGradient, at: 0)
+        
+        addGradientAnimation(gradient: titleGradient)
+        addGradientAnimation(gradient: usernameGradient)
+        addGradientAnimation(gradient: voteGradient)
+        addGradientAnimation(gradient: timeGradient)
+    }
+    
+    func createGradient(lowerColor: CGColor, upperColor: CGColor, frame: CGRect) -> CAGradientLayer {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [lowerColor, upperColor, lowerColor]
+        gradientLayer.locations = [0, 0.5, 1]
+        gradientLayer.frame = frame
+        
+        let angle = 45 * CGFloat.pi / 180
+        gradientLayer.transform = CATransform3DMakeRotation(angle, 0, 0, 1)
+        return gradientLayer
+    }
+    
+    func addGradientAnimation(gradient: CAGradientLayer) {
+        let gradientAnimation = CABasicAnimation(keyPath: "transform.translation.x")
+        gradientAnimation.duration = 2
+        gradientAnimation.fromValue = -frame.width
+        gradientAnimation.toValue = frame.width
+        gradientAnimation.repeatCount = Float.infinity
+        gradient.add(gradientAnimation, forKey: "headerGradientAnim")
     }
 }
