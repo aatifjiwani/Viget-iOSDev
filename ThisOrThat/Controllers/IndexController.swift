@@ -33,28 +33,32 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     var polls = [Poll]()
     var isOnPopular = false
     var loadingCounter = 0
+    var isLoading = false
     
     func fetchPolls(filter: String? = nil, popular: Bool = false) {
-//        if let filteredString = filter {
-//            currentFilter = filter
-//            APIServices.getUserPolls(filter: filteredString, user_id: UserDefaults.standard.getUser()) { (response) in
-//                self.reloadCollectionViewWithResponse(response: response)
-//            }
-//        } else {
-//            currentFilter = "feed"
-//            if popular {
-//                isOnPopular = true
-//                APIServices.getPolls(filter: "popular") { (response) in
-//                    self.reloadCollectionViewWithResponse(response: response)
-//                }
-//            } else {
-//                isOnPopular = false
-//                APIServices.getPolls { (response) in
-//                    self.reloadCollectionViewWithResponse(response: response)
-//                }
-//            }
-//
-//        }
+        isLoading = true
+        collectionView?.reloadData()
+        
+        if let filteredString = filter {
+            currentFilter = filter
+            APIServices.getUserPolls(filter: filteredString, user_id: UserDefaults.standard.getUser()) { (response) in
+                self.reloadCollectionViewWithResponse(response: response)
+            }
+        } else {
+            currentFilter = "feed"
+            if popular {
+                isOnPopular = true
+                APIServices.getPolls(filter: "popular") { (response) in
+                    self.reloadCollectionViewWithResponse(response: response)
+                }
+            } else {
+                isOnPopular = false
+                APIServices.getPolls { (response) in
+                    self.reloadCollectionViewWithResponse(response: response)
+                }
+            }
+
+        }
     }
     
     func reloadCollectionViewWithResponse(response: [String:Any]) {
@@ -63,9 +67,9 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
                 for poll in polls {
                     let individual = poll as! [String: Any]
                     self.polls.append(Poll(json: individual))
-                    self.collectionView?.reloadData()
                 }
-                print("finished")
+                isLoading = false
+                self.collectionView?.reloadData()
             }
         }
     }
@@ -76,46 +80,61 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     var currentHeaderState = "feed"
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        if currentHeaderState == "feed" {
-//            return polls.count + 1
-//        } else {
-//            return polls.count
-//        }
-        return 4
+        guard !isLoading else {
+            if currentHeaderState == "feed" {
+                return 5
+            } else {
+                return 4
+            }
+        }
+        
+        if currentHeaderState == "feed" {
+            return polls.count + 1
+        } else {
+            return polls.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        if indexPath.item == 0 && currentHeaderState == "feed" {
-//            return CGSize(width: view.frame.width, height: 50)
-//        } else {
-//            return CGSize(width: view.frame.width, height: 340)
-//        }
+        if indexPath.item == 0 && currentHeaderState == "feed" {
+            return CGSize(width: view.frame.width, height: 50)
+        } else {
+            return CGSize(width: view.frame.width, height: 340)
+        }
         
-        return CGSize(width: view.frame.width, height: 340)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingPollCellID, for: indexPath) as! LoadingPollCell
-        cell.whichColor = (loadingCounter % 2 == 0)
-        loadingCounter += 1
-        return cell
+        
+        guard !isLoading else {
+            if indexPath.item == 0 && currentHeaderState == "feed" {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularRecentCellID, for: indexPath) as! PopularRecentCell
+                cell.indexController = self
+                return cell
+            } else {
+                let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingPollCellID, for: indexPath) as! LoadingPollCell
+                cell.whichColor = (loadingCounter % 2 == 0)
+                loadingCounter += 1
+                return cell
+            }
+        }
 
-//        if indexPath.item == 0 && currentHeaderState == "feed" {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularRecentCellID, for: indexPath) as! PopularRecentCell
-//            cell.indexController = self
-//            return cell
-//        } else {
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
-//
-//            var itemIndex = indexPath.item
-//            if currentHeaderState == "feed" {
-//                itemIndex = itemIndex - 1
-//            }
-//
-//            cell.poll = polls[itemIndex]
-//            cell.indexController = self
-//            return cell
-//        }
+        if indexPath.item == 0 && currentHeaderState == "feed" {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularRecentCellID, for: indexPath) as! PopularRecentCell
+            cell.indexController = self
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
+
+            var itemIndex = indexPath.item
+            if currentHeaderState == "feed" {
+                itemIndex = itemIndex - 1
+            }
+
+            cell.poll = polls[itemIndex]
+            cell.indexController = self
+            return cell
+        }
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
