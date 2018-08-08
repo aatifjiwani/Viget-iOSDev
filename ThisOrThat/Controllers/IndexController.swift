@@ -94,14 +94,9 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if indexPath.item % 2 == 0 {
-             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingPollCellID, for: indexPath) as! LoadingPollCell
-            return cell
-        } else {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: pollCellID, for: indexPath) as! PollCell
-            cell.titleButton.setTitle("Some Really Long Title", for: .normal)
-            return cell
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: loadingPollCellID, for: indexPath) as! LoadingPollCell
+        return cell
+
 //        if indexPath.item == 0 && currentHeaderState == "feed" {
 //            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularRecentCellID, for: indexPath) as! PopularRecentCell
 //            cell.indexController = self

@@ -73,40 +73,40 @@ class LoadingPollCell: UICollectionViewCell {
         return view
     }()
     
-    let commentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "..."
-        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let commentLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
     }()
     
-    let followLabel: UILabel = {
-        let label = UILabel()
-        label.text = "..."
-        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let followLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
     }()
     
-    let voteLabel: UILabel = {
-        let label = UILabel()
-        label.text = "..."
-        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let voteLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
     }()
     
-    let timeLabel: UILabel = {
-        let label = UILabel()
-        label.text = "..."
-        label.textColor = UIColor(red: 20/255, green: 75/255, blue: 113/255, alpha: 1)
-        label.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    let timeLabel: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 182/255, green: 225/255, blue: 252/255, alpha: 1)
+        view.clipsToBounds = true
+        view.layer.masksToBounds = true
+        view.layer.cornerRadius = 7
+        return view
     }()
     
     let voteIcon: UIImageView = {
@@ -133,24 +133,10 @@ class LoadingPollCell: UICollectionViewCell {
         return image
     }()
     
-    let expiredIcon: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "expired-icon")
-        image.contentMode = .scaleAspectFill
-        return image
-    }()
-    
     let followIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "follow-icon")
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.contentMode = .scaleAspectFill
-        return image
-    }()
-    
-    let followingIcon: UIImageView = {
-        let image = UIImageView()
-        image.image = UIImage(named: "following-icon")
         image.contentMode = .scaleAspectFill
         return image
     }()
@@ -188,16 +174,15 @@ class LoadingPollCell: UICollectionViewCell {
         voteIcon.centerYAnchor.constraint(equalTo: usernameLabel.centerYAnchor).isActive = true
         
         headerView.addSubview(voteLabel)
-        voteLabel.anchor(nil, left: voteIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        voteLabel.anchor(nil, left: voteIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 14)
         voteLabel.centerYAnchor.constraint(equalTo: voteIcon.centerYAnchor).isActive = true
-        voteLabel.sizeToFit()
         
         headerView.addSubview(clockIcon)
         clockIcon.anchor(nil, left: voteLabel.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 20, bottomConstant: 0, rightConstant: 0, widthConstant: 16, heightConstant: 16)
         clockIcon.centerYAnchor.constraint(equalTo: usernameLabel.centerYAnchor).isActive = true
         
         headerView.addSubview(timeLabel)
-        timeLabel.anchor(nil, left: clockIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        timeLabel.anchor(nil, left: clockIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 5, bottomConstant: 0, rightConstant: 0, widthConstant: 60, heightConstant: 14)
         timeLabel.centerYAnchor.constraint(equalTo: clockIcon.centerYAnchor).isActive = true
         timeLabel.sizeToFit()
         
@@ -207,23 +192,23 @@ class LoadingPollCell: UICollectionViewCell {
         followIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
         followIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
 
-        
         bottomContainerView.addSubview(followLabel)
-        followLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
-        followLabel.leftAnchor.constraint(equalTo: followIcon.rightAnchor, constant: 10).isActive = true
-        followLabel.sizeToFit()
-
+        followLabel.anchorCenterYToSuperview(constant: 1)
+        followLabel.anchor(nil, left: followIcon.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 10, bottomConstant: 0, rightConstant: 0, widthConstant: 75, heightConstant: 14)
         
         bottomContainerView.addSubview(commentLabel)
-        commentLabel.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
-        commentLabel.rightAnchor.constraint(equalTo: centerXAnchor, constant: -20).isActive = true
-        commentLabel.sizeToFit()
+        commentLabel.anchorCenterYToSuperview(constant: 1)
+        commentLabel.anchor(nil, left: nil, bottom: nil, right: bottomContainerView.centerXAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 75, heightConstant: 14)
         
         bottomContainerView.addSubview(commentIcon)
-        commentIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
-        commentIcon.rightAnchor.constraint(equalTo: commentLabel.leftAnchor, constant: -10).isActive = true
-        commentIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
-        commentIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
+        commentIcon.anchorCenterYToSuperview()
+        commentIcon.anchor(nil, left: nil, bottom: nil, right: commentLabel.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 14, heightConstant: 14)
+//
+//        bottomContainerView.addSubview(commentIcon)
+//        commentIcon.centerYAnchor.constraint(equalTo: bottomContainerView.centerYAnchor).isActive = true
+//        commentIcon.rightAnchor.constraint(equalTo: commentLabel.leftAnchor, constant: -10).isActive = true
+//        commentIcon.widthAnchor.constraint(equalToConstant: 14).isActive = true
+//        commentIcon.heightAnchor.constraint(equalToConstant: 14).isActive = true
 
     }
 }
