@@ -10,7 +10,7 @@ import XCTest
 @testable import ThisOrThat
 
 enum CommentFactory {
-    static var defaultPollJSON: [String:Any] = [
+    static var defaultCommentJSON: [String:Any] = [
         "id": 0,
         "user_id": 0,
         "poll_id": 0,
@@ -19,7 +19,7 @@ enum CommentFactory {
     ]
     
     static func createCommentJSON(body: String = "Example Comment", username: String = "testuser") -> [String: Any] {
-        return defaultPollJSON.merging(["body": body, "username": username], uniquingKeysWith: { (_, new) -> Any in
+        return defaultCommentJSON.merging(["body": body, "username": username], uniquingKeysWith: { (_, new) -> Any in
             new
         })
     }
