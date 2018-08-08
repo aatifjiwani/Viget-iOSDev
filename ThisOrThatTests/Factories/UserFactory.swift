@@ -12,9 +12,9 @@ import XCTest
 
 enum UserFactory {
     static var defaultPollJSON: [String:Any] = [
-        "id": 0,
-        "created_at": "2018-08-03T17:02:49.920Z",
-        "updated_at": "2018-08-06T16:54:34.008Z",
+            "id": 0,
+            "created_at": "2018-08-03T17:02:49.920Z",
+            "updated_at": "2018-08-06T16:54:34.008Z"
     ]
     
     static func createUserJSON(email: String = "user@example.com", username: String = "testuser") -> [String: Any] {
