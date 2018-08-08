@@ -97,7 +97,7 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.item == 0 && currentHeaderState == "feed" {
-            return CGSize(width: view.frame.width, height: 50)
+            return CGSize(width: view.frame.width, height: 70)
         } else {
             return CGSize(width: view.frame.width, height: 340)
         }

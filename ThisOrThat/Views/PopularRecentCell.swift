@@ -64,6 +64,20 @@ class PopularRecentCell: UICollectionViewCell {
         return label
     }()
     
+    let popularLine: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.image = UIImage(named: "linePopular")
+        return image
+    }()
+    
+    let mostRecentLine: UIImageView = {
+        let image = UIImageView()
+        image.contentMode = .scaleAspectFit
+        image.image = UIImage(named: "lineRecent")
+        return image
+    }()
+    
     let highlightView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor.white
@@ -162,5 +176,9 @@ class PopularRecentCell: UICollectionViewCell {
         
         highlightView.addSubview(highlightLabel)
         highlightLabel.anchorCenterSuperview()
+        
+        addSubview(popularLine)
+        popularLine.anchorCenterYToSuperview()
+        popularLine.anchor(nil, left: nil, bottom: nil, right: popularView.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: -15, widthConstant: 30, heightConstant: 70)
     }
 }
