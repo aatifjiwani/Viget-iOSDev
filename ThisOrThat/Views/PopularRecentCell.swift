@@ -111,6 +111,8 @@ class PopularRecentCell: UICollectionViewCell {
     }
     
     func animateHighlightView(fromColor: CGColor, toColor: CGColor, fromRadius: CGFloat, toRadius: CGFloat, anchorConstant: CGFloat) {
+        self.popularLine.isHidden = true
+        self.mostRecentLine.isHidden = true
         highlightRightAnchor?.constant = anchorConstant
         UIView.animate(withDuration: 0.5, animations: {
             self.layoutIfNeeded()
@@ -136,8 +138,12 @@ class PopularRecentCell: UICollectionViewCell {
             self.indexController?.polls.removeAll()
             self.indexController?.collectionView?.reloadData()
             if (self.currentState == "popular") {
+                self.popularLine.isHidden = false
+                self.mostRecentLine.isHidden = true
                 self.indexController?.fetchPolls(filter: nil, popular: true)
             } else {
+                self.popularLine.isHidden = true
+                self.mostRecentLine.isHidden = false
                 self.indexController?.fetchPolls()
             }
         }
@@ -180,5 +186,10 @@ class PopularRecentCell: UICollectionViewCell {
         addSubview(popularLine)
         popularLine.anchorCenterYToSuperview()
         popularLine.anchor(nil, left: nil, bottom: nil, right: popularView.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: -15, widthConstant: 30, heightConstant: 70)
+        popularLine.isHidden = true
+        
+        addSubview(mostRecentLine)
+        mostRecentLine.anchorCenterYToSuperview()
+        mostRecentLine.anchor(nil, left: mostRecentView.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: -10, bottomConstant: 0, rightConstant: 0, widthConstant: 30, heightConstant: 70)
     }
 }
