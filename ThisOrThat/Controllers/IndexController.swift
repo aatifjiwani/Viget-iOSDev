@@ -278,7 +278,6 @@ extension IndexController {
     }
     
     @objc func handleMyPolls() {
-        print("My polls")
         if currentFilter != "mypolls" {
             currentHeaderState = "mypolls"
             polls.removeAll()
@@ -291,7 +290,6 @@ extension IndexController {
     }
     
     @objc func handleFollowing() {
-        print("Following")
         if currentFilter != "following" {
             currentHeaderState = "following"
             polls.removeAll()
@@ -301,6 +299,20 @@ extension IndexController {
             squigglyCenterAnchor?.isActive = true
             fetchPolls(filter: "following", popular: isOnPopular)
         }
+    }
+    
+    @objc func handleCreatePoll() {
+        print("creating a poll")
+        let newView = CreatePollController()
+        
+        let transition = CATransition()
+        transition.duration = 0.5
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromRight
+        transition.timingFunction = CAMediaTimingFunction(name:kCAMediaTimingFunctionEaseInEaseOut)
+        view.window!.layer.add(transition, forKey: kCATransition)
+        
+        present(newView, animated: false)
     }
     
     func setupHeader() {
@@ -353,6 +365,9 @@ extension IndexController {
         headerContainerView.addSubview(createPollButton)
         createPollButton.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 55)
         createPollButton.anchorCenterXToSuperview()
+        let createTap = UITapGestureRecognizer(target: self, action: #selector(handleCreatePoll))
+        createPollButton.isUserInteractionEnabled = true
+        createPollButton.addGestureRecognizer(createTap)
         
     }
     
