@@ -221,6 +221,14 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         return image
     }()
     
+    let createPollButton: UIImageView = {
+        let image = UIImageView()
+        image.image = UIImage(named: "createButton")
+        image.contentMode = .scaleAspectFit
+        image.translatesAutoresizingMaskIntoConstraints = false
+        return image
+    }()
+    
     var headerHeightAnchor: NSLayoutConstraint?
     var partialWhiteBackground: UIView?
     let triangle = TriangleView(frame: CGRect(x: 10, y: 20, width: 10, height: 10))
@@ -341,6 +349,10 @@ extension IndexController {
         squigglyCenterAnchor = squiggly.centerXAnchor.constraint(equalTo: feedLabel.centerXAnchor)
         squigglyCenterAnchor?.isActive = true
         squiggly.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        headerContainerView.addSubview(createPollButton)
+        createPollButton.anchor(view.topAnchor, left: nil, bottom: nil, right: nil, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 80, heightConstant: 55)
+        createPollButton.anchorCenterXToSuperview()
         
     }
     
@@ -495,6 +507,7 @@ extension IndexController {
     }
     
     func changeHiddenValue(toValue value: Bool) {
+        createPollButton.isHidden = value
         squiggly.isHidden = value
         followingLabel.isHidden = value
         pollLabel.isHidden = value
