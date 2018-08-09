@@ -18,11 +18,11 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         collectionView?.register(PopularRecentCell.self, forCellWithReuseIdentifier: popularRecentCellID)
         collectionView?.register(LoadingPollCell.self, forCellWithReuseIdentifier: loadingPollCellID)
         collectionView?.alwaysBounceVertical = true
-//
-//        UIFont.familyNames.forEach({ familyName in
-//            let fontNames = UIFont.fontNames(forFamilyName: familyName)
-//            print(familyName, fontNames)
-//        })
+
+        UIFont.familyNames.forEach({ familyName in
+            let fontNames = UIFont.fontNames(forFamilyName: familyName)
+            print(familyName, fontNames)
+        })
         
         configureNavBar()
         setupHeader()

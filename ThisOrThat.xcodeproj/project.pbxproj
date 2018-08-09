@@ -19,6 +19,7 @@
 		3920750C210100240040FC82 /* ThisOrThatUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3920750B210100240040FC82 /* ThisOrThatUITests.swift */; };
 		39223D99211CE61200488F98 /* CreatePollController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39223D98211CE61200488F98 /* CreatePollController.swift */; };
 		39223D9B211CEB7B00488F98 /* CreatePollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39223D9A211CEB7B00488F98 /* CreatePollView.swift */; };
+		39223D9D211CEEBD00488F98 /* Niveau-Grotesk-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39223D9C211CEEB900488F98 /* Niveau-Grotesk-Regular.otf */; };
 		395479562118B43A00D8BC66 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479552118B43A00D8BC66 /* UIImageViewExtensions.swift */; };
 		395479582118EAF800D8BC66 /* UserOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395479572118EAF800D8BC66 /* UserOptionsView.swift */; };
 		395CB2C3210BB53E0020CD7D /* Poll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 395CB2C2210BB53E0020CD7D /* Poll.swift */; };
@@ -86,6 +87,7 @@
 		3920750D210100240040FC82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		39223D98211CE61200488F98 /* CreatePollController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePollController.swift; sourceTree = "<group>"; };
 		39223D9A211CEB7B00488F98 /* CreatePollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatePollView.swift; sourceTree = "<group>"; };
+		39223D9C211CEEB900488F98 /* Niveau-Grotesk-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Regular.otf"; sourceTree = "<group>"; };
 		395479552118B43A00D8BC66 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewExtensions.swift; sourceTree = "<group>"; };
 		395479572118EAF800D8BC66 /* UserOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOptionsView.swift; sourceTree = "<group>"; };
 		395CB2C2210BB53E0020CD7D /* Poll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poll.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 		39EC5F9D21026C56003624B4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				39223D9C211CEEB900488F98 /* Niveau-Grotesk-Regular.otf */,
 				39EC5F9E21026C5D003624B4 /* Niveau-Grotesk-Bold.otf */,
 				39EC5FA021027365003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf */,
 			);
@@ -420,6 +423,7 @@
 				392074F6210100230040FC82 /* LaunchScreen.storyboard in Resources */,
 				39EC5FA1210273C1003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf in Resources */,
 				392074F3210100230040FC82 /* Assets.xcassets in Resources */,
+				39223D9D211CEEBD00488F98 /* Niveau-Grotesk-Regular.otf in Resources */,
 				392074F1210100220040FC82 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
