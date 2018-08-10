@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CreatePollController: UIViewController {
+class CreatePollController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -32,6 +32,41 @@ class CreatePollController: UIViewController {
         transition.subtype = kCATransitionFromLeft
         self.view.window!.layer.add(transition, forKey: kCATransition)
         dismiss(animated: false) {}
+    }
+    
+    func handleUploadImage() {
+        print("going...")
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: {
+            print("finished")
+        })
+    }
+    
+    var currentUploadView: CreateOptionView?
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        var selectedImage: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
+            print(editedImage.size)
+            selectedImage = editedImage
+        } else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
+            print(originalImage.size)
+            selectedImage = originalImage
+        }
+        
+        if selectedImage != nil && currentUploadView != nil{
+            currentUploadView?.selectedImage = selectedImage
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
     
     func setupViews() {

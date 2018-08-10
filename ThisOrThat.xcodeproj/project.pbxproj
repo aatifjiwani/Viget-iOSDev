@@ -40,6 +40,7 @@
 		39C55789211E004F005D963D /* UITextFieldExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C55788211E004F005D963D /* UITextFieldExtensions.swift */; };
 		39C5578B211E00BF005D963D /* NumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5578A211E00BF005D963D /* NumberPickerView.swift */; };
 		39C5578D211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39C5578C211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf */; };
+		39C5578F211E0F64005D963D /* CreateOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5578E211E0F64005D963D /* CreateOptionView.swift */; };
 		39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0ABE4210134040021855D /* UIViewExtensions.swift */; };
 		39E7043D2106554C00567132 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7043C2106554C00567132 /* SignupView.swift */; };
 		39E7044121065B3700567132 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7044021065B3700567132 /* ModalTextField.swift */; };
@@ -111,6 +112,7 @@
 		39C55788211E004F005D963D /* UITextFieldExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldExtensions.swift; sourceTree = "<group>"; };
 		39C5578A211E00BF005D963D /* NumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPickerView.swift; sourceTree = "<group>"; };
 		39C5578C211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Light-Italic.otf"; sourceTree = "<group>"; };
+		39C5578E211E0F64005D963D /* CreateOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOptionView.swift; sourceTree = "<group>"; };
 		39E0ABE4210134040021855D /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		39E7043C2106554C00567132 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		39E7044021065B3700567132 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextField.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				39B626CE211B634E006C7A00 /* LoadingPollCell.swift */,
 				39223D9A211CEB7B00488F98 /* CreatePollView.swift */,
 				39C5578A211E00BF005D963D /* NumberPickerView.swift */,
+				39C5578E211E0F64005D963D /* CreateOptionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -541,6 +544,7 @@
 				395CB2C5210BBD450020CD7D /* LabelAdjuster.swift in Sources */,
 				39E7043D2106554C00567132 /* SignupView.swift in Sources */,
 				395479562118B43A00D8BC66 /* UIImageViewExtensions.swift in Sources */,
+				39C5578F211E0F64005D963D /* CreateOptionView.swift in Sources */,
 				39223D9B211CEB7B00488F98 /* CreatePollView.swift in Sources */,
 				39F118452107CCC30084F5B9 /* Secrets.swift in Sources */,
 				39F118432107C7970084F5B9 /* APIServices.swift in Sources */,

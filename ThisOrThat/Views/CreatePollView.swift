@@ -19,7 +19,12 @@ class CreatePollView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var controller: CreatePollController?
+    var controller: CreatePollController? {
+        didSet {
+            uploadAView.controller = controller
+            uploadBView.controller = controller
+        }
+    }
     
     let cancelView: UIView = {
         let view = UIView()
@@ -82,14 +87,15 @@ class CreatePollView: UIView {
         return label
     }()
     
-    let uploadAView: UIImageView = {
-        let view = UIImageView()
+    
+    let uploadAView: CreateOptionView = {
+        let view = CreateOptionView()
         view.backgroundColor = UIColor(red: 91/255, green: 183/255, blue: 242/255, alpha: 1)
         return view
     }()
     
-    let uploadBView: UIImageView = {
-        let view = UIImageView()
+    let uploadBView: CreateOptionView = {
+        let view = CreateOptionView()
         view.backgroundColor = UIColor(red: 252/255, green: 185/255, blue: 44/255, alpha: 1)
         return view
     }()
@@ -171,6 +177,10 @@ class CreatePollView: UIView {
         controller?.handleDismiss()
     }
     
+    @objc func handleSubmitPoll() {
+        print("submitting poll")
+    }
+    
     func setupViews() {
         addSubview(cancelView)
         cancelView.anchor(topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 100, heightConstant: 30)
@@ -212,8 +222,11 @@ class CreatePollView: UIView {
         
         addSubview(uploadAView)
         uploadAView.anchor(uploadLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 180)
+        uploadAView.controller = controller
         addSubview(uploadBView)
         uploadBView.anchor(uploadAView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 180)
+        uploadBView.controller = controller
+
         
         addSubview(optionALabel)
         optionALabel.anchor(uploadBView.bottomAnchor, left: createPollLabel.leftAnchor, bottom: nil, right: nil, topConstant: 30, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
@@ -279,6 +292,7 @@ class CreatePollView: UIView {
         addSubview(submitButton)
         submitButton.anchorCenterXToSuperview()
         submitButton.anchor(expireHourLabel.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 45, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 195, heightConstant: 40)
+        submitButton.addTarget(self, action: #selector(handleSubmitPoll), for: .touchUpInside)
         
     }
 }
