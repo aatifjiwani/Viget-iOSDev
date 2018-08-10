@@ -18,12 +18,21 @@ class CreatePollController: UIViewController {
     let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.contentSize.height = 2000
+        view.contentSize.height = 1050
         view.backgroundColor = UIColor.white
         return view
     }()
     
     let createPollView = CreatePollView()
+    
+    func handleDismiss() {
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false) {}
+    }
     
     func setupViews() {
         view.addSubview(scrollView)
@@ -37,7 +46,8 @@ class CreatePollController: UIViewController {
         createPollView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
         createPollView.topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 10).isActive = true
         createPollView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
-        createPollView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        createPollView.heightAnchor.constraint(equalToConstant: 1050).isActive = true
+        createPollView.controller = self
         
     }
 }

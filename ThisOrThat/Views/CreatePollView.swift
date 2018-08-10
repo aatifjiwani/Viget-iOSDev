@@ -19,6 +19,8 @@ class CreatePollView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    var controller: CreatePollController?
+    
     let cancelView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -123,14 +125,62 @@ class CreatePollView: UIView {
         return label
     }()
     
-
+    let expireDayField = ModalTextField()
+    let expireHourField = ModalTextField()
+    let expireMinField = ModalTextField()
+    
+    let expireDayLabel: UILabel = {
+        let label = UILabel()
+        label.text = "days"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "NiveauGroteskLight-Italic", size: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
+    let expireHourLabel: UILabel = {
+        let label = UILabel()
+        label.text = "hours"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "NiveauGroteskLight-Italic", size: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
+    let expireMinLabel: UILabel = {
+        let label = UILabel()
+        label.text = "mins"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "NiveauGroteskLight-Italic", size: 14)
+        label.textColor = UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1)
+        return label
+    }()
+    
+    let submitButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("SUBMIT POLL", for: .normal)
+        button.setTitleColor(UIColor(red: 0, green: 91/255, blue: 154/255, alpha: 1), for: .normal)
+        button.titleLabel?.font = UIFont(name: "NiveauGroteskBold", size: 14)
+        button.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        button.dropShadow(color: UIColor.black, opacity: 0.5, offSet: CGSize(width: 0, height: 1), radius: 2)
+        button.layer.cornerRadius = 17
+        return button
+    }()
+    
+    @objc func handleCancel() {
+        controller?.handleDismiss()
+    }
     
     func setupViews() {
         addSubview(cancelView)
         cancelView.anchor(topAnchor, left: nil, bottom: nil, right: rightAnchor, topConstant: 20, leftConstant: 0, bottomConstant: 0, rightConstant: 20, widthConstant: 100, heightConstant: 30)
+        let cancelTap = UITapGestureRecognizer(target: self, action: #selector(handleCancel))
+        cancelView.isUserInteractionEnabled = true
+        cancelView.addGestureRecognizer(cancelTap)
         
         cancelView.addSubview(cancelButton)
         cancelButton.anchor(cancelView.topAnchor, left: nil, bottom: nil, right: cancelView.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 19, heightConstant: 19)
+        cancelButton.addTarget(self, action: #selector(handleCancel), for: .touchUpInside)
         
         cancelView.addSubview(cancelLabel)
         cancelLabel.anchor(nil, left: nil, bottom: nil, right: cancelButton.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 0, heightConstant: 0)
@@ -188,6 +238,47 @@ class CreatePollView: UIView {
         optionBField.font = UIFont.systemFont(ofSize: 14)
         optionBField.backgroundColor = UIColor(red: 252/255, green: 233/255, blue: 182/255, alpha: 1)
         optionBField.layer.cornerRadius = 5
+        
+        addSubview(expireLabel)
+        expireLabel.anchor(optionBField.bottomAnchor, left: createPollLabel.leftAnchor, bottom: nil, right: nil, topConstant: 40, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        expireLabel.sizeToFit()
+        
+        addSubview(expireDayField)
+        expireDayField.anchor(expireLabel.bottomAnchor, left: createPollLabel.leftAnchor, bottom: nil, right: nil, topConstant: 10, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 30)
+        expireDayField.loadDropdownData(min: 0, max: 99, step: 1)
+        expireDayField.font = UIFont.systemFont(ofSize: 14)
+        expireDayField.layer.cornerRadius = 5
+        expireDayField.textAlignment = .right
+        
+        addSubview(expireHourField)
+        expireHourField.anchor(expireDayField.topAnchor, left: expireDayField.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 25, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 30)
+        expireHourField.loadDropdownData(min: 0, max: 24, step: 1)
+        expireHourField.font = UIFont.systemFont(ofSize: 14)
+        expireHourField.layer.cornerRadius = 5
+        expireHourField.textAlignment = .right
+        
+        addSubview(expireMinField)
+        expireMinField.anchor(expireDayField.topAnchor, left: expireHourField.rightAnchor, bottom: nil, right: nil, topConstant: 0, leftConstant: 25, bottomConstant: 0, rightConstant: 0, widthConstant: 50, heightConstant: 30)
+        expireMinField.loadDropdownData(min: 0, max: 60, step: 10)
+        expireMinField.font = UIFont.systemFont(ofSize: 14)
+        expireMinField.layer.cornerRadius = 5
+        expireMinField.textAlignment = .right
+        
+        addSubview(expireDayLabel)
+        expireDayLabel.anchor(expireDayField.bottomAnchor, left: nil, bottom: nil, right: expireDayField.rightAnchor, topConstant: 5, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        expireDayLabel.sizeToFit()
+        
+        addSubview(expireHourLabel)
+        expireHourLabel.anchor(expireDayLabel.topAnchor, left: nil, bottom: nil, right: expireHourField.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        expireHourLabel.sizeToFit()
+        
+        addSubview(expireMinLabel)
+        expireMinLabel.anchor(expireDayLabel.topAnchor, left: nil, bottom: nil, right: expireMinField.rightAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 0, heightConstant: 0)
+        expireMinLabel.sizeToFit()
+        
+        addSubview(submitButton)
+        submitButton.anchorCenterXToSuperview()
+        submitButton.anchor(expireHourLabel.bottomAnchor, left: nil, bottom: nil, right: nil, topConstant: 45, leftConstant: 0, bottomConstant: 0, rightConstant: 0, widthConstant: 195, heightConstant: 40)
         
     }
 }

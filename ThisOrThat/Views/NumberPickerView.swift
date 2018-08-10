@@ -14,16 +14,16 @@ class NumberPickerView: UIPickerView, UIPickerViewDataSource, UIPickerViewDelega
     var pickerTextField : UITextField!
     
     init(pickerData: [String], dropdownField: UITextField) {
-        super.init(frame: CGRect.zero)
+        super.init(frame: CGRect(x: 0, y: 0, width: 300, height: 150))
         
         self.pickerData = pickerData
         self.pickerTextField = dropdownField
         
         self.delegate = self
         self.dataSource = self
-        
+            
         DispatchQueue.main.async {
-            if pickerData.count == 0 {
+            if pickerData.count != 0 {
                 self.pickerTextField.text = self.pickerData[0]
                 self.pickerTextField.isEnabled = true
             } else {

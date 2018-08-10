@@ -27,6 +27,7 @@
 	</dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>Niveau-Grotesk-Light-Italic.otf</string>
 		<string>Niveau-Grotesk-Regular.otf</string>
 		<string>Niveau-Grotesk-Light-Smallcaps.otf</string>
 		<string>Niveau-Grotesk-Bold.otf</string>
