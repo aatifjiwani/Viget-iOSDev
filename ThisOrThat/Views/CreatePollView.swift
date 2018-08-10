@@ -179,6 +179,28 @@ class CreatePollView: UIView {
     
     @objc func handleSubmitPoll() {
         print("submitting poll")
+        guard (uploadAView.urlField.text?.isEmpty)! || uploadAView.selectedImage == nil else {
+            return
+        }
+        
+        guard (uploadBView.urlField.text?.isEmpty)! || uploadBView.selectedImage == nil else {
+            return
+        }
+        
+        guard (titleField.text?.count)! >= 10 && (titleField.text?.count)! < 30 else {
+            return
+        }
+        
+        guard (optionAField.text?.count)! >= 1 && (optionBField.text?.count)! < 25 else {
+            return
+        }
+        
+        guard (optionBField.text?.count)! >= 1 && (optionBField.text?.count)! < 25 else {
+            return
+        }
+        
+        
+        //var data = ["title": titleField.text, "option_a_url": ""]
     }
     
     func setupViews() {
