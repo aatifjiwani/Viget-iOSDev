@@ -8,6 +8,9 @@ target 'ThisOrThat' do
   # Pods for ThisOrThat
   pod 'Alamofire', '~> 4.7'
   pod 'SwiftyJSON', '~> 4.0'
+  pod 'Firebase/Core'
+  pod 'Firebase/Storage'
+
 
   target 'ThisOrThatTests' do
     inherit! :search_paths

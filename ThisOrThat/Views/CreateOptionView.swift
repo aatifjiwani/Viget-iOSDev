@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class CreateOptionView: UIView{
     override init(frame: CGRect) {
@@ -88,6 +89,35 @@ class CreateOptionView: UIView{
         print("thing")
         controller?.currentUploadView = self
         controller?.handleUploadImage()
+    }
+    
+    func getImageURL(completion: @escaping (String) -> ()) {
+        if let toUploadImage = selectedImage {
+            uploadImageToStorage(toUploadImage) { (url) in
+                completion(url)
+            }
+        } else {
+            completion(urlField.text!)
+        }
+    }
+    
+    func uploadImageToStorage(_ image: UIImage, completion: @escaping (String) -> ()) {
+        let imageName = NSUUID().uuidString
+        let storage = Storage.storage().reference().child("message\(imageName).jpg")
+        if let data = UIImageJPEGRepresentation(image, 0.2) {
+            storage.putData(data, metadata: nil) { (metadata, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                storage.downloadURL(completion: { (url, error) in
+                    if let downURL = url?.absoluteString {
+                        completion(downURL)
+                    }
+                })
+            }
+        }
     }
     
     func setupViews() {

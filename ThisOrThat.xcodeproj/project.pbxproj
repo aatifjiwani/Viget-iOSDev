@@ -41,6 +41,7 @@
 		39C5578B211E00BF005D963D /* NumberPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5578A211E00BF005D963D /* NumberPickerView.swift */; };
 		39C5578D211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 39C5578C211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf */; };
 		39C5578F211E0F64005D963D /* CreateOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39C5578E211E0F64005D963D /* CreateOptionView.swift */; };
+		39CEAA73211E272000DF49F8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39CEAA72211E272000DF49F8 /* GoogleService-Info.plist */; };
 		39E0ABE5210134040021855D /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E0ABE4210134040021855D /* UIViewExtensions.swift */; };
 		39E7043D2106554C00567132 /* SignupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7043C2106554C00567132 /* SignupView.swift */; };
 		39E7044121065B3700567132 /* ModalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39E7044021065B3700567132 /* ModalTextField.swift */; };
@@ -113,6 +114,7 @@
 		39C5578A211E00BF005D963D /* NumberPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberPickerView.swift; sourceTree = "<group>"; };
 		39C5578C211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Niveau-Grotesk-Light-Italic.otf"; sourceTree = "<group>"; };
 		39C5578E211E0F64005D963D /* CreateOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOptionView.swift; sourceTree = "<group>"; };
+		39CEAA72211E272000DF49F8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39E0ABE4210134040021855D /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		39E7043C2106554C00567132 /* SignupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupView.swift; sourceTree = "<group>"; };
 		39E7044021065B3700567132 /* ModalTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalTextField.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				392074F2210100230040FC82 /* Assets.xcassets */,
 				392074F4210100230040FC82 /* LaunchScreen.storyboard */,
 				392074F7210100230040FC82 /* Info.plist */,
+				39CEAA72211E272000DF49F8 /* GoogleService-Info.plist */,
 			);
 			path = ThisOrThat;
 			sourceTree = "<group>";
@@ -432,6 +435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				39EC5F9F21026C5D003624B4 /* Niveau-Grotesk-Bold.otf in Resources */,
+				39CEAA73211E272000DF49F8 /* GoogleService-Info.plist in Resources */,
 				392074F6210100230040FC82 /* LaunchScreen.storyboard in Resources */,
 				39EC5FA1210273C1003624B4 /* Niveau-Grotesk-Light-Smallcaps.otf in Resources */,
 				39C5578D211E0A5B005D963D /* Niveau-Grotesk-Light-Italic.otf in Resources */,
@@ -484,12 +488,18 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ThisOrThat/Pods-ThisOrThat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
