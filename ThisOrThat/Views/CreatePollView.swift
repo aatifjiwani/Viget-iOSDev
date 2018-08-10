@@ -192,13 +192,41 @@ class CreatePollView: UIView {
             return
         }
         
-        guard (optionAField.text?.count)! >= 1 && (optionBField.text?.count)! < 25 else {
+        guard (optionAField.text?.count)! >= 1 && (optionAField.text?.count)! < 25 else {
             return
         }
         
         guard (optionBField.text?.count)! >= 1 && (optionBField.text?.count)! < 25 else {
             return
         }
+        
+        var optionAURL: String?
+        var optionBURL: String?
+        
+        uploadAView.getImageURL { (url) in
+            optionAURL = url
+            self.uploadBView.getImageURL(completion: { (urlB) in
+                optionBURL = urlB
+                let data: [String: Any] = [
+                    "title": self.titleField.text!,
+                    "option_a_url": optionAURL!,
+                    "option_b_url": optionBURL!,
+                    "option_a": self.optionAField.text!,
+                    "option_b": self.optionBField.text!,
+                    "expire": [
+                        "days": self.expireDayField.text!,
+                        "hours": self.expireHourField.text!,
+                        "mins": self.expireMinField.text!
+                    ]
+                ]
+                
+                APIServices.createPoll(data: data, completion: { (response) in
+                    print(response)
+                    self.controller?.handleCreatedPoll()
+                })
+            })
+        }
+        
         
         
         //var data = ["title": titleField.text, "option_a_url": ""]

@@ -3,6 +3,7 @@
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
 
 /ThisOrThat/Helpers/Secrets.swift
+/ThisOrThat/GoogleService-Info.plist
 
 ## Build generated
 build/

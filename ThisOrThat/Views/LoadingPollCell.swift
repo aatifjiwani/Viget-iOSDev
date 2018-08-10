@@ -296,6 +296,15 @@ class LoadingPollCell: UICollectionViewCell {
         commentIcon.anchor(nil, left: nil, bottom: nil, right: commentLabel.leftAnchor, topConstant: 0, leftConstant: 0, bottomConstant: 0, rightConstant: 10, widthConstant: 14, heightConstant: 14)
     }
     
+    var titleGradient: CAGradientLayer?
+    var usernameGradient: CAGradientLayer?
+    var voteGradient: CAGradientLayer?
+    var timeGradient: CAGradientLayer?
+    
+    //Bottom View gradients
+    var commentGradient: CAGradientLayer?
+    var followGradient: CAGradientLayer?
+    
     func startAnimation() {
         
         //Header View gradients
@@ -343,7 +352,7 @@ class LoadingPollCell: UICollectionViewCell {
     
     func addGradientAnimation(gradient: CAGradientLayer) {
         let gradientAnimation = CABasicAnimation(keyPath: "transform.translation.x")
-        gradientAnimation.duration = 2
+        gradientAnimation.duration = 1
         gradientAnimation.fromValue = -frame.width
         gradientAnimation.toValue = frame.width
         gradientAnimation.repeatCount = Float.infinity

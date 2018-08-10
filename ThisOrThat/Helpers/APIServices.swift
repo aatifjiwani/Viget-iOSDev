@@ -109,6 +109,23 @@ class APIServices {
         }
     }
     
+    private static var submitted = false
+    
+    static func createPoll(data: [String: Any], completion: @escaping ([String: Any]) -> ()) {
+        if !submitted {
+            submitted = true
+            let url = URL(string: "\(baseURL)/api/polls?token=\(Secrets.appKey)")!
+            let json: [String: Any] = [
+                "poll": data,
+                "user_id": UserDefaults.standard.getUser()
+            ]
+        
+            makeAPICallWithResponse(url: url, method: "POST", dict: json) { (response) in
+                completion(response)
+            }
+        }
+    }
+    
     static func getUserPolls(filter: String, user_id: Int?, completion: @escaping ([String: Any]) -> ()) {
         let url = URL(string: "\(baseURL)/api/users/\(user_id!)?filter=\(filter)&token=\(Secrets.appKey)")!
         makeAPICallWithResponse(url: url, method: "GET", dict: nil) { (response) in

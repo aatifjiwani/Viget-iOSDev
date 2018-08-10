@@ -39,9 +39,9 @@ class IndexController: UICollectionViewController, UICollectionViewDelegateFlowL
         isLoading = true
         collectionView?.reloadData()
         
-        if let filteredString = filter {
+        if filter != nil && filter != "feed" {
             currentFilter = filter
-            APIServices.getUserPolls(filter: filteredString, user_id: UserDefaults.standard.getUser()) { (response) in
+            APIServices.getUserPolls(filter: filter!, user_id: UserDefaults.standard.getUser()) { (response) in
                 self.reloadCollectionViewWithResponse(response: response)
             }
         } else {
@@ -304,7 +304,7 @@ extension IndexController {
     @objc func handleCreatePoll() {
         print("creating a poll")
         let newView = CreatePollController()
-        
+        newView.indexController = self
         let transition = CATransition()
         transition.duration = 0.5
         transition.type = kCATransitionPush

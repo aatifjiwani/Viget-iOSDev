@@ -15,6 +15,8 @@ class CreatePollController: UIViewController, UIImagePickerControllerDelegate, U
         setupViews()
     }
     
+    var indexController: IndexController?
+    
     let scrollView: UIScrollView = {
         let view = UIScrollView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -43,6 +45,18 @@ class CreatePollController: UIViewController, UIImagePickerControllerDelegate, U
         present(imagePicker, animated: true, completion: {
             print("finished")
         })
+    }
+    
+    func handleCreatedPoll() {
+        indexController?.polls.removeAll()
+        indexController?.fetchPolls(filter: indexController?.currentFilter, popular: (indexController?.isOnPopular)!)
+        
+        let transition = CATransition()
+        transition.duration = 0.25
+        transition.type = kCATransitionPush
+        transition.subtype = kCATransitionFromLeft
+        self.view.window!.layer.add(transition, forKey: kCATransition)
+        dismiss(animated: false) {}
     }
     
     var currentUploadView: CreateOptionView?

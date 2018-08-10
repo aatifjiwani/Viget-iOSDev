@@ -108,12 +108,14 @@ class CreateOptionView: UIView{
             storage.putData(data, metadata: nil) { (metadata, error) in
                 if error != nil {
                     print(error!)
-                    return
+                    completion("")
                 }
                 
                 storage.downloadURL(completion: { (url, error) in
                     if let downURL = url?.absoluteString {
                         completion(downURL)
+                    } else {
+                        completion("")
                     }
                 })
             }
